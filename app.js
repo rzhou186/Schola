@@ -3,33 +3,38 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , path = require('path');
+var express = require('express'),
+    filesystem = require('fs'),
+    socket = require('socket.io'),
+    http = require('http');
 
+clients = {}
+
+var env = process.env.NODE_ENV || 'development',
+    mongoose = require('mongoose')
+
+mongoose.connect('mongodb://localhost/schola')
 var app = express();
 
-app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
-  app.use(express.favicon());
-  app.use(express.logger('dev'));
-  app.use(express.bodyParser());
-  app.use(express.methodOverride());
-  app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public')));
-});
+var cookieParser = express.cookieParser('schola')
+require('./config/express')(app, cookieParser)
 
-app.configure('development', function(){
-  app.use(express.errorHandler());
-});
+var server  = http.createServer(app)
+var io    = socket.listen(server)
 
-app.get('/', routes.index);
-app.get('/users', user.list);
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-});
+var models_path = __dirname + '/app/models'
+filesystem.readdirSync(models_path).forEach(function (file) {
+  require(models_path+'/'+file)
+})
+
+require('./config/routes')(app, io)
+
+var port = process.env.PORT || 3000
+server.listen(port)
+console.log('listening on port '+port)
+
+//EXPOSE APPLICATION
+exports = module.exports = app
+
+
