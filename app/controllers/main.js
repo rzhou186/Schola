@@ -1,6 +1,7 @@
 //#######__MODULE DEPENDENCIES__#########
 var mongoose 	= require('mongoose'),
-	testModel	= mongoose.model('test')
+	userModel	= mongoose.model('user'),
+	postModel = mongoose.model('post')
 	// mock_data = JSON.parse(fs)
 
 exports.index = function(req, res) {
