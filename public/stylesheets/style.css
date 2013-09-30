@@ -8,8 +8,13 @@ body {
   width: 970px;
 }
 
+.requestForm {
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
 .requestForm .requestBox {
-  width: 100%;
+  min-width: 100%;
   max-width: 100%;
   display: block;
   margin-bottom: 10px;
@@ -17,31 +22,73 @@ body {
 
 .requestForm .requestAdd {
   width: 50%;
+  float: right;
+}
+
+.request {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eeeeee;
+}
+
+.requestSide {
+  width: 15%;
+  display: inline-block;
+  vertical-align: top;
+  text-align: right;
+}
+
+.requestMain {
+  width: 85%;
+  display: inline-block;
+  vertical-align: top;
+  padding-right: 10px;
+}
+
+.requestMain .requestTitle {
+  color: #666666;
+  margin-bottom: 5px;
+}
+
+.requestMain .requestTitle .requestUsername {
+  font-weight: bold;
 }
 
 .post {
   margin-bottom: 20px;
 }
 
-.postSidebar {
-  width: 30%;
+.postSide {
+  width: 40%;
   display: inline-block;
   vertical-align: top;
   padding-right: 30px;
   text-align: right;
 }
 
-.postSidebar .postTitle .postUsername {
+.postSide .postTitle {
+  color: #666666;
+}
+
+.postSide .postTitle .postUsername {
   font-weight: bold;
 }
 
-.postSidebar .postDate {
+.postSide .postDate {
   margin-bottom: 10px;
   color: #999999;
 }
 
+.postSide .postViews {
+  display: inline-block;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  padding: 1px 5px 1px 5px;
+  cursor: default;
+}
+
 .postMain {
-  width: 70%;
+  width: 60%;
   display: inline-block;
   vertical-align: top;
   padding-bottom: 10px;
@@ -52,6 +99,7 @@ body {
   margin-bottom: 10px;
   font-weight: bold;
   font-size: 14px;
+  max-width: 90%;
 }
 
 .postMain .postType {

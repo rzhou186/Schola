@@ -23,75 +23,75 @@ html
 
           div.postStream
             div.post
-              div.postSidebar
+              div.postSide
                 div.postTitle
                   span.postUsername rzhou 
                   | posted a 
                   span.postType link.
                 div.postDate 22 Apr
-                button.postViews.btn.btn-schola.btn-xs(data-toggle='tooltip', title='42 views') 42 
+                div.postViews(data-toggle='tooltip', title='42 views') 42 
                   span.glyphicon.glyphicon-eye-open
               div.postMain
                 div.postType
                   span.glyphicon.glyphicon-link
                 div.postName
-                  a(href='#') Ray Zhou's Stanford College Essays
+                  a(href='#') Ray Zhou's Stanford Essays
                 div.postDescription
-                  p My Stanford college essays from the 2011-2012 application cycle. Includes my responses to the 3 supplemental questions asked by Stanford 2 years ago. Hope you find it useful!
+                  p My Stanford college essays from the 2011-2012 application cycle. Includes my responses to the 3 supplemental questions asked by Stanford 2 years ago.
                 div.postAccess
                   button.postGet.btn.btn-schola.btn-xs View
             div.post
-              div.postSidebar
+              div.postSide
                 div.postTitle
                   span.postUsername gshubham 
                   | posted a 
                   span.postType file.
                 div.postDate 20 Apr
-                button.postViews.btn.btn-schola.btn-xs(data-toggle='tooltip', title='20 views') 20 
+                div.postViews(data-toggle='tooltip', title='20 views') 20 
                   span.glyphicon.glyphicon-eye-open
               div.postMain
                 div.postType
                   span.glyphicon.glyphicon-file
                 div.postName
-                  a(href='#') Shubham Goel's Stanford College Essays
+                  a(href='#') Shubham Goel's Stanford Essays
                 div.postDescription
-                  p My Stanford college essays from the 2011-2012 application cycle. Includes my responses to the 3 supplemental questions asked by Stanford 2 years ago. Hope you find it useful!
+                  p My Stanford college essays from the 2011-2012 application cycle. Includes my responses to the 3 supplemental questions asked by Stanford 2 years ago.
                 div.postAccess
                   button.postGet.btn.btn-schola.btn-xs View
             div.post
-              div.postSidebar
+              div.postSide
                 div.postTitle
                   span.postUsername bdo 
                   | posted a 
                   span.postType text.
                 div.postDate 18 Apr
-                button.postViews.btn.btn-schola.btn-xs(data-toggle='tooltip', title='10 views') 10 
+                div.postViews(data-toggle='tooltip', title='10 views') 10 
                   span.glyphicon.glyphicon-eye-open
               div.postMain
                 div.postType
                   span.glyphicon.glyphicon-font
                 div.postName
-                  a(href='#') Brian Do's Stanford College Essays
+                  a(href='#') Brian Do's Stanford Essays
                 div.postDescription
-                  p My Stanford college essays from the 2011-2012 application cycle. Includes my responses to the 3 supplemental questions asked by Stanford 2 years ago. Hope you find it useful!
+                  p My Stanford college essays from the 2011-2012 application cycle. Includes my responses to the 3 supplemental questions asked by Stanford 2 years ago.
                 div.postAccess
                   button.postGet.btn.btn-schola.btn-xs View
             div.post
-              div.postSidebar
+              div.postSide
                 div.postTitle
                   span.postUsername achow 
                   | posted a 
                   span.postType link.
                 div.postDate 16 Apr
-                button.postViews.btn.btn-schola.btn-xs(data-toggle='tooltip', title='24 views') 24 
+                div.postViews(data-toggle='tooltip', title='24 views') 24 
                   span.glyphicon.glyphicon-eye-open
               div.postMain
                 div.postType
                   span.glyphicon.glyphicon-link
                 div.postName
-                  a(href='#') Amanda Chow's Stanford College Essays
+                  a(href='#') Amanda Chow's Stanford Essays
                 div.postDescription
-                  p My Stanford college essays from the 2011-2012 application cycle. Includes my responses to the 3 supplemental questions asked by Stanford 2 years ago. Hope you find it useful!
+                  p My Stanford college essays from the 2011-2012 application cycle. Includes my responses to the 3 supplemental questions asked by Stanford 2 years ago.
                 div.postAccess
                   button.postGet.btn.btn-schola.btn-xs View
 
@@ -101,10 +101,29 @@ html
             p 
               strong Add Request
             textarea.requestBox
-            button.requestAdd.btn.btn-schola.btn-xs.pull-right Add Request
+            button.requestAdd.btn.btn-schola.btn-xs Add Request
 
           div.requestStream
             div.request
+              div.requestMain
+                div.requestTitle
+                  span.requestUsername anonymous 
+                  | requested:
+                div.requestContent Ian Zhou's Stanford college essays
+              div.requestSide
+                button.btn.btn-default.btn-xs.btn-block
+                  span.glyphicon.glyphicon-chevron-up
+                  div.requestUpvotes 24
+            div.request
+              div.requestMain
+                div.requestTitle
+                  span.requestUsername anonymous 
+                  | requested:
+                div.requestContent Roger Chen's Stanford college essays
+              div.requestSide
+                button.btn.btn-default.btn-xs.btn-block
+                  span.glyphicon.glyphicon-chevron-up
+                  div.requestUpvotes 28
 
     // JS
     script(type='text/javascript', src='/libraries/jquery-1.10.2.min.js')
