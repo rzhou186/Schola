@@ -6,11 +6,108 @@ html
     title Schola
 
     // CSS
+    link(rel='stylesheet', href='http://fonts.googleapis.com/css?family=Libre+Baskerville:400,700')
+    link(rel='stylesheet', href='/libraries/bootstrap/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
 
   body
 
-     h1 Welcome to Schola.
+    nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
+      div.container
+        div.navbar-header.navbar-left
+          a.navbar-brand(href='') Schola
 
-     // JS
-     script(type='text/javascript', src='/libraries/jquery-1.10.2.min.js')
+    div.container
+      div.row
+        div.col-xs-9
+
+          div.postStream
+            div.post
+              div.postSidebar
+                div.postTitle
+                  span.postUsername rzhou 
+                  | posted a 
+                  span.postType link.
+                div.postDate 22 Apr
+                button.postViews.btn.btn-schola.btn-xs(data-toggle='tooltip', title='42 views') 42 
+                  span.glyphicon.glyphicon-eye-open
+              div.postMain
+                div.postType
+                  span.glyphicon.glyphicon-link
+                div.postName
+                  a(href='#') Ray Zhou's Stanford College Essays
+                div.postDescription
+                  p My Stanford college essays from the 2011-2012 application cycle. Includes my responses to the 3 supplemental questions asked by Stanford 2 years ago. Hope you find it useful!
+                div.postAccess
+                  button.postGet.btn.btn-schola.btn-xs View
+            div.post
+              div.postSidebar
+                div.postTitle
+                  span.postUsername gshubham 
+                  | posted a 
+                  span.postType file.
+                div.postDate 20 Apr
+                button.postViews.btn.btn-schola.btn-xs(data-toggle='tooltip', title='20 views') 20 
+                  span.glyphicon.glyphicon-eye-open
+              div.postMain
+                div.postType
+                  span.glyphicon.glyphicon-file
+                div.postName
+                  a(href='#') Shubham Goel's Stanford College Essays
+                div.postDescription
+                  p My Stanford college essays from the 2011-2012 application cycle. Includes my responses to the 3 supplemental questions asked by Stanford 2 years ago. Hope you find it useful!
+                div.postAccess
+                  button.postGet.btn.btn-schola.btn-xs View
+            div.post
+              div.postSidebar
+                div.postTitle
+                  span.postUsername bdo 
+                  | posted a 
+                  span.postType text.
+                div.postDate 18 Apr
+                button.postViews.btn.btn-schola.btn-xs(data-toggle='tooltip', title='10 views') 10 
+                  span.glyphicon.glyphicon-eye-open
+              div.postMain
+                div.postType
+                  span.glyphicon.glyphicon-font
+                div.postName
+                  a(href='#') Brian Do's Stanford College Essays
+                div.postDescription
+                  p My Stanford college essays from the 2011-2012 application cycle. Includes my responses to the 3 supplemental questions asked by Stanford 2 years ago. Hope you find it useful!
+                div.postAccess
+                  button.postGet.btn.btn-schola.btn-xs View
+            div.post
+              div.postSidebar
+                div.postTitle
+                  span.postUsername achow 
+                  | posted a 
+                  span.postType link.
+                div.postDate 16 Apr
+                button.postViews.btn.btn-schola.btn-xs(data-toggle='tooltip', title='24 views') 24 
+                  span.glyphicon.glyphicon-eye-open
+              div.postMain
+                div.postType
+                  span.glyphicon.glyphicon-link
+                div.postName
+                  a(href='#') Amanda Chow's Stanford College Essays
+                div.postDescription
+                  p My Stanford college essays from the 2011-2012 application cycle. Includes my responses to the 3 supplemental questions asked by Stanford 2 years ago. Hope you find it useful!
+                div.postAccess
+                  button.postGet.btn.btn-schola.btn-xs View
+
+        div.col-xs-3
+
+          form.requestForm
+            p 
+              strong Add Request
+            textarea.requestBox
+            button.requestAdd.btn.btn-schola.btn-xs.pull-right Add Request
+
+          div.requestStream
+            div.request
+
+    // JS
+    script(type='text/javascript', src='/libraries/jquery-1.10.2.min.js')
+    script(type='text/javascript', src='/libraries/bootstrap/js/bootstrap.min.js')
+    script(type='text/javascript').
+      $('.postViews').tooltip({ placement: 'left' });

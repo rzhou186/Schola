@@ -1,0 +1,127 @@
+body {
+  padding-top: 70px;
+  font-size: 13px;
+}
+
+.container {
+  max-width: none !important;
+  width: 970px;
+}
+
+.requestForm .requestBox {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.requestForm .requestAdd {
+  width: 50%;
+}
+
+.post {
+  margin-bottom: 20px;
+}
+
+.postSidebar {
+  width: 30%;
+  display: inline-block;
+  vertical-align: top;
+  padding-right: 30px;
+  text-align: right;
+}
+
+.postSidebar .postTitle .postUsername {
+  font-weight: bold;
+}
+
+.postSidebar .postDate {
+  margin-bottom: 10px;
+  color: #999999;
+}
+
+.postMain {
+  width: 70%;
+  display: inline-block;
+  vertical-align: top;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eeeeee;
+}
+
+.postMain .postName {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.postMain .postType {
+  float: right;
+}
+
+.postMain .postAccess {
+  text-align: right;
+}
+
+.postMain .postAccess .postGet {
+  width: 20%;
+}
+
+.navbar-default .navbar-header .navbar-brand {
+  color: #ffffff;
+  background-color: #3c95d2;
+  font-family: 'Libre Baskerville', serif;
+  font-weight: bold;
+}
+
+.navbar-default .navbar-header .navbar-brand:hover,
+.navbar-default .navbar-header .navbar-brand:focus {
+  background-color: #2e89c7;
+}
+
+.btn-schola {
+  color: #ffffff;
+  background-color: #3c95d2;
+  border-color: #2e89c7;
+  font-weight: bold;
+}
+
+.btn-schola:hover,
+.btn-schola:focus,
+.btn-schola:active,
+.btn-schola.active,
+.open .dropdown-toggle.btn-schola {
+  color: #ffffff;
+  background-color: #2e89c7;
+  border-color: #297ab2;
+  font-weight: bold;
+}
+
+.btn-schola:active,
+.btn-schola.active,
+.open .dropdown-toggle.btn-schola {
+  background-image: none;
+}
+
+.btn-schola.disabled,
+.btn-schola[disabled],
+fieldset[disabled] .btn-schola,
+.btn-schola.disabled:hover,
+.btn-schola[disabled]:hover,
+fieldset[disabled] .btn-schola:hover,
+.btn-schola.disabled:focus,
+.btn-schola[disabled]:focus,
+fieldset[disabled] .btn-schola:focus,
+.btn-schola.disabled:active,
+.btn-schola[disabled]:active,
+fieldset[disabled] .btn-schola:active,
+.btn-schola.disabled.active,
+.btn-schola[disabled].active,
+fieldset[disabled] .btn-schola.active {
+  background-color: #3c95d2;
+  border-color: #2e89c7;
+  font-weight: bold;
+}
+
+.btn-schola .caret {
+  border-top-color: #fff;
+}
