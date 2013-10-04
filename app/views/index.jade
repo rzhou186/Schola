@@ -31,7 +31,8 @@ html
           form.postForm
             p
               strong Add Post
-            
+            input.postBox.form-control(type='text')
+            button.postAdd.btn.btn-schola.btn-xs(type='submit') Submit
 
           div.postStream
             div.post
@@ -137,7 +138,7 @@ html
               div.requestSide
                 div.requestStatus(data-toggle='tooltip', title='Resolved')
                   span.glyphicon.glyphicon-ok
-                button.btn.btn-default.btn-xs.btn-block
+                button.btn.btn-default.btn-xs.btn-block.disabled
                   span.glyphicon.glyphicon-chevron-up
                   div.requestUpvotes 28
             div.request
@@ -151,7 +152,7 @@ html
               div.requestSide
                 div.requestStatus(data-toggle='tooltip', title='Resolved')
                   span.glyphicon.glyphicon-ok
-                button.btn.btn-default.btn-xs.btn-block
+                button.btn.btn-default.btn-xs.btn-block.disabled
                   span.glyphicon.glyphicon-chevron-up
                   div.requestUpvotes 28
 
