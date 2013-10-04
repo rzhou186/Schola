@@ -21,6 +21,9 @@ html
             span.icon-bar
             span.icon-bar
         div.collapse.navbar-collapse
+          div.nav.navbar-nav.navbar-right
+            li
+              a(href='#') Logout
           
 
     div.container.nonresponsive
@@ -31,8 +34,9 @@ html
           form.postForm
             p
               strong Add Post
-            input.postBox.form-control(type='text')
-            button.postAdd.btn.btn-schola.btn-xs(type='submit') Submit
+            input.postFormName.form-control(type='text', placeholder='Post URL here...')
+            textarea.postFormDescription.form-control(rows='3', placeholder='Post description here...')
+            button.postFormSubmit.btn.btn-schola.btn-xs(type='submit') Submit
 
           div.postStream
             div.post
@@ -72,7 +76,7 @@ html
             div.post
               div.postSide
                 div.postTitle
-                  span.postUsername bdo 
+                  span.postUsername gshubham 
                   | added a post.
                 div.postDate 18 Apr
                 div.postViews(data-toggle='tooltip', title='10 views') 10 
@@ -89,7 +93,7 @@ html
             div.post
               div.postSide
                 div.postTitle
-                  span.postUsername achow 
+                  span.postUsername rzhou 
                   | added a post.
                 div.postDate 16 Apr
                 div.postViews(data-toggle='tooltip', title='24 views') 24 
@@ -109,8 +113,8 @@ html
           form.requestForm
             p
               strong Add Request
-            input.requestBox.form-control(type='text', maxlength='100')
-            button.requestAdd.btn.btn-schola.btn-xs(type='submit') Submit
+            input.requestFormName.form-control(type='text', maxlength='100', placeholder='Request name here...')
+            button.requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Submit
 
           div.requestStream
             div.request
