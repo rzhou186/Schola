@@ -9,8 +9,7 @@ var requestSchema = new mongoose.Schema({
 	name : String,
 	upvotes : Number,
 	posterId : mongoose.Schema.Types.ObjectId,
-	status : Number,
-	satisfierId : mongoose.Schema.Types.ObjectId
+	status : Number
 })
 
 //Publish the model to be used in other files and storage etc.

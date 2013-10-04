@@ -24,13 +24,14 @@ exports.getRequests = function(data, socket) {
 
 exports.postRequest = function(data, socket) {
 	userModel.find({username : data.username}, function (err, docs) {
-		var newData = [{name : data.name}, {upvotes : 0}, {posterId : docs._id}]
+		var newData = [{name : data.name}, {upvotes : 0}, {posterId : docs._id}, {status : 0}]
 		var newRequest = new requestModel (newData)
 		newRequest.save()
 		console.log('Request saved')
 		socket.emit('postRequestSuccess', {result : docs})
 	})
 }
+
 
 exports.incrementViews = function(data, socket) {
 	postModel.find({_id : data._id}, function (err, docs) {
@@ -44,6 +45,16 @@ exports.incrementUpVotes = function(data, socket) {
 		docs.upvotes++;
 		docs.save()
 		socket.emit('incrementUpVotesSuccess', {result : docs})
+	})
+}
+
+exports.postResource = function(data, socket) {
+	userModel.find({username : data.username}, function (err, docs) {
+		var newData = [{name : data.name}, {desc : data.desc}, {URL : data.url}, {views : 0}, {posterId : docs._id}]
+		var newPost = new postModel(newData)
+		newPost.save()
+		console.log('Request saved')
+		socket.emit('postResourceSuccess', {result : docs})
 	})
 }
  
