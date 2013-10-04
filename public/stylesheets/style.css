@@ -4,6 +4,10 @@ body {
 }
 
 .container {
+  max-width: 970px;
+}
+
+.container.nonresponsive {
   max-width: none !important;
   width: 970px;
 }
@@ -21,12 +25,17 @@ body {
 }
 
 .requestForm .requestAdd {
-  width: 50%;
+  width: 40%;
   float: right;
 }
 
+.requestStream {
+  height: 400px;
+  overflow: auto;
+}
+
 .request {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 2px solid #eeeeee;
 }
@@ -38,6 +47,11 @@ body {
   text-align: right;
 }
 
+.requestSide .requestStatus {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 .requestMain {
   width: 85%;
   display: inline-block;
@@ -47,11 +61,21 @@ body {
 
 .requestMain .requestTitle {
   color: #666666;
-  margin-bottom: 5px;
 }
 
 .requestMain .requestTitle .requestUsername {
   font-weight: bold;
+}
+
+.requestMain .requestDate {
+  margin-bottom: 5px;
+  color: #999999;
+}
+
+.postForm {
+  width: 60%;
+  margin-left: 40%;
+  margin-bottom: 20px;
 }
 
 .post {
@@ -102,7 +126,7 @@ body {
   max-width: 90%;
 }
 
-.postMain .postType {
+.postMain .postIcon {
   float: right;
 }
 
@@ -110,8 +134,10 @@ body {
   text-align: right;
 }
 
-.postMain .postAccess .postGet {
+.postMain .postAccess .postGet,
+.postMain .postAccess .postDelete {
   width: 20%;
+  margin-left: 10px;
 }
 
 .navbar-default .navbar-header .navbar-brand {
