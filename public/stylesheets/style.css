@@ -4,6 +4,10 @@ body {
 }
 
 .container {
+  max-width: 970px;
+}
+
+.container.nonresponsive {
   max-width: none !important;
   width: 970px;
 }
@@ -21,12 +25,16 @@ body {
 }
 
 .requestForm .requestAdd {
-  width: 50%;
   float: right;
 }
 
+.requestStream {
+  height: 400px;
+  overflow: auto;
+}
+
 .request {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 2px solid #eeeeee;
 }
@@ -38,6 +46,11 @@ body {
   text-align: right;
 }
 
+.requestSide .requestStatus {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 .requestMain {
   width: 85%;
   display: inline-block;
@@ -47,11 +60,33 @@ body {
 
 .requestMain .requestTitle {
   color: #666666;
-  margin-bottom: 5px;
 }
 
 .requestMain .requestTitle .requestUsername {
   font-weight: bold;
+}
+
+.requestMain .requestDate {
+  margin-bottom: 5px;
+  color: #999999;
+}
+
+.postForm {
+  width: 60%;
+  margin-left: 40%;
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.postForm .postBox {
+  min-width: 100%;
+  max-width: 100%;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.postForm .postAdd {
+  float: right;
 }
 
 .post {
@@ -102,16 +137,12 @@ body {
   max-width: 90%;
 }
 
-.postMain .postType {
+.postMain .postIcon {
   float: right;
 }
 
 .postMain .postAccess {
   text-align: right;
-}
-
-.postMain .postAccess .postGet {
-  width: 20%;
 }
 
 .navbar-default .navbar-header .navbar-brand {
@@ -131,6 +162,7 @@ body {
   background-color: #3c95d2;
   border-color: #2e89c7;
   font-weight: bold;
+  min-width: 80px;
 }
 
 .btn-schola:hover,
@@ -141,7 +173,6 @@ body {
   color: #ffffff;
   background-color: #2e89c7;
   border-color: #297ab2;
-  font-weight: bold;
 }
 
 .btn-schola:active,
@@ -167,7 +198,6 @@ fieldset[disabled] .btn-schola:active,
 fieldset[disabled] .btn-schola.active {
   background-color: #3c95d2;
   border-color: #2e89c7;
-  font-weight: bold;
 }
 
 .btn-schola .caret {
