@@ -5,8 +5,9 @@
 
 var express = require('express'),
     filesystem = require('fs'),
-    socket = require('socket.io'),
-    http = require('http');
+    http = require('http'),
+    socket = require('socket.io')
+
 
 clients = {}
 
