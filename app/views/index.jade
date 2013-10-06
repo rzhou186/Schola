@@ -17,11 +17,11 @@ html
             span.icon-bar
             span.icon-bar
         div.collapse.navbar-collapse
-          div.nav.navbar-nav.navbar-right.hidden
+          div.nav.navbar-nav.navbar-right
             li
               a(href='#') Logout 
                 span.glyphicon.glyphicon-chevron-right
-          form.navbar-form.navbar-right(role='search')
+          form.navbar-form.navbar-right(role='search').hidden
             div.form-group
               input.form-control(type='text', placeholder='Username')
             div.form-group
@@ -112,6 +112,9 @@ html
                   p My Stanford college essays from the 2011-2012 application cycle. Includes my responses to the 3 supplemental questions asked by Stanford 2 years ago.
                 div.postAccess
                   button.postGet.btn.btn-schola.btn-xs View
+
+            div.postStreamLoading.hidden
+              img(src='/images/loading.gif')
 
         div.col-xs-3
 

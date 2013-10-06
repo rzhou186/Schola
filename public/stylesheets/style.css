@@ -152,6 +152,12 @@ body {
   text-align: right;
 }
 
+.postStreamLoading {
+  text-align: center;
+  padding: 0px 30px 20px 30px;
+  margin-left: 40%;
+}
+
 .navbar-default .navbar-header .navbar-brand {
   color: #ffffff;
   background-color: #3c95d2;
