@@ -7,7 +7,7 @@ body {
   max-width: 970px;
 }
 
-.container.nonresponsive {
+.container.nonResponsive {
   max-width: none !important;
   width: 970px;
 }
@@ -164,8 +164,17 @@ body {
   background-color: #2e89c7;
 }
 
-.navbar-default .navbar-nav>li>a {
+.navbar-default .navbar-nav > li > a {
   font-weight: bold;
+}
+
+.navbar-form {
+  padding-left: 5px;
+  border: none;
+}
+
+.navbar-form > * {
+  margin-left: 10px;
 }
 
 .btn-schola {
@@ -173,7 +182,7 @@ body {
   background-color: #3c95d2;
   border-color: #2e89c7;
   font-weight: bold;
-  min-width: 80px;
+  min-width: 70px;
 }
 
 .btn-schola:hover,

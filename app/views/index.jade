@@ -4,8 +4,6 @@ html
   head
 
     title Schola
-
-    // CSS
     include headerFiles.jade
 
   body
@@ -19,22 +17,31 @@ html
             span.icon-bar
             span.icon-bar
         div.collapse.navbar-collapse
-          div.nav.navbar-nav.navbar-right
+          div.nav.navbar-nav.navbar-right.hidden
             li
-              a(href='#') Logout
-          
+              a(href='#') Logout 
+                span.glyphicon.glyphicon-chevron-right
+          form.navbar-form.navbar-right(role='search')
+            div.form-group
+              input.form-control(type='text', placeholder='Username')
+            div.form-group
+              input.form-control(type='password', placeholder='Password')
+            button.btn.btn-schola.btn-sm(type='submit') Log In
+            button.btn.btn-schola.btn-sm(type='submit') Sign Up
 
-    div.container.nonresponsive
+    div.container.nonResponsive
       div.row
 
         div.col-xs-9
 
-          form.postForm
-            p
-              strong Add Post
-            input.postFormName.form-control(type='text', placeholder='Post URL here...')
-            textarea.postFormDescription.form-control(rows='3', placeholder='Post description here...')
-            button.postFormSubmit.btn.btn-schola.btn-xs(type='submit') Submit
+          form.postForm.hidden
+            div.postFormSide
+              p
+                strong Add Post
+              input.postFormName.form-control(type='text', placeholder='Post URL here...')
+            div.postFormMain
+              textarea.postFormDescription.form-control(rows='3', placeholder='Post description here...')
+              button.postFormSubmit.btn.btn-schola.btn-xs(type='submit') Submit
 
           div.postStream
             div.post
@@ -158,5 +165,4 @@ html
                   span.glyphicon.glyphicon-chevron-up
                   div.requestUpvotes 28
 
-    // JS
     include footerFiles.jade
