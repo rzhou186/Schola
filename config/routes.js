@@ -21,5 +21,6 @@ module.exports = function(app, io) {
  	sock.get('postRequest', main.postRequest, io)
  	sock.get('incrementViews', main.incrementViews, io)
  	sock.get('incrementUpVotes', main.incrementUpvotes, io)
+ 	sock.get('postResource', main.postResource, io)
 }
 
