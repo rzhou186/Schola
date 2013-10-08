@@ -2,12 +2,31 @@
 var mongoose 	= require('mongoose'),
 	userModel	= mongoose.model('user'),
 	postModel = mongoose.model('post'),
-	requestModel = mongoose.model('request')
+	requestModel = mongoose.model('request'),
+	users = require('../../config/users.json')
 	// mock_data = JSON.parse(fs)
 
 exports.index = function(req, res) {
 	//find all the files linked to that user and pass them on to the template
-	res.render('index');
+	if (req.cookies.username == undefined || req.cookies.password == undefined) {
+		res.render('index', {status : 1, userStatus : 0})
+	}
+	else {
+		userModel.find({username : req.cookies.username}, function (err, docs) {
+			if(docs) {
+				if(docs.password === req.cookies.password) {
+					req.session.username = docs;
+					res.render('index', {status : 2, userStatus : docs.isModerator});
+				}
+				else {
+					res.render('index', {status : 1, userStatus : 0})
+				}
+			}
+			else {
+				res.render('index', {status : 1, userStatus : 0})
+			}
+		})
+	}
 }
 
 exports.getPosts = function(data, socket) {
@@ -48,13 +67,52 @@ exports.incrementUpVotes = function(data, socket) {
 	})
 }
 
-exports.postResource = function(data, socket) {
+exports.postPost = function(data, socket) {
 	userModel.find({username : data.username}, function (err, docs) {
 		var newData = [{name : data.name}, {desc : data.desc}, {URL : data.url}, {views : 0}, {posterId : docs._id}]
 		var newPost = new postModel(newData)
 		newPost.save()
 		console.log('Request saved')
-		socket.emit('postResourceSuccess', {result : docs})
+		socket.emit('postPost', {result : docs})
 	})
 }
  
+
+exports.addTestUsers = function(data, socket) {
+	for (var i in users.user) {
+		console.log(users.user[i])
+		var user = new userModel(users.user[i])
+		user.save()
+	}
+	console.log("Users added");
+}
+
+exports.logIn = function(data, socket) {
+	userModel.find({username : data.username}, function (err, docs) {
+		if(docs) {
+			if(docs.password === data.password) {
+				socket.emit('logInSuccess', {result : 2})
+			}
+			else {
+				socket.emit('logInSuccess', {result : 3})
+			}
+		}
+		else {
+			socket.emit('logInSuccess', {result : 1})
+		}
+	})
+}
+
+exports.signUp = function(data, socket) {
+	userModel.find({username : data.username}, function (err, docs) {
+		if(docs) {
+			socket.emit('signUpSuccess', {result : 1})
+		}
+		else {
+			var user = [ {username : data.username}, {password : data.password}, {isModerator : 0}, {postedPosts : []}, {postedRequests : []}]
+			var newUser = new userModel(user)
+			newUser.save()
+			socket.emit('signUpSuccess', {result : 2})
+		}
+	})
+}
