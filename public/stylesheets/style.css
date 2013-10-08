@@ -78,7 +78,8 @@ body {
   overflow: hidden;
 }
 
-.postForm .postFormName {
+.postForm .postFormName,
+.postForm .postFormURL {
   min-width: 100%;
   max-width: 100%;
   display: block;

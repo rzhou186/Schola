@@ -17,10 +17,6 @@ html
             span.icon-bar
             span.icon-bar
         div.collapse.navbar-collapse
-          div.nav.navbar-nav.navbar-right
-            li
-              a(href='#') Logout 
-                span.glyphicon.glyphicon-chevron-right
           form.navbar-form.navbar-right(role='search').hidden
             div.form-group
               input.form-control(type='text', placeholder='Username')
@@ -28,20 +24,25 @@ html
               input.form-control(type='password', placeholder='Password')
             button.btn.btn-schola.btn-sm(type='submit') Log In
             button.btn.btn-schola.btn-sm(type='submit') Sign Up
+          div.nav.navbar-nav.navbar-right
+            li
+              a(href='#') Logout 
+                span.glyphicon.glyphicon-chevron-right
 
     div.container.nonResponsive
       div.row
 
         div.col-xs-9
 
-          form.postForm.hidden
+          form.postForm
             div.postFormSide
               p
                 strong Add Post
-              input.postFormName.form-control(type='text', placeholder='Post URL here...')
+              input.postFormName.form-control(name='name', type='text', placeholder='Add post URL...')
+              input.postFormURL.form-control(name='URL', type='text', placeholder='Add resource URL...')
             div.postFormMain
-              textarea.postFormDescription.form-control(rows='3', placeholder='Post description here...')
-              button.postFormSubmit.btn.btn-schola.btn-xs(type='submit') Submit
+              textarea.postFormDescription.form-control(name='desc', rows='3', placeholder='Add post description...')
+              button.postFormSubmit.btn.btn-schola.btn-xs(type='submit') Post
 
           div.postStream
             div.post
@@ -121,8 +122,8 @@ html
           form.requestForm
             p
               strong Add Request
-            input.requestFormName.form-control(type='text', maxlength='100', placeholder='Request name here...')
-            button.requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Submit
+            input.requestFormName.form-control(type='text', name='', maxlength='100', placeholder='Add anonymous request...')
+            button.requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
 
           div.requestStream
             div.request
@@ -134,7 +135,7 @@ html
                 div.requestName
                   | Ian Zhou's Stanford college essays
               div.requestSide
-                div.requestStatus(data-toggle='tooltip', title='Unresolved')
+                div.requestStatus
                   span.glyphicon.glyphicon-unchecked
                 button.btn.btn-default.btn-xs.btn-block
                   span.glyphicon.glyphicon-chevron-up
@@ -148,7 +149,7 @@ html
                 div.requestName
                   a(href='#') Roger Chen's Stanford college essays
               div.requestSide
-                div.requestStatus(data-toggle='tooltip', title='Resolved')
+                div.requestStatus
                   span.glyphicon.glyphicon-ok
                 button.btn.btn-default.btn-xs.btn-block.disabled
                   span.glyphicon.glyphicon-chevron-up
@@ -162,7 +163,7 @@ html
                 div.requestName
                   a(href='#') Edward Wang's Stanford college essays
               div.requestSide
-                div.requestStatus(data-toggle='tooltip', title='Resolved')
+                div.requestStatus
                   span.glyphicon.glyphicon-ok
                 button.btn.btn-default.btn-xs.btn-block.disabled
                   span.glyphicon.glyphicon-chevron-up
