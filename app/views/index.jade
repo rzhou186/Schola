@@ -17,16 +17,16 @@ html
             span.icon-bar
             span.icon-bar
         div.collapse.navbar-collapse
-          form.navbar-form.navbar-right(role='search').hidden
+          form#logInForm.navbar-form.navbar-right(role='search')
             div.form-group
-              input.form-control(type='text', placeholder='Username')
+              input.form-control(type='text', name='username', placeholder='Username')
             div.form-group
-              input.form-control(type='password', placeholder='Password')
+              input.form-control(type='password', name='password', placeholder='Password')
             button.btn.btn-schola.btn-sm(type='submit') Log In
-            button.btn.btn-schola.btn-sm(type='submit') Sign Up
-          div.nav.navbar-nav.navbar-right
+            button#signUpFormSubmit.btn.btn-schola.btn-sm(type='button') Sign Up
+          div.nav.navbar-nav.navbar-right.hidden
             li
-              a(href='#') Logout 
+              a(href='#') Log Out 
                 span.glyphicon.glyphicon-chevron-right
 
     div.container.nonResponsive
@@ -34,17 +34,17 @@ html
 
         div.col-xs-9
 
-          form.postForm
+          form#postForm
             div.postFormSide
               p
                 strong Add Post
-              input.postFormName.form-control(name='name', type='text', placeholder='Add post URL...')
-              input.postFormURL.form-control(name='URL', type='text', placeholder='Add resource URL...')
+              input.postFormName.form-control(name='name', type='text', placeholder='Post name')
+              input.postFormURL.form-control(name='URL', type='text', placeholder='Post URL')
             div.postFormMain
-              textarea.postFormDescription.form-control(name='desc', rows='3', placeholder='Add post description...')
+              textarea.postFormDescription.form-control(name='desc', rows='3', placeholder='Post description')
               button.postFormSubmit.btn.btn-schola.btn-xs(type='submit') Post
 
-          div.postStream
+          div#postStream
             div.post
               div.postSide
                 div.postTitle
@@ -119,13 +119,13 @@ html
 
         div.col-xs-3
 
-          form.requestForm
+          form#requestForm
             p
               strong Add Request
             input.requestFormName.form-control(type='text', name='', maxlength='100', placeholder='Add anonymous request...')
             button.requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
 
-          div.requestStream
+          div#requestStream
             div.request
               div.requestMain
                 div.requestTitle

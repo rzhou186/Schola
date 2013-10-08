@@ -12,23 +12,23 @@ body {
   width: 970px;
 }
 
-.requestForm {
+#requestForm {
   overflow: hidden;
   margin-bottom: 20px;
 }
 
-.requestForm .requestFormName {
+#requestForm .requestFormName {
   min-width: 100%;
   max-width: 100%;
   display: block;
   margin-bottom: 10px;
 }
 
-.requestForm .requestFormSubmit {
+#requestForm .requestFormSubmit {
   float: right;
 }
 
-.requestStream {
+#requestStream {
   height: 400px;
   overflow: auto;
 }
@@ -71,29 +71,29 @@ body {
   color: #999999;
 }
 
-.postForm {
+#postForm {
   width: 60%;
   margin-left: 40%;
   margin-bottom: 20px;
   overflow: hidden;
 }
 
-.postForm .postFormName,
-.postForm .postFormURL {
+#postForm .postFormName,
+#postForm .postFormURL {
   min-width: 100%;
   max-width: 100%;
   display: block;
   margin-bottom: 10px;
 }
 
-.postForm .postFormDescription {
+#postForm .postFormDescription {
   min-width: 100%;
   max-width: 100%;
   display: block;
   margin-bottom: 10px;
 }
 
-.postForm .postFormSubmit {
+#postForm .postFormSubmit {
   float: right;
 }
 
@@ -176,12 +176,12 @@ body {
 }
 
 .navbar-form {
-  padding-left: 5px;
+  padding-left: 10px;
   border: none;
 }
 
 .navbar-form > * {
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 .btn-schola {
