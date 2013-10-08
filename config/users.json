@@ -1,0 +1,18 @@
+{
+	"user" : [
+		{
+			"username" : "gshubham",
+			"password" : "gshubham",
+			"isModerator" : 1,
+			"postedPosts" : [],
+			"postedRequests" : []
+		},
+		{
+			"username" : "rzhou",
+			"password" : "rzhou",
+			"isModerator" : 1,
+			"postedPosts" : [],
+			"postedRequests" : []
+		}
+	]
+}
