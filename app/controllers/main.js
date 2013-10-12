@@ -92,7 +92,7 @@ exports.logIn = function(data, socket) {
 	console.log(data.password);
 	userModel.find({username : data.username}, function (err, docs) {
 		if(docs && docs.length > 0) {
-			if(docs.password === data.password) {
+			if(docs[0].password === data.password) {
 				socket.emit('logInSuccess', {logInStatus : 2})
 			}
 			else {
