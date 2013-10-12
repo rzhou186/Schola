@@ -1,9 +1,8 @@
 $("#signUpFormSubmit").click(function() {
 
   var fields = $("#logInForm").serializeArray();
-  console.log(fields);
 
-  var data;
+  var data = {};
   $.each(fields, function(i, field) {
     if (!field.value) {
       data = false;

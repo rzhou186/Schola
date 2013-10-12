@@ -3,7 +3,7 @@ $("#requestForm").submit(function(event) {
   event.preventDefault();
   var fields = $(this).serializeArray();
 
-  var data;
+  var data = {};
   $.each(fields, function(i, field) {
     if (!field.value) {
       data = false;
