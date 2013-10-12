@@ -15,6 +15,9 @@ $("#logInForm").submit(function(event) {
   if (data) {
     data["password"] = CryptoJS.SHA1(data["password"]).toString(CryptoJS.enc.hex);
     socket.emit('logIn', data);
+    socket.on('logInSuccess', function(data) {
+      console.log(data);
+    })
   }
 
 });

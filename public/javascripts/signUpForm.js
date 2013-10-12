@@ -14,6 +14,9 @@ $("#signUpFormSubmit").click(function() {
   if (data) {
     data["password"] = CryptoJS.SHA1(data["password"]).toString(CryptoJS.enc.hex);
     socket.emit('signUp', data);
+    socket.on('signUpSuccess', function(data) {
+      console.log(data.result);
+    })
   }
 
 });
