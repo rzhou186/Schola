@@ -36,16 +36,16 @@ html
 
         div.col-xs-9
 
-          //- if isLoggedIn and isModerator
-          form#postForm
-            div.postFormSide
-              p
-                strong Add Post
-              input.postFormName.form-control(name='name', type='text', placeholder='Post name')
-              input.postFormURL.form-control(name='URL', type='text', placeholder='Post URL')
-            div.postFormMain
-              textarea.postFormDescription.form-control(name='desc', rows='3', placeholder='Post description')
-              button.postFormSubmit.btn.btn-schola.btn-xs(type='submit') Post
+          if status
+            form#postForm
+              div.postFormSide
+                p
+                  strong Add Post
+                input.postFormName.form-control(name='name', type='text', placeholder='Post name')
+                input.postFormURL.form-control(name='URL', type='text', placeholder='Post URL')
+              div.postFormMain
+                textarea.postFormDescription.form-control(name='desc', rows='3', placeholder='Post description')
+                button.postFormSubmit.btn.btn-schola.btn-xs(type='submit') Post
 
           div#postStream
             div.post

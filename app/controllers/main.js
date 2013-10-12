@@ -7,23 +7,28 @@ var mongoose 	= require('mongoose'),
 	// mock_data = JSON.parse(fs)
 
 exports.index = function(req, res) {
+	console.log(req.cookies.username);
+	console.log(req.cookies.password);
+	console.log(req.cookies);
 	//find all the files linked to that user and pass them on to the template
 	if (req.cookies.username == undefined || req.cookies.password == undefined) {
-		res.render('index', {status : 1, userStatus : 0})
+		res.render('index', {isLoggedIn : 0, isModerator : 0})
 	}
 	else {
+		console.log("I'm here");
 		userModel.find({username : req.cookies.username}, function (err, docs) {
-			if(docs) {
-				if(docs.password === req.cookies.password) {
-					req.session.username = docs;
-					res.render('index', {status : 2, userStatus : docs.isModerator});
+			console.log(docs);
+			if(docs && docs.length > 0) {
+				console.log("I'm here");
+				if(docs[0].password === req.cookies.password) {
+					res.render('index', {isLoggedIn : 1, isModerator : docs[0].isModerator});
 				}
 				else {
-					res.render('index', {status : 1, userStatus : 0})
+					res.render('index', {isLoggedIn : 0, isModerator : 0})
 				}
 			}
 			else {
-				res.render('index', {status : 1, userStatus : 0})
+				res.render('index', {isLoggedIn : 0, isModerator : 0})
 			}
 		})
 	}
