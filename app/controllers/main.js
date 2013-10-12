@@ -88,31 +88,45 @@ exports.addTestUsers = function(data, socket) {
 }
 
 exports.logIn = function(data, socket) {
+	console.log(data.username);
+	console.log(data.password);
 	userModel.find({username : data.username}, function (err, docs) {
-		if(docs) {
+		if(docs && docs.length > 0) {
 			if(docs.password === data.password) {
-				socket.emit('logInSuccess', {result : 2})
+				socket.emit('logInSuccess', {logInStatus : 2})
 			}
 			else {
-				socket.emit('logInSuccess', {result : 3})
+				socket.emit('logInSuccess', {logInStatus : 1})
 			}
 		}
 		else {
-			socket.emit('logInSuccess', {result : 1})
+			socket.emit('logInSuccess', {logInStatus : 1})
 		}
 	})
 }
 
 exports.signUp = function(data, socket) {
+	console.log(data.username);
+	console.log(data.password);
 	userModel.find({username : data.username}, function (err, docs) {
-		if(docs) {
-			socket.emit('signUpSuccess', {result : 1})
+		if(docs && docs.length > 0) {
+			socket.emit('signUpSuccess', {signUpStatus : 1})
 		}
 		else {
-			var user = [ {username : data.username}, {password : data.password}, {isModerator : 0}, {postedPosts : []}, {postedRequests : []}]
-			var newUser = new userModel(user)
-			newUser.save()
-			socket.emit('signUpSuccess', {result : 2})
+			console.log(data.username);
+			console.log(data.password);
+			var user = {};
+			user.username = data.username;
+			user.password = data.password;
+			user.isModerator = 0;
+			user.postedPosts = [];
+			user.postedRequests = [];
+			var newUser = new userModel(user);
+			newUser.save();
+			//var user = [ {username : data.username}, {password : data.password}, {isModerator : 0}, {postedPosts : []}, {postedRequests : []}]
+			//var newUser = new userModel(user)
+			//newUser.insert()
+			socket.emit('signUpSuccess', {signUpStatus : 2})
 		}
 	})
 }
