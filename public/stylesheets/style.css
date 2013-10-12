@@ -71,6 +71,11 @@ body {
   color: #999999;
 }
 
+.requestStreamLoading {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
 #postForm {
   width: 60%;
   margin-left: 40%;
@@ -155,7 +160,7 @@ body {
 
 .postStreamLoading {
   text-align: center;
-  padding: 0px 30px 20px 30px;
+  padding-bottom: 20px;
   margin-left: 40%;
 }
 

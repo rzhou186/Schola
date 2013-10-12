@@ -17,6 +17,7 @@ html
             span.icon-bar
             span.icon-bar
         div.collapse.navbar-collapse
+          //- if isLoggedIn
           form#logInForm.navbar-form.navbar-right(role='search')
             div.form-group
               input.form-control(type='text', name='username', placeholder='Username')
@@ -24,6 +25,7 @@ html
               input.form-control(type='password', name='password', placeholder='Password')
             button.btn.btn-schola.btn-sm(type='submit') Log In
             button#signUpFormSubmit.btn.btn-schola.btn-sm(type='button') Sign Up
+          //- else
           div.nav.navbar-nav.navbar-right.hidden
             li
               a(href='#') Logout 
@@ -34,6 +36,7 @@ html
 
         div.col-xs-9
 
+          //- if isLoggedIn and isModerator
           form#postForm
             div.postFormSide
               p
@@ -168,5 +171,8 @@ html
                 button.btn.btn-default.btn-xs.btn-block.disabled
                   span.glyphicon.glyphicon-chevron-up
                   div.requestUpvotes 28
+
+            div.requestStreamLoading.hidden
+              img(src='/images/loading.gif')
 
     include footerFiles.jade
