@@ -17,26 +17,26 @@ html
             span.icon-bar
             span.icon-bar
         div.collapse.navbar-collapse
-          //- if isLoggedIn
-          form#logInForm.navbar-form.navbar-right(role='search')
-            div.form-group
-              input.form-control(type='text', name='username', placeholder='Username')
-            div.form-group
-              input.form-control(type='password', name='password', placeholder='Password')
-            button.btn.btn-schola.btn-sm(type='submit') Log In
-            button#signUpFormSubmit.btn.btn-schola.btn-sm(type='button') Sign Up
-          //- else
-          div.nav.navbar-nav.navbar-right.hidden
-            li
-              a(href='#') Logout 
-                span.glyphicon.glyphicon-chevron-right
+          if isLoggedIn
+            div.nav.navbar-nav.navbar-right
+              li
+                a#logOut(href='#') Logout 
+                  span.glyphicon.glyphicon-chevron-right
+          else
+            form#logInForm.navbar-form.navbar-right(role='search')
+              div.form-group
+                input.form-control(type='text', name='username', placeholder='Username')
+              div.form-group
+                input.form-control(type='password', name='password', placeholder='Password')
+              button.btn.btn-schola.btn-sm(type='submit') Log In
+              button#signUpFormSubmit.btn.btn-schola.btn-sm(type='button') Sign Up
 
     div.container.nonResponsive
       div.row
 
         div.col-xs-9
 
-          if status
+          if isLoggedIn
             form#postForm
               div.postFormSide
                 p
