@@ -1,6 +1,8 @@
+var socket;
+
 $(document).ready(function () {
 
-	var socket = io.connect('/');
+	socket = io.connect('/');
 	socket.emit('test', {success:true});
 	socket.on('testCallback', function(data) {
 		console.log('client side test successful');
