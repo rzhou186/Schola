@@ -18,3 +18,7 @@ $("#logInForm").submit(function(event) {
   }
 
 });
+
+socket.on('', function(data) {
+  
+});

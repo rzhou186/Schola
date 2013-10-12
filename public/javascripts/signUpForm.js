@@ -17,3 +17,7 @@ $("#signUpFormSubmit").click(function() {
   }
 
 });
+
+socket.on('', function(data) {
+  
+});
