@@ -13,9 +13,20 @@ $("#postForm").submit(function(event) {
   });
 
   if (data) {
-    data[field.username] = getCookie("username");
-    data[field.password] = getCookie("password");
+    data["username"] = getCookie("username");
+    data["password"] = getCookie("password");
     socket.emit('postPost', data);
   }
+
+  socket.on('postPostSuccess', function(response) {
+    switch(response.postStatus) {
+      case 1:
+        // Post was successfully posted
+        break;
+      case 2:
+        alert("Add post failed!");
+        break;
+    }
+  });
 
 });

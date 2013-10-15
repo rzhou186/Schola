@@ -26,6 +26,7 @@ $("#logInForm").submit(function(event) {
         setCookie("username", data["username"]);
         setCookie("password", data["password"]);
         location.reload();
+        break;
     }
   });
 
