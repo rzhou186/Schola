@@ -12,6 +12,10 @@ $("#postForm").submit(function(event) {
     data[field.name] = field.value;
   });
 
-  if (data) socket.emit('postPost', data);
+  if (data) {
+    data[field.username] = getCookie("username");
+    data[field.password] = getCookie("password");
+    socket.emit('postPost', data);
+  }
 
 });
