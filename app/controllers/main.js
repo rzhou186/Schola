@@ -15,11 +15,9 @@ exports.index = function(req, res) {
 		res.render('index', {isLoggedIn : 0, isModerator : 0})
 	}
 	else {
-		console.log("I'm here");
 		userModel.find({username : req.cookies.username}, function (err, docs) {
 			console.log(docs);
 			if(docs && docs.length > 0) {
-				console.log("I'm here");
 				if(docs[0].password === req.cookies.password) {
 					res.render('index', {isLoggedIn : 1, isModerator : docs[0].isModerator});
 				}
