@@ -36,7 +36,7 @@ exports.index = function(req, res) {
 
 exports.getPosts = function(data, socket) {
 	postModel.find({}, function (err, docs) {
-		socket.emit('getFeedSuccess', {result : docs})
+		socket.emit('getPostsSuccess', {result : docs})
 	})
 }
 
@@ -48,14 +48,29 @@ exports.getRequests = function(data, socket) {
 
 exports.postRequest = function(data, socket) {
 	userModel.find({username : data.username}, function (err, docs) {
-		var newData = [{name : data.name}, {upvotes : 0}, {posterId : docs._id}, {status : 0}]
-		var newRequest = new requestModel (newData)
-		newRequest.save()
-		console.log('Request saved')
-		socket.emit('postRequestSuccess', {result : docs})
+		if(docs && docs.length > 0) {
+			if(docs[0].password === data.password) {
+				var newData = {};
+				newData.name = data.name;
+				newData.upvotes = 0;
+				newData.status = 0;
+				newData.posterId = docs[0]._id;
+				newData.URL = data.URL;
+				var newPost = new requestModel(newData);
+				newPost.save();
+				docs[0].postedRequests.push_back(newPost._id);
+				docs.save();
+				socket.emit('postRequestSuccess', {requestStatus : 1});
+			}
+			else {
+				socket.emit('postRequestSuccess', {requestStatus : 2});
+			}
+		}
+		else {
+			socket.emit('postRequestSuccess', {requestStatus : 2});
+		}
 	})
 }
-
 
 exports.incrementViews = function(data, socket) {
 	postModel.find({_id : data._id}, function (err, docs) {
@@ -74,11 +89,27 @@ exports.incrementUpVotes = function(data, socket) {
 
 exports.postPost = function(data, socket) {
 	userModel.find({username : data.username}, function (err, docs) {
-		var newData = [{name : data.name}, {desc : data.desc}, {URL : data.url}, {views : 0}, {posterId : docs._id}]
-		var newPost = new postModel(newData)
-		newPost.save()
-		console.log('Request saved')
-		socket.emit('postPost', {result : docs})
+		if(docs && docs.length > 0) {
+			if(docs[0].password === data.password) {
+				var newData = {};
+				newData.name = data.name;
+				newData.desc = data.desc;
+				newData.URL = data.URL;
+				newData.views = 0;
+				newData.posterId = docs[0]._id;
+				var newPost = new postModel(newData);
+				newPost.save();
+				docs[0].postedPosts.push_back(newPost._id);
+				docs.save();
+				socket.emit('postPostSuccess', {postStatus : 1});
+			}
+			else {
+				socket.emit('postPostSuccess', {postStatus : 2});
+			}
+		}
+		else {
+				socket.emit('postPostSuccess', {postStatus : 2});
+		}
 	})
 }
  
