@@ -28,7 +28,7 @@ html
                 input.form-control(type='text', name='username', placeholder='Username')
               div.form-group
                 input.form-control(type='password', name='password', placeholder='Password')
-              button.btn.btn-schola.btn-sm(type='submit') Log In
+              button#logInFormSubmit.btn.btn-schola.btn-sm(type='submit') Log In
               button#signUpFormSubmit.btn.btn-schola.btn-sm(type='button') Sign Up
 
     div.container.nonResponsive
@@ -45,7 +45,7 @@ html
                 input.postFormURL.form-control(name='URL', type='text', placeholder='Post URL')
               div.postFormMain
                 textarea.postFormDescription.form-control(name='desc', rows='3', placeholder='Post description')
-                button.postFormSubmit.btn.btn-schola.btn-xs(type='submit') Post
+                button#postFormSubmit.btn.btn-schola.btn-xs(type='submit') Post
 
           div#postStream
             div.post
@@ -57,7 +57,7 @@ html
                 div.postViews(data-toggle='tooltip', title='42 views') 42 
                   span.glyphicon.glyphicon-eye-open
               div.postMain
-                div.postIcon
+                div.postIcon(data-toggle='tooltip', title='Link')
                   span.glyphicon.glyphicon-link
                 div.postName
                   a(href='#') Ray Zhou's Stanford Essays
@@ -74,7 +74,7 @@ html
                 div.postViews(data-toggle='tooltip', title='20 views') 20 
                   span.glyphicon.glyphicon-eye-open
               div.postMain
-                div.postIcon
+                div.postIcon(data-toggle='tooltip', title='Link')
                   span.glyphicon.glyphicon-link
                 div.postName
                   a(href='#') Shubham Goel's Stanford Essays
@@ -91,7 +91,7 @@ html
                 div.postViews(data-toggle='tooltip', title='10 views') 10 
                   span.glyphicon.glyphicon-eye-open
               div.postMain
-                div.postIcon
+                div.postIcon(data-toggle='tooltip', title='Link')
                   span.glyphicon.glyphicon-link
                 div.postName
                   a(href='#') Brian Do's Stanford Essays
@@ -108,7 +108,7 @@ html
                 div.postViews(data-toggle='tooltip', title='24 views') 24 
                   span.glyphicon.glyphicon-eye-open
               div.postMain
-                div.postIcon
+                div.postIcon(data-toggle='tooltip', title='Link')
                   span.glyphicon.glyphicon-link
                 div.postName
                   a(href='#') Amanda Chow's Stanford Essays
@@ -117,7 +117,7 @@ html
                 div.postAccess
                   button.postGet.btn.btn-schola.btn-xs View
 
-            div.postStreamLoading.hidden
+            div.postStreamLoading
               img(src='/images/loading.gif')
 
         div.col-xs-3
@@ -126,7 +126,7 @@ html
             p
               strong Add Request
             input.requestFormName.form-control(type='text', name='name', maxlength='100', placeholder='Add anonymous request...')
-            button.requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
+            button#requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
 
           div#requestStream
             div.request
@@ -172,7 +172,7 @@ html
                   span.glyphicon.glyphicon-chevron-up
                   div.requestUpvotes 28
 
-            div.requestStreamLoading.hidden
+            div.requestStreamLoading
               img(src='/images/loading.gif')
 
     include footerFiles.jade

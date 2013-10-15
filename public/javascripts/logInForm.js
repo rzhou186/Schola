@@ -1,12 +1,14 @@
 $("#logInForm").submit(function(event) {
 
   event.preventDefault();
+  $("#logInFormSubmit").addClass("disabled");
   var fields = $(this).serializeArray();
 
   var data = {};
   $.each(fields, function(i, field) {
     if (!field.value) {
       data = false;
+      $("#logInFormSubmit").removeClass("disabled");
       return false;
     }
     data[field.name] = field.value;
@@ -20,6 +22,7 @@ $("#logInForm").submit(function(event) {
   socket.on('logInSuccess', function(response) {
     switch(response.logInStatus) {
       case 1:
+        $("#logInFormSubmit").removeClass("disabled");
         alert("Log in failed!");
         break;
       case 2:
