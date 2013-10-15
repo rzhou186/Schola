@@ -1,11 +1,13 @@
 $("#signUpFormSubmit").click(function() {
 
+  $("#signUpFormSubmit").addClass("disabled");
   var fields = $("#logInForm").serializeArray();
 
   var data = {};
   $.each(fields, function(i, field) {
     if (!field.value) {
       data = false;
+      $("#signUpFormSubmit").removeClass("disabled");
       return false;
     }
     data[field.name] = field.value;

@@ -24,7 +24,7 @@ body {
   margin-bottom: 10px;
 }
 
-#requestForm .requestFormSubmit {
+#requestForm #requestFormSubmit {
   float: right;
 }
 
@@ -74,6 +74,7 @@ body {
 .requestStreamLoading {
   text-align: center;
   padding-bottom: 20px;
+  display: none;
 }
 
 #postForm {
@@ -98,7 +99,7 @@ body {
   margin-bottom: 10px;
 }
 
-#postForm .postFormSubmit {
+#postForm #postFormSubmit {
   float: right;
 }
 
@@ -162,6 +163,7 @@ body {
   text-align: center;
   padding-bottom: 20px;
   margin-left: 40%;
+  display: none;
 }
 
 .navbar-default .navbar-header .navbar-brand {

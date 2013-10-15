@@ -1,12 +1,14 @@
 $("#requestForm").submit(function(event) {
 
   event.preventDefault();
+  $("#requestFormSubmit").addClass("disabled");
   var fields = $(this).serializeArray();
 
   var data = {};
   $.each(fields, function(i, field) {
     if (!field.value) {
       data = false;
+      $("#requestFormSubmit").removeClass("disabled");
       return false;
     }
     data[field.name] = field.value;
@@ -23,6 +25,8 @@ $("#requestForm").submit(function(event) {
     switch(response.requestStatus) {
       case 1:
         // Request was successfully posted
+        $("#requestFormSubmit").removeClass("disabled");
+        $("#requestForm")[0].reset();
         break;
       case 2:
         alert("Add request failed!");
