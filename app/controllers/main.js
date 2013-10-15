@@ -33,7 +33,7 @@ exports.index = function(req, res) {
 }
 
 exports.getPosts = function(data, socket) {
-	postModel.find({}, [], { skip: data.start, limit:10, sort:{
+	postModel.find({},'name desc URL views posterId', { skip: data.start, limit:10, sort:{
         name: 1
     }
 	}, function (err, docs) {
