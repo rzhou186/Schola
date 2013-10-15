@@ -35,11 +35,21 @@ exports.index = function(req, res) {
 }
 
 exports.getPosts = function(data, socket) {
+	postModel.find({}, [], { skip: data.start, limit:10, sort:{
+        name: 1
+    }
+	}, function (err, docs) {
+		socket.emit('getPostsSuccess', {result : docs})
+	})
+}
+/*function(err,allNews){
+    socket.emit('news-load', allNews); // Do something with the array of 10 objects
+})
 	postModel.find({}, function (err, docs) {
 		socket.emit('getPostsSuccess', {result : docs})
 	})
 }
-
+*/
 exports.getRequests = function(data, socket) {
 	requestModel.find({}, function (err, docs) {
 		socket.emit('getRequestsSuccess', {result : docs})
