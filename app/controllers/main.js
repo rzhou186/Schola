@@ -58,8 +58,8 @@ exports.postRequest = function(data, socket) {
 				newData.URL = data.URL;
 				var newPost = new requestModel(newData);
 				newPost.save();
-				docs[0].postedRequests.push_back(newPost._id);
-				docs.save();
+				docs[0].postedRequests.push(newPost._id);
+				docs[0].save();
 				socket.emit('postRequestSuccess', {requestStatus : 1});
 			}
 			else {
@@ -99,8 +99,8 @@ exports.postPost = function(data, socket) {
 				newData.posterId = docs[0]._id;
 				var newPost = new postModel(newData);
 				newPost.save();
-				docs[0].postedPosts.push_back(newPost._id);
-				docs.save();
+				docs[0].postedPosts.push(newPost._id);
+				docs[0].save();
 				socket.emit('postPostSuccess', {postStatus : 1});
 			}
 			else {

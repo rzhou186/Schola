@@ -16,12 +16,10 @@ module.exports = function(app, io) {
  		socket.emit('testCallback', {success:true});
  	}, io);
 
- 	sock.get('getPosts', main.getPosts, io)
- 	sock.get('getRequests', main.getRequests, io)
  	sock.get('postRequest', main.postRequest, io)
  	sock.get('incrementViews', main.incrementViews, io)
  	sock.get('incrementUpVotes', main.incrementUpvotes, io)
- 	sock.get('postPost', main.postResource, io)
+ 	sock.get('postPost', main.postPost, io)
  	sock.get('addTestUsers', main.addTestUsers, io)
  	sock.get('logIn', main.logIn, io)
  	sock.get('signUp', main.signUp, io)
