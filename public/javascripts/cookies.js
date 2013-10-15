@@ -11,6 +11,11 @@ function setCookie(name, value, expires) {
   document.cookie = cookie;
 }
 
+function getCookie(name) {
+  var parts = document.cookie.split(name + "=");
+  if (parts.length == 2) return parts.pop().split(";").shift();
+}
+
 function deleteCookie(name) {
   setCookie(name, "", -1);
 }

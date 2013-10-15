@@ -25,6 +25,7 @@ $("#signUpFormSubmit").click(function() {
         setCookie("username", data["username"]);
         setCookie("password", data["password"]);
         location.reload();
+        break;
     }
   });
 
