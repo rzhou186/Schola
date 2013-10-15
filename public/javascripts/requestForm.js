@@ -22,10 +22,10 @@ $("#requestForm").submit(function(event) {
   }
 
   socket.on('postRequestSuccess', function(response) {
+    $("#requestFormSubmit").removeClass("disabled");
     switch(response.requestStatus) {
       case 1:
         // Request was successfully posted
-        $("#requestFormSubmit").removeClass("disabled");
         $("#requestForm")[0].reset();
         break;
       case 2:

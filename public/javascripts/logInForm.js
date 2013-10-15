@@ -22,6 +22,7 @@ $("#logInForm").submit(function(event) {
   socket.on('logInSuccess', function(response) {
     switch(response.logInStatus) {
       case 1:
+        $("#logInFormSubmit").removeClass("disabled");
         alert("Log in failed!");
         break;
       case 2:
