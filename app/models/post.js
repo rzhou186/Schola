@@ -10,6 +10,7 @@ var postSchema = new mongoose.Schema({
 	desc : String,
 	URL : String,
 	views : Number,
+	created : Date,
 	posterId : mongoose.Schema.Types.ObjectId
 })
 

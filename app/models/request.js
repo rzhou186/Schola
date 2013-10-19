@@ -10,6 +10,7 @@ var requestSchema = new mongoose.Schema({
 	upvotes : Number,
 	posterId : mongoose.Schema.Types.ObjectId,
 	status : Number,
+	created : Date,
 	URL : String
 })
 

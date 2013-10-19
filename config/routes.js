@@ -23,7 +23,8 @@ module.exports = function(app, io) {
  	sock.get('addTestUsers', main.addTestUsers, io)
  	sock.get('logIn', main.logIn, io)
  	sock.get('signUp', main.signUp, io)
-  sock.get('getPosts', main.getPosts, io)
-  sock.get('getRequests', main.getRequests, io)
+  	sock.get('getPosts', main.getPosts, io)
+  	sock.get('getRequests', main.getRequests, io)
+  	sock.get('getUserName', main.getUserName, io)
 }
 

@@ -33,7 +33,7 @@ exports.index = function(req, res) {
 }
 
 exports.getPosts = function(data, socket) {
-	postModel.find({},'name desc URL views posterId', { skip: data.start, limit:10, sort:{
+	postModel.find({},'name desc URL created views posterId', { skip: data.start, limit:10, sort:{
         name: 1
     }
 	}, function (err, docs) {
@@ -48,9 +48,27 @@ exports.getPosts = function(data, socket) {
 	})
 }
 */
+/* Gets the user name of the user with _id equal to data._id. Thus, pass in a
+JSON object containing the _id
+*/
+
+exports.getUserName = function(data, socket) {
+	userModel.find({_id : data._id}, function (err, docs) {
+		if(docs && docs.length > 0) {
+			socket.emit('getUserNameSuccess', {getUserNameStatus : 1, result : docs[0].username});
+		}
+		else {
+			socket.emit('getUserNameSuccess', {getUserNameStatus : 0, result : false});
+		}
+	})
+}
+
 exports.getRequests = function(data, socket) {
-	requestModel.find({}, function (err, docs) {
-		socket.emit('getRequestsSuccess', {result : docs})
+	requestModel.find({},'name upvotes created posterId status URL', { skip: data.start, limit:10, sort:{
+        name: 1
+    }
+	}, function (err, docs) {
+		socket.emit('getRequestsSuccess', {result : docs});
 	})
 }
 
@@ -64,6 +82,7 @@ exports.postRequest = function(data, socket) {
 				newData.status = 0;
 				newData.posterId = docs[0]._id;
 				newData.URL = data.URL;
+				newData.created = new Date();
 				var newPost = new requestModel(newData);
 				newPost.save();
 				docs[0].postedRequests.push(newPost._id);
@@ -80,18 +99,52 @@ exports.postRequest = function(data, socket) {
 	})
 }
 
+/* Just the _id of the post is good to go. Someone who's not logged in,
+can view it again and again and increase the views, that should be fine yes?
+
+or do we want similar constraints as requests?
+*/
 exports.incrementViews = function(data, socket) {
 	postModel.find({_id : data._id}, function (err, docs) {
-		docs.views++;
-		docs.save()
-		socket.emit('incrementViewsSuccess', {result : docs})
+		docs[0].views++;
+		docs[0].save()
+		socket.emit('incrementViewsSuccess', {viewStatus : 1})
 	})
 }
+
+/* Pass in a JSON object with username, password of the person logged in
+and the _id of the request generated. The result returned is upVoteStatus = 1 if and only
+if the increment was successful. 
+
+The idea behind checking if someone is logged in or not is to make sure that 
+a request is not upvoted by the same person again and again, so I also added
+a upvoted requests field in the user model.
+*/
 exports.incrementUpVotes = function(data, socket) {
 	requestModel.find({id : data._id}, function (err, docs) {
-		docs.upvotes++;
-		docs.save()
-		socket.emit('incrementUpVotesSuccess', {result : docs})
+		userModel.find({username : data.username}, function (err, userData) {
+			if(userData && userData.length > 0) {
+				if(userData[0].password === userData.password) {
+					if(userData[0].upvotedRequests.indexOf(docs[0]._id) == -1) {
+						docs[0].upvotes++;
+						docs[0].save();
+						userData[0].upvotedRequests.push(docs[0]._id);
+						userData[0].save();
+						socket.emit('incrementUpVotesSuccess', {result : true, upvoteStatus : 1});
+
+					}
+					else {
+						socket.emit('incrementUpVotesSuccess', {result : false, upvoteStatus : 0});
+					}
+				}
+				else {
+					socket.emit('incrementUpVotesSuccess', {result : false, upvoteStatus : 0});
+				}
+			}
+			else {
+				socket.emit('incrementUpVotesSuccess', {result : false, upvoteStatus : 0});
+			}
+		})
 	})
 }
 
@@ -104,6 +157,7 @@ exports.postPost = function(data, socket) {
 				newData.desc = data.desc;
 				newData.URL = data.URL;
 				newData.views = 0;
+				newData.created  = new Date();
 				newData.posterId = docs[0]._id;
 				var newPost = new postModel(newData);
 				newPost.save();
@@ -163,8 +217,10 @@ exports.signUp = function(data, socket) {
 			user.username = data.username;
 			user.password = data.password;
 			user.isModerator = 0;
+			user.created = new Date();
 			user.postedPosts = [];
 			user.postedRequests = [];
+			user.upvotedRequests = [];
 			var newUser = new userModel(user);
 			newUser.save();
 			//var user = [ {username : data.username}, {password : data.password}, {isModerator : 0}, {postedPosts : []}, {postedRequests : []}]
