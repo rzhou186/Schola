@@ -80,6 +80,7 @@ $(document).on("click", ".upvoteRequest", function(e) {
         }
         else alert("Upvote failed!");
       }
+      socket.removeAllListeners('incrementUpVotesSuccess');
     });
 
   })();

@@ -92,6 +92,7 @@ $(document).on("click", ".postName, .postGet", function(e) {
           post.find(".postViewsContainer").attr("title", postViews + " views");
         }
       }
+      socket.removeAllListeners('incrementViewsSuccess');
     });
 
   })();
