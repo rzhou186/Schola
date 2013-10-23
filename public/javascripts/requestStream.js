@@ -2,8 +2,7 @@ $(document).ready(function() {
 
   data = {};
   data["start"] = 0;
-
-  loadMoreRequests(data);
+  socket.emit('getRequests', data);
 
   socket.on('getRequestsSuccess', function(requests) {
     data["start"] += 10;  // Don't hardcode magic numbers...
@@ -22,24 +21,25 @@ function loadMoreRequests(data) {
 
 function appendRequests(requests) {
   for (var i=0; i<requests.length; i++) {
+
     var request = requests[i];
 
     $("#requests").append(
-      "<div class=\"request\">" + 
+      "<div class=\"request\" id=" + request["_id"] + ">" + 
         "<div class=\"requestMain\">" + 
           "<div class=\"requestTitle\">" + 
-            "<span class=\"requestUsername\">" + "anonymous" + " </span>requested:" + 
+            "<span class=\"requestUsername\">anonymous </span>requested:" + 
           "</div>" + 
           "<div class=\"requestDate\">" + "16 Apr" + "</div>" + 
           "<div class=\"requestName\">" +
-            "<a href=\"" + request["URL"] + "\">" + request["name"] + "</a>" + 
+            "<a href=\"" + request["URL"] + "\" target=\"_blank\">" + request["name"] + "</a>" + 
           "</div>" + 
         "</div>" + 
         "<div class=\"requestSide\">" + 
           "<div class=\"requestStatus\">" +
             "<span class=\"glyphicon glyphicon-unchecked\"></span>" + 
           "</div>" + 
-          "<button class=\"btn btn-default btn-xs btn-block\">" + 
+          "<button class=\"upvoteRequest btn btn-default btn-xs btn-block\">" + 
             "<span class=\"glyphicon glyphicon-chevron-up\"></span>" + 
             "<div class=\"requestUpvotes\">" + request["upvotes"] + "</div>" + 
           "</button>" + 
@@ -49,3 +49,29 @@ function appendRequests(requests) {
 
   }
 }
+
+$(document).on("click", ".upvoteRequest", function(e) {
+  (function(){
+
+    var request = $(e.target).closest(".request");
+    var requestId = request.attr("id");
+    var requestUpvotes = request.find(".requestUpvotes").html();
+    var data = {
+      requestId: requestId,
+      username: getCookie("username"),
+      password: getCookie("password")
+    }
+
+    socket.emit('incrementUpVotes', data);
+    socket.on('incrementUpVotesSuccess', function(resp) {
+      if (resp["requestId"] === requestId) {
+        if (resp["upvoteStatus"] === 1) {
+          requestUpvotes++;
+          request.find(".requestUpvotes").html(requestUpvotes);
+        }
+        else alert("Upvote failed!");
+      }
+    });
+
+  })();
+});

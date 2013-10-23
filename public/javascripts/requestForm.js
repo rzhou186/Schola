@@ -26,7 +26,7 @@ $("#requestForm").submit(function(event) {
     switch(response.requestStatus) {
       case 1:
         // Request was successfully posted
-        $("#requestForm")[0].reset();
+        location.reload();
         break;
       case 2:
         alert("Add request failed!");

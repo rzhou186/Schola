@@ -23,7 +23,7 @@ $("#logInForm").submit(function(event) {
     switch(response.logInStatus) {
       case 1:
         $("#logInFormSubmit").removeClass("disabled");
-        alert("Log in failed!");
+        alert("Login failed!");
         break;
       case 2:
         setCookie("username", data["username"]);

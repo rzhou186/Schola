@@ -53,12 +53,12 @@ JSON object containing the _id
 */
 
 exports.getUserName = function(data, socket) {
-	userModel.find({_id : data._id}, function (err, docs) {
+	userModel.find({_id : data.posterId}, function (err, docs) {
 		if(docs && docs.length > 0) {
-			socket.emit('getUserNameSuccess', {getUserNameStatus : 1, result : docs[0].username});
+			socket.emit('getUserNameSuccess', {getUserNameStatus : 1, result : docs[0].username, postId : data.postId});
 		}
 		else {
-			socket.emit('getUserNameSuccess', {getUserNameStatus : 0, result : false});
+			socket.emit('getUserNameSuccess', {getUserNameStatus : 0, result : false, postId : data.postId});
 		}
 	})
 }
@@ -105,44 +105,45 @@ can view it again and again and increase the views, that should be fine yes?
 or do we want similar constraints as requests?
 */
 exports.incrementViews = function(data, socket) {
-	postModel.find({_id : data._id}, function (err, docs) {
+	console.log(data);
+	postModel.find({_id : data.postId}, function (err, docs) {
 		docs[0].views++;
 		docs[0].save()
-		socket.emit('incrementViewsSuccess', {viewStatus : 1})
+		socket.emit('incrementViewsSuccess', {viewStatus : 1, postId : data.postId})
 	})
 }
 
 /* Pass in a JSON object with username, password of the person logged in
-and the _id of the request generated. The result returned is upVoteStatus = 1 if and only
-if the increment was successful. 
+and the id of the request generated. The result returned is upVoteStatus = 1 if and only
+if the increment was successful.
 
 The idea behind checking if someone is logged in or not is to make sure that 
 a request is not upvoted by the same person again and again, so I also added
 a upvoted requests field in the user model.
 */
 exports.incrementUpVotes = function(data, socket) {
-	requestModel.find({id : data._id}, function (err, docs) {
+	requestModel.find({_id : data.requestId}, function (err, docs) {
 		userModel.find({username : data.username}, function (err, userData) {
 			if(userData && userData.length > 0) {
-				if(userData[0].password === userData.password) {
+				if(userData[0].password === data.password) {
 					if(userData[0].upvotedRequests.indexOf(docs[0]._id) == -1) {
 						docs[0].upvotes++;
 						docs[0].save();
 						userData[0].upvotedRequests.push(docs[0]._id);
 						userData[0].save();
-						socket.emit('incrementUpVotesSuccess', {result : true, upvoteStatus : 1});
+						socket.emit('incrementUpVotesSuccess', {upvoteStatus : 1, requestId : data.requestId});
 
 					}
 					else {
-						socket.emit('incrementUpVotesSuccess', {result : false, upvoteStatus : 0});
+						socket.emit('incrementUpVotesSuccess', {upvoteStatus : 0, requestId : data.requestId});
 					}
 				}
 				else {
-					socket.emit('incrementUpVotesSuccess', {result : false, upvoteStatus : 0});
+					socket.emit('incrementUpVotesSuccess', {upvoteStatus : 0, requestId : data.requestId});
 				}
 			}
 			else {
-				socket.emit('incrementUpVotesSuccess', {result : false, upvoteStatus : 0});
+				socket.emit('incrementUpVotesSuccess', {upvoteStatus : 0, requestId : data.requestId});
 			}
 		})
 	})

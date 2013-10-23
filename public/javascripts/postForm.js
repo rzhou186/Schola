@@ -25,7 +25,7 @@ $("#postForm").submit(function(event) {
     switch(response.postStatus) {
       case 1:
         // Post was successfully posted
-        $("#postForm")[0].reset();
+        location.reload();
         break;
       case 2:
         alert("Add post failed!");

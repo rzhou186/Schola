@@ -31,6 +31,23 @@ html
               button#logInFormSubmit.btn.btn-schola.btn-sm(type='submit') Log In
               button#signUpFormSubmit.btn.btn-schola.btn-sm(type='button') Sign Up
 
+    div.fixedOverlay
+      div.container.nonResponsive
+        div.row
+          div.col-xs-9
+          div.col-xs-3
+            form#requestForm
+              p
+                strong Add Request
+              input.requestFormName.form-control(type='text', name='name', maxlength='100', placeholder='Add anonymous request...')
+              button#requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
+
+            div#requestStream
+              div#requests
+              div.requestStreamLoading
+                img(src='/images/loading.gif')
+
+
     div.container.nonResponsive
       div.row
 
@@ -53,16 +70,5 @@ html
               img(src='/images/loading.gif')
 
         div.col-xs-3
-
-          form#requestForm
-            p
-              strong Add Request
-            input.requestFormName.form-control(type='text', name='name', maxlength='100', placeholder='Add anonymous request...')
-            button#requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
-
-          div#requestStream
-            div#requests
-            div.requestStreamLoading
-              img(src='/images/loading.gif')
 
     include footerFiles.jade

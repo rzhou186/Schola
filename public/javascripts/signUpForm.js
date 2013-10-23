@@ -22,7 +22,7 @@ $("#signUpFormSubmit").click(function() {
     switch(response.signUpStatus) {
       case 1:
         $("#signUpFormSubmit").removeClass("disabled");
-        alert("Sign up failed!");
+        alert("Signup failed!");
         break;
       case 2:
         setCookie("username", data["username"]);
