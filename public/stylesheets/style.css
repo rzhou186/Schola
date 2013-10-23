@@ -1,12 +1,12 @@
 body {
-  padding-top: 70px;
+  padding-top: 75px;
   font-size: 13px;
 }
 
 .fixedOverlay {
   position: fixed;
   top: 0px;
-  padding-top: 70px;
+  padding-top: 75px;
   width: 100%;
 }
 

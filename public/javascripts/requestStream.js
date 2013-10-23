@@ -21,8 +21,18 @@ function loadMoreRequests(data) {
 
 function appendRequests(requests) {
   for (var i=0; i<requests.length; i++) {
-
+    
     var request = requests[i];
+    var requestStatus = "<span class=\"glyphicon glyphicon-unchecked\"></span>";
+    var requestName = request["name"];
+    console.log(request);
+
+    if (request["status"] === 1) {  // Request has been fulfilled
+      requestStatus = "<span class=\"glyphicon glyphicon-ok\"></span>";
+      requestName = "<a href=\"" + request["URL"] + "\" target=\"_blank\">" +
+        request["name"] +
+        "</a>"
+    }
 
     $("#requests").append(
       "<div class=\"request\" id=" + request["_id"] + ">" + 
@@ -32,12 +42,12 @@ function appendRequests(requests) {
           "</div>" + 
           "<div class=\"requestDate\">" + "16 Apr" + "</div>" + 
           "<div class=\"requestName\">" +
-            "<a href=\"" + request["URL"] + "\" target=\"_blank\">" + request["name"] + "</a>" + 
+            requestName +
           "</div>" + 
         "</div>" + 
         "<div class=\"requestSide\">" + 
           "<div class=\"requestStatus\">" +
-            "<span class=\"glyphicon glyphicon-unchecked\"></span>" + 
+            requestStatus + 
           "</div>" + 
           "<button class=\"upvoteRequest btn btn-default btn-xs btn-block\">" + 
             "<span class=\"glyphicon glyphicon-chevron-up\"></span>" + 
@@ -46,7 +56,6 @@ function appendRequests(requests) {
         "</div>" + 
       "</div>"
     );
-
   }
 }
 
