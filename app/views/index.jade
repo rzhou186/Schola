@@ -35,8 +35,7 @@ html
       div.container.nonResponsive
         div.row
           div.col-xs-9
-          div.col-xs-3
-          
+          div.col-xs-3.requestsColFixed
             form#requestForm
               p
                 strong Add Request
@@ -51,7 +50,7 @@ html
 
     div.container.nonResponsive
       div.row
-        div.col-xs-9
+        div.col-xs-9.postsCol
 
           if isLoggedIn && isModerator
             form#postForm
@@ -69,6 +68,6 @@ html
             div.postStreamLoading
               img(src='/images/loading.gif')
 
-        div.col-xs-3
+        div.col-xs-3.requestsCol
 
     include footerFiles.jade

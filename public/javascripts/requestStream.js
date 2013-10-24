@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+  positionRequestCol();
+  $(window).resize(positionRequestCol);
+
   data = {};
   data["start"] = 0;
   socket.emit('getRequests', data);
@@ -85,3 +88,21 @@ $(document).on("click", ".upvoteRequest", function(e) {
 
   })();
 });
+
+// Move request divs off fixed sidebar if window is too small
+function positionRequestCol() {
+  if ($(this).width() >= $(".fixedOverlay .container").width()) {
+    // Move request divs to fixed sidebar
+    if ($(".requestsCol").html()) {
+      $(".requestsColFixed").html($(".requestsCol").html());
+      $(".requestsCol").empty();
+    }
+  }
+  else {
+    // Move requests to relative sidebar
+    if ($(".requestsColFixed").html()) {
+      $(".requestsCol").html($(".requestsColFixed").html());
+      $(".requestsColFixed").empty();
+    }
+  }
+}
