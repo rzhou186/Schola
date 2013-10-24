@@ -29,7 +29,7 @@ $("#requestForm").submit(function(event) {
         location.reload();
         break;
       case 2:
-        alert("Add request failed!");
+        alert("Request failed!");
         break;
     }
   });

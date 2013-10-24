@@ -27,7 +27,9 @@ function loadMorePosts(data) {
 function appendPosts(posts) {
   for (var i=0; i<posts.length; i++) {
     (function(){
+
       var post = posts[i];
+      var postDate = formatDate(post["created"]);
       socket.emit('getUserName', { posterId: post["posterId"], postId: post["_id"] });
 
       $("#posts").append(
@@ -37,7 +39,7 @@ function appendPosts(posts) {
               "<span class=\"postUsername\"></span>" + 
               "added a post." + 
             "</div>" + 
-            "<div class=\"postDate\">" + "22 Apr" + "</div>" + 
+            "<div class=\"postDate\">" + postDate + "</div>" + 
             "<div class=\"postViewsContainer\" data-toggle=\"tooltip\" title=\"" + 
               post["views"] + " views\">" + 
               "<span class=\"postViews\">" + post["views"] + "</span>" +

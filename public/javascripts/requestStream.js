@@ -25,7 +25,7 @@ function appendRequests(requests) {
     var request = requests[i];
     var requestStatus = "<span class=\"glyphicon glyphicon-unchecked\"></span>";
     var requestName = request["name"];
-    console.log(request);
+    var requestDate = formatDate(request["created"]);
 
     if (request["status"] === 1) {  // Request has been fulfilled
       requestStatus = "<span class=\"glyphicon glyphicon-ok\"></span>";
@@ -40,7 +40,7 @@ function appendRequests(requests) {
           "<div class=\"requestTitle\">" + 
             "<span class=\"requestUsername\">anonymous </span>requested:" + 
           "</div>" + 
-          "<div class=\"requestDate\">" + "16 Apr" + "</div>" + 
+          "<div class=\"requestDate\">" + requestDate + "</div>" + 
           "<div class=\"requestName\">" +
             requestName +
           "</div>" + 
