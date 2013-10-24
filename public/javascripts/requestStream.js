@@ -89,7 +89,7 @@ $(document).on("click", ".upvoteRequest", function(e) {
   })();
 });
 
-// Move request divs off fixed sidebar if window is too small
+// Move request divs off of fixed sidebar if window is too small
 function positionRequestCol() {
   if ($(this).width() >= $(".fixedOverlay .container").width()) {
     // Move request divs to fixed sidebar

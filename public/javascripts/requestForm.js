@@ -9,6 +9,7 @@ $("#requestForm").submit(function(event) {
     if (!field.value) {
       data = false;
       $("#requestFormSubmit").removeClass("disabled");
+      alert("Empty form field!");
       return false;
     }
     data[field.name] = field.value;
@@ -19,19 +20,20 @@ $("#requestForm").submit(function(event) {
     data["password"] = getCookie("password");
     data["URL"] = "#";
     socket.emit('postRequest', data);
-  }
 
-  socket.on('postRequestSuccess', function(response) {
+    socket.on('postRequestSuccess', function(response) {
     $("#requestFormSubmit").removeClass("disabled");
-    switch(response.requestStatus) {
-      case 1:
-        // Request was successfully posted
-        location.reload();
-        break;
-      case 2:
-        alert("Request failed!");
-        break;
-    }
-  });
+      switch(response.requestStatus) {
+        case 1:
+          // Request was successfully posted
+          location.reload();
+          break;
+        case 2:
+          alert("Request failed!");
+          socket.removeAllListeners('postRequestSuccess');
+          break;
+      }
+    });
+  }
 
 });
