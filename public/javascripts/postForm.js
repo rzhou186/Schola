@@ -9,7 +9,7 @@ $("#postForm").submit(function(event) {
     if (!field.value) {
       data = false;
       $("#postFormSubmit").removeClass("disabled");
-      alert("Empty form field!");
+      globalAlert("Empty post form field.");
       return false;
     }
     data[field.name] = field.value;
@@ -28,7 +28,7 @@ $("#postForm").submit(function(event) {
           location.reload();
           break;
         case 2:
-          alert("Add post failed!");
+          globalAlert("Post could not be added.");
           socket.removeAllListeners('postPostSuccess');
           break;
       }

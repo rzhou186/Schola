@@ -81,7 +81,7 @@ $(document).on("click", ".upvoteRequest", function(e) {
           requestUpvotes++;
           request.find(".requestUpvotes").html(requestUpvotes);
         }
-        else alert("Upvote failed!");
+        else globalAlert("Request upvote failed.");
       }
       socket.removeAllListeners('incrementUpVotesSuccess');
     });

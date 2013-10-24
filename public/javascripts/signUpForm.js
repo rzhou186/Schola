@@ -8,7 +8,7 @@ $("#signUpFormSubmit").click(function() {
     if (!field.value) {
       data = false;
       $("#signUpFormSubmit").removeClass("disabled");
-      alert("Empty form field!");
+      globalAlert("Empty signup form field.");
       return false;
     }
     data[field.name] = field.value;
@@ -23,7 +23,7 @@ $("#signUpFormSubmit").click(function() {
         case 1:
           $("#signUpFormSubmit").removeClass("disabled");
           socket.removeAllListeners('signUpSuccess');
-          alert("Signup failed!");
+          globalAlert("Signup failed.");
           break;
         case 2:
           setCookie("username", data["username"]);

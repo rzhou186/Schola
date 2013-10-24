@@ -9,7 +9,7 @@ $("#logInForm").submit(function(event) {
     if (!field.value) {
       data = false;
       $("#logInFormSubmit").removeClass("disabled");
-      alert("Empty form field!");
+      globalAlert("Empty login form field.");
       return false;
     }
     data[field.name] = field.value;
@@ -24,7 +24,7 @@ $("#logInForm").submit(function(event) {
         case 1:
           $("#logInFormSubmit").removeClass("disabled");
           socket.removeAllListeners('logInSuccess');
-          alert("Login failed!");
+          globalAlert("Login failed.");
           break;
         case 2:
           setCookie("username", data["username"]);

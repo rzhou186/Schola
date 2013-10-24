@@ -19,6 +19,10 @@ body {
   width: 970px;
 }
 
+.globalAlerts {
+  margin-left: 40%;
+}
+
 #requestForm {
   overflow: hidden;
   margin-bottom: 15px;
@@ -40,8 +44,8 @@ body {
   overflow: auto;
   padding-right: 20px;
   padding-top: 10px;
-  border-top: 2px solid #dddddd;
-  border-bottom: 2px solid #dddddd;
+  border-top: 2px solid #eeeeee;
+  border-bottom: 2px solid #eeeeee;
 }
 
 .request {
@@ -254,4 +258,9 @@ fieldset[disabled] .btn-schola.active {
 
 .btn-schola .caret {
   border-top-color: #fff;
+}
+
+.alert {
+  padding: 5px 10px;
+  margin: 0px 0px 20px 0px;
 }
