@@ -11,7 +11,9 @@ html
     nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
       div.container
         div.navbar-header
-          a.navbar-brand(href='') Schola
+          a.navbar-brand(href='')
+            img(src='/images/logo-white.png')
+            | Schola
           button.navbar-toggle(data-toggle='collapse', data-target='.navbar-collapse')
             span.icon-bar
             span.icon-bar
@@ -36,11 +38,13 @@ html
         div.row
           div.col-xs-9
           div.col-xs-3.requestsColFixed
-            form#requestForm
-              p
-                strong Add Request
-              input.requestFormName.form-control(type='text', name='name', maxlength='100', placeholder='Add anonymous request...')
-              button#requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
+            
+            if isLoggedIn
+              form#requestForm
+                p
+                  strong Add Request
+                input.requestFormName.form-control(type='text', name='name', maxlength='100', placeholder='Add anonymous request...')
+                button#requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
 
             div#requestStream
               div#requests

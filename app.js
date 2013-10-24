@@ -23,7 +23,6 @@ require('./config/express')(app, cookieParser)
 var server  = http.createServer(app)
 var io    = socket.listen(server)
 
-
 var models_path = __dirname + '/app/models'
 filesystem.readdirSync(models_path).forEach(function (file) {
   require(models_path+'/'+file)

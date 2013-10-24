@@ -21,8 +21,7 @@ body {
 
 #requestForm {
   overflow: hidden;
-  margin-bottom: 20px;
-  padding-right: 20px;
+  margin-bottom: 15px;
 }
 
 #requestForm .requestFormName {
@@ -40,12 +39,15 @@ body {
   height: 350px;
   overflow: auto;
   padding-right: 20px;
+  padding-top: 10px;
+  border-top: 2px solid #dddddd;
+  border-bottom: 2px solid #dddddd;
 }
 
 .request {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding-bottom: 10px;
-  border-bottom: 2px solid #eeeeee;
+  border-bottom: 1px solid #eeeeee;
 }
 
 .requestSide {
@@ -180,6 +182,13 @@ body {
   background-color: #3c95d2;
   font-family: 'Libre Baskerville', serif;
   font-weight: bold;
+  max-height: 50px;
+}
+
+.navbar-default .navbar-header .navbar-brand img {
+  margin-top: -5px;
+  margin-right: 5px;
+  height: 25px;
 }
 
 .navbar-default .navbar-header .navbar-brand:hover,
