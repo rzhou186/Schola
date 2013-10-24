@@ -19,10 +19,6 @@ body {
   width: 970px;
 }
 
-.globalAlerts {
-  margin-left: 40%;
-}
-
 #requestForm {
   overflow: hidden;
   margin-bottom: 15px;

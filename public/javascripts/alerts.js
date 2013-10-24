@@ -4,7 +4,7 @@ function globalAlert(message) {
       "<strong>" + message + "</strong>" +
     "</div>"
   );
-  $(".globalAlerts").append(alert);
+  $(".globalAlerts").prepend(alert);
   setTimeout(function(){
     alert.fadeOut(500);
   }, 3000);

@@ -81,7 +81,7 @@ $(document).on("click", ".upvoteRequest", function(e) {
           requestUpvotes++;
           request.find(".requestUpvotes").html(requestUpvotes);
         }
-        else globalAlert("Request upvote failed.");
+        else globalAlert("Upvote failed.");
       }
       socket.removeAllListeners('incrementUpVotesSuccess');
     });
@@ -91,6 +91,7 @@ $(document).on("click", ".upvoteRequest", function(e) {
 
 // Move request divs off of fixed sidebar if window is too small
 function positionRequestCol() {
+  $(".globalAlerts").empty();
   if ($(this).width() >= $(".fixedOverlay .container").width()) {
     // Move request divs to fixed sidebar
     if ($(".requestsCol").html()) {

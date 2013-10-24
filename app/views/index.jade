@@ -39,6 +39,8 @@ html
           div.col-xs-9
           div.col-xs-3.requestsColFixed
             
+            div.globalAlerts
+
             if isLoggedIn
               form#requestForm
                 p
@@ -54,8 +56,6 @@ html
     div.container.nonResponsive
       div.row
         div.col-xs-9.postsCol
-
-          div.globalAlerts
 
           if isLoggedIn && isModerator
             form#postForm
