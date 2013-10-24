@@ -56,8 +56,8 @@ function appendPosts(posts) {
               "<p>" + post["desc"] + "</p>" + 
             "</div>" + 
             "<div class=\"postAccess\">" + 
-              "<a class=\"postGet btn btn-schola btn-xs\" target=\"_blank\" href=" + 
-              post["URL"] + ">View</a>" + 
+              "<a class=\"postGet btn btn-schola btn-xs\" target=\"_blank\" href=\"" + 
+              post["URL"] + "\">View</a>" + 
             "</div>" + 
           "</div>" + 
         "</div>"
