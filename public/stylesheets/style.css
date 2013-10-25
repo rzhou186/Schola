@@ -162,12 +162,9 @@ body {
   max-width: 90%;
 }
 
-.postMain .postIcon {
+.postMain .postIcon,
+.postMain .postGet {
   float: right;
-}
-
-.postMain .postAccess {
-  text-align: right;
 }
 
 .postStreamLoading {
@@ -175,6 +172,23 @@ body {
   padding-bottom: 20px;
   margin-left: 40%;
   display: none;
+}
+
+.alert {
+  padding: 5px 10px;
+  margin: 0px 0px 20px 0px;
+}
+
+a.promptSignup {
+  cursor: pointer;
+}
+
+.requestStatus .glyphicon-unchecked {
+  color: #3c95d2;
+}
+
+.requestStatus .glyphicon-ok {
+  color: #468847;
 }
 
 .navbar-default .navbar-header .navbar-brand {
@@ -254,9 +268,4 @@ fieldset[disabled] .btn-schola.active {
 
 .btn-schola .caret {
   border-top-color: #fff;
-}
-
-.alert {
-  padding: 5px 10px;
-  margin: 0px 0px 20px 0px;
 }

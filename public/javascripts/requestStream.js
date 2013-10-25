@@ -5,11 +5,13 @@ $(document).ready(function() {
 
   data = {};
   data["start"] = 0;
+  data["username"] = getCookie("username");
+  data["password"] = getCookie("password");
   socket.emit('getRequests', data);
 
-  socket.on('getRequestsSuccess', function(requests) {
+  socket.on('getRequestsSuccess', function(requestsData) {
     data["start"] += 10;  // Don't hardcode magic numbers...
-    appendRequests(requests["result"]);
+    appendRequests(requestsData["result"], requestsData["isLoggedIn"]);
     $(".requestStreamLoading").fadeOut("fast");
   });
 
@@ -22,19 +24,22 @@ function loadMoreRequests(data) {
   socket.emit('getRequests', data);
 }
 
-function appendRequests(requests) {
+function appendRequests(requests, isLoggedIn) {
   for (var i=0; i<requests.length; i++) {
     
     var request = requests[i];
     var requestStatus = "<span class=\"glyphicon glyphicon-unchecked\"></span>";
     var requestName = request["name"];
     var requestDate = formatDate(request["created"]);
+    var requestUpvoteAccess = isLoggedIn ? "" : "promptSignup"
 
     if (request["status"] === 1) {  // Request has been fulfilled
       requestStatus = "<span class=\"glyphicon glyphicon-ok\"></span>";
-      requestName = "<a href=\"" + request["URL"] + "\" target=\"_blank\">" +
-        request["name"] +
-        "</a>"
+      if (isLoggedIn) {
+        requestName = "<a href=\"" + request["URL"] + "\" target=\"_blank\">" +
+          request["name"] + "</a>"  
+      }
+      else requestName = "<a class=\"promptSignup\">" + request["name"] + "</a>"  
     }
 
     $("#requests").append(
@@ -52,7 +57,8 @@ function appendRequests(requests) {
           "<div class=\"requestStatus\">" +
             requestStatus + 
           "</div>" + 
-          "<button class=\"upvoteRequest btn btn-default btn-xs btn-block\">" + 
+          "<button class=\"upvoteRequest " + requestUpvoteAccess + 
+            " btn btn-default btn-xs btn-block\">" + 
             "<span class=\"glyphicon glyphicon-chevron-up\"></span>" + 
             "<div class=\"requestUpvotes\">" + request["upvotes"] + "</div>" + 
           "</button>" + 
@@ -62,7 +68,7 @@ function appendRequests(requests) {
   }
 }
 
-$(document).on("click", ".upvoteRequest", function(e) {
+$(document).on("click", ".upvoteRequest:not(.promptSignup)", function(e) {
   (function(){
 
     var request = $(e.target).closest(".request");
