@@ -13,7 +13,6 @@ module.exports = function (app, cookieParser) {
 	}));
 
 	//Use the default favicon
-	app.use(express.favicon())
 	//Setup the public serving directory
 	app.use(express.static(rootPath + '/public'))
 	//Set to use express loggers
@@ -26,6 +25,7 @@ module.exports = function (app, cookieParser) {
 	app.configure(function() {
 		//cookieParser
 		app.use(cookieParser)
+		app.use(express.favicon(rootPath +  '/public/favicon.ico'))
 		//bodyParser
 		app.use(express.bodyParser())
 		app.use(express.methodOverride())
