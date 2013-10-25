@@ -34,10 +34,22 @@ exports.index = function(req, res) {
 
 exports.getPosts = function(data, socket) {
 	postModel.find({},'name desc URL created views posterId', { skip: data.start, limit:10, sort:{
-        name: 1
+        views: -1
     }
 	}, function (err, docs) {
-		socket.emit('getPostsSuccess', {result : docs})
+		userModel.find({username : data.username}, function (err, userData) {
+			if(userData && userData.length > 0) {
+				if(userData[0].password === data.password) {
+					socket.emit('getPostsSuccess', {result : docs, isLoggedIn : 1});
+				}
+				else {
+					socket.emit('getPostsSuccess', {result : docs, isLoggedIn : 0});
+				}
+			}
+			else {
+				socket.emit('getPostsSuccess', {result : docs, isLoggedIn : 0});
+			}
+		})
 	})
 }
 /*function(err,allNews){
@@ -65,10 +77,22 @@ exports.getUserName = function(data, socket) {
 
 exports.getRequests = function(data, socket) {
 	requestModel.find({},'name upvotes created posterId status URL', { skip: data.start, limit:10, sort:{
-        name: 1
+        upvotes: -1
     }
 	}, function (err, docs) {
-		socket.emit('getRequestsSuccess', {result : docs});
+		userModel.find({username : data.username}, function (err, userData) {
+			if(userData && userData.length > 0) {
+				if(userData[0].password === data.password) {
+					socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 1});
+				}
+				else {
+					socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 0});
+				}
+			}
+			else {
+				socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 0});
+			}
+		})
 	})
 }
 
