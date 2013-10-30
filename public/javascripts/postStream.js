@@ -1,23 +1,30 @@
 $(document).ready(function() {
 
-  data = {};
+  var data = {};
   data["start"] = 0;
   data["username"] = getCookie("username");
   data["password"] = getCookie("password");
   socket.emit('getPosts', data);
 
-  socket.on('getPostsSuccess', function(postsData) {
-    data["start"] += 10;  // Don't hardcode magic numbers...
-    appendPosts(postsData["result"], postsData["isLoggedIn"]);
-    $(".postStreamLoading").fadeOut("fast");
+  $(window).scroll(function() {
+    if ($(this).scrollTop() + $(this).height() == $(document).height()) {
+      loadMorePosts(data);
+    }
   });
 
-  // When the user scrolls to the bottom, call loadMorePosts
+  socket.on('getPostsSuccess', function(postsData) {
+    $(".postStreamLoading").fadeOut("fast");
+    if (postsData["result"].length > 0) {
+      data["start"] += 10;  // Don't hardcode magic numbers...
+      appendPosts(postsData["result"], postsData["isLoggedIn"]);
+    }
+    else $(window).off("scroll");
+  });
 
   $("#postStream").tooltip({
     selector: "[data-toggle=\"tooltip\"]",
     placement: "left"
-  });
+  });  
 
 });
 

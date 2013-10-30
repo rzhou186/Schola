@@ -3,19 +3,26 @@ $(document).ready(function() {
   positionRequestCol();
   $(window).resize(positionRequestCol);
 
-  data = {};
+  var data = {};
   data["start"] = 0;
   data["username"] = getCookie("username");
   data["password"] = getCookie("password");
   socket.emit('getRequests', data);
 
-  socket.on('getRequestsSuccess', function(requestsData) {
-    data["start"] += 10;  // Don't hardcode magic numbers...
-    appendRequests(requestsData["result"], requestsData["isLoggedIn"]);
-    $(".requestStreamLoading").fadeOut("fast");
+  $("#requestStream").scroll(function() {
+    if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+      loadMoreRequests(data);
+    }
   });
 
-  // When the user scrolls to the bottom, call loadMoreRequests
+  socket.on('getRequestsSuccess', function(requestsData) {
+    $(".requestStreamLoading").fadeOut("fast");
+    if (requestsData["result"].length > 0) {
+      data["start"] += 10;  // Don't hardcode magic numbers...
+      appendRequests(requestsData["result"], requestsData["isLoggedIn"]);
+    }
+    else $("#requestStream").off("scroll");
+  });
 
 });
 

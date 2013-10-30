@@ -14,7 +14,7 @@ function globalAlert(message) {
 $(document).on("click", ".promptSignup", function() {
   $(".globalAlerts").empty();
   $(".globalAlerts").prepend(
-    "<div class=\"alert alert-info\">" +
+    "<div class=\"alert alert-success\">" +
       "<button type=\"button\" class=\"close\"" +
         "data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>" +
       "<strong>A username and password. </strong>" +
