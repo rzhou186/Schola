@@ -1,21 +1,30 @@
 $(document).ready(function() {
 
-  data = {};
+  var data = {};
   data["start"] = 0;
+  data["username"] = getCookie("username");
+  data["password"] = getCookie("password");
   socket.emit('getPosts', data);
 
-  socket.on('getPostsSuccess', function(posts) {
-    data["start"] += 10;  // Don't hardcode magic numbers...
-    appendPosts(posts["result"]);
-    $(".postStreamLoading").fadeOut("fast");
+  $(window).scroll(function() {
+    if ($(this).scrollTop() + $(this).height() == $(document).height()) {
+      loadMorePosts(data);
+    }
   });
 
-  // When the user scrolls to the bottom, call loadMorePosts
+  socket.on('getPostsSuccess', function(postsData) {
+    $(".postStreamLoading").fadeOut("fast");
+    if (postsData["result"].length > 0) {
+      data["start"] += 10;  // Don't hardcode magic numbers...
+      appendPosts(postsData["result"], postsData["isLoggedIn"]);
+    }
+    else $(window).off("scroll");
+  });
 
   $("#postStream").tooltip({
     selector: "[data-toggle=\"tooltip\"]",
     placement: "left"
-  });
+  });  
 
 });
 
@@ -24,13 +33,23 @@ function loadMorePosts(data) {
   socket.emit('getPosts', data);
 }
 
-function appendPosts(posts) {
+function appendPosts(posts, isLoggedIn) {
   for (var i=0; i<posts.length; i++) {
     (function(){
 
       var post = posts[i];
-      var postDate = formatDate(post["created"]);
       socket.emit('getUserName', { posterId: post["posterId"], postId: post["_id"] });
+
+      var postDate = formatDate(post["created"]);
+      var postName = "<a class=\"promptSignup\">" + post["name"] + "</a>";
+      var postGet = "<a class=\"promptSignup postGet btn btn-schola btn-xs\">View</a>"
+
+      if (isLoggedIn) {
+        postName = "<a href=\"" + post["URL"] + "\" target=\"_blank\">"
+          + post["name"] + "</a>";
+        postGet = "<a class=\"btn btn-schola btn-xs\" target=\"_blank\" href=\"" + 
+          post["URL"] + "\">View</a>"
+      }
 
       $("#posts").append(
         "<div class=\"post\" id=" + post["_id"] + ">" + 
@@ -50,21 +69,17 @@ function appendPosts(posts) {
             "<div class=\"postIcon\" data-toggle=\"tooltip\" title=\"Link\">" + 
               "<span class=\"glyphicon glyphicon-link\"></span>" + 
             "</div>" + 
-            "<div class=\"postName\"><a href=\"" + post["URL"] + "\" target=\"_blank\">" + post["name"] + "</a>" + 
-            "</div>" + 
+            "<div class=\"postName\">" + postName + "</div>" + 
             "<div class=\"postDescription\">" + 
               "<p>" + post["desc"] + "</p>" + 
             "</div>" + 
-            "<div class=\"postAccess\">" + 
-              "<a class=\"postGet btn btn-schola btn-xs\" target=\"_blank\" href=\"" + 
-              post["URL"] + "\">View</a>" + 
-            "</div>" + 
+            "<div class=\"postGet\">" + postGet + "</div>" + 
           "</div>" + 
         "</div>"
       );
 
       socket.on('getUserNameSuccess', function(data) {
-        if (data["postId"] == post["_id"]) {
+        if (data["postId"] === post["_id"]) {
           if (data["getUserNameStatus"] === 1) {
             $(".post#" + post["_id"]).find(".postUsername")
               .html(data["result"] + " ");
@@ -75,7 +90,9 @@ function appendPosts(posts) {
   }
 }
 
-$(document).on("click", ".postName, .postGet", function(e) {
+$(document).on("click", 
+  ".postName :not(.promptSignup), .postGet :not(.promptSignup)", function(e) {
+
   (function(){
 
     var post = $(e.target).closest(".post");

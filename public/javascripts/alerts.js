@@ -10,3 +10,15 @@ function globalAlert(message) {
     alert.fadeOut(500);
   }, 1000);
 }
+
+$(document).on("click", ".promptSignup", function() {
+  $(".globalAlerts").empty();
+  $(".globalAlerts").prepend(
+    "<div class=\"alert alert-success\">" +
+      "<button type=\"button\" class=\"close\"" +
+        "data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>" +
+      "<strong>A username and password. </strong>" +
+      "That's all we ask for. Sign up above to unlock Schola." +
+    "</div>"
+  );
+});
