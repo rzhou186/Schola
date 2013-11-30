@@ -6,11 +6,10 @@ $(document).ready(function() {
   data["start"] = 0;
   data["username"] = getCookie("username");
   data["password"] = getCookie("password");
-  socket.emit('getRequests', data);
+  loadMoreRequests(data);
 
   var loadIfScrollBottom = function() {
     if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
-      $(this).unbind("scroll");   // Unbind to prevent same load multiple times
       loadMoreRequests(data);
     }
   };
@@ -21,7 +20,7 @@ $(document).ready(function() {
     $("#requestStream").scroll(loadIfScrollBottom);
     
     if (requestsData["result"].length > 0) {
-      data["start"] += 10;        // Don't hardcode magic numbers...
+      data["start"] += 10;                // Don't hardcode magic numbers...
       appendRequests(requestsData["result"], requestsData["isLoggedIn"]);
     }
     else $("#requestStream").off("scroll");
@@ -30,6 +29,7 @@ $(document).ready(function() {
 
 function loadMoreRequests(data) {
   $(".requestStreamLoading").show();
+  $("#requestStream").unbind("scroll");   // Unbind to prevent same load multiple times
   socket.emit('getRequests', data);
 }
 

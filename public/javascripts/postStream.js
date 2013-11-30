@@ -3,11 +3,10 @@ $(document).ready(function() {
   data["start"] = 0;
   data["username"] = getCookie("username");
   data["password"] = getCookie("password");
-  socket.emit('getPosts', data);
+  loadMorePosts(data);
 
   var loadIfScrollBottom = function() {
     if ($(this).scrollTop() + $(this).height() == $(document).height()) {
-      $(this).unbind("scroll");   // Unbind to prevent same load multiple times
       loadMorePosts(data);
     }
   }
@@ -18,7 +17,7 @@ $(document).ready(function() {
     $(window).scroll(loadIfScrollBottom);    
 
     if (postsData["result"].length > 0) {
-      data["start"] += 10;  // Don't hardcode magic numbers...
+      data["start"] += 10;                // Don't hardcode magic numbers...
       appendPosts(postsData["result"], postsData["isLoggedIn"]);
     }
     else $(window).off("scroll");
@@ -32,6 +31,7 @@ $(document).ready(function() {
 
 function loadMorePosts(data) {
   $(".postStreamLoading").show();
+  $("#postStream").unbind("scroll");      // Unbind to prevent same load multiple times
   socket.emit('getPosts', data);
 }
 
