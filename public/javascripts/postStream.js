@@ -7,6 +7,7 @@ $(document).ready(function() {
 
   var loadIfScrollBottom = function() {
     if ($(this).scrollTop() + $(this).height() == $(document).height()) {
+      $(".postStreamLoading").show();
       loadMorePosts(data);
     }
   }
@@ -30,8 +31,7 @@ $(document).ready(function() {
 });
 
 function loadMorePosts(data) {
-  $(".postStreamLoading").show();
-  $("#postStream").unbind("scroll");      // Unbind to prevent same load multiple times
+  $(window).off("scroll");      // Unbind to prevent same load multiple times
   socket.emit('getPosts', data);
 }
 

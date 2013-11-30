@@ -10,6 +10,7 @@ $(document).ready(function() {
 
   var loadIfScrollBottom = function() {
     if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+      $(".requestStreamLoading").show();
       loadMoreRequests(data);
     }
   };
@@ -28,8 +29,7 @@ $(document).ready(function() {
 });
 
 function loadMoreRequests(data) {
-  $(".requestStreamLoading").show();
-  $("#requestStream").unbind("scroll");   // Unbind to prevent same load multiple times
+  $("#requestStream").off("scroll");   // Unbind to prevent same load multiple times
   socket.emit('getRequests', data);
 }
 
