@@ -1,5 +1,4 @@
 $(document).ready(function() {
-
   positionRequestCol();
   $(window).resize(positionRequestCol);
 
@@ -9,21 +8,24 @@ $(document).ready(function() {
   data["password"] = getCookie("password");
   socket.emit('getRequests', data);
 
-  $("#requestStream").scroll(function() {
+  var loadIfScrollBottom = function() {
     if ($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight) {
+      $(this).unbind("scroll");   // Unbind to prevent same load multiple times
       loadMoreRequests(data);
     }
-  });
+  };
+  $("#requestStream").scroll(loadIfScrollBottom);
 
   socket.on('getRequestsSuccess', function(requestsData) {
     $(".requestStreamLoading").fadeOut("fast");
+    $("#requestStream").scroll(loadIfScrollBottom);
+    
     if (requestsData["result"].length > 0) {
-      data["start"] += 10;  // Don't hardcode magic numbers...
+      data["start"] += 10;        // Don't hardcode magic numbers...
       appendRequests(requestsData["result"], requestsData["isLoggedIn"]);
     }
     else $("#requestStream").off("scroll");
   });
-
 });
 
 function loadMoreRequests(data) {
@@ -33,7 +35,6 @@ function loadMoreRequests(data) {
 
 function appendRequests(requests, isLoggedIn) {
   for (var i=0; i<requests.length; i++) {
-    
     var request = requests[i];
     var requestStatus = "<span class=\"glyphicon glyphicon-unchecked\"></span>";
     var requestName = request["name"];
@@ -77,7 +78,6 @@ function appendRequests(requests, isLoggedIn) {
 
 $(document).on("click", ".upvoteRequest:not(.promptSignup)", function(e) {
   (function(){
-
     var request = $(e.target).closest(".request");
     var requestId = request.attr("id");
     var requestUpvotes = request.find(".requestUpvotes").html();

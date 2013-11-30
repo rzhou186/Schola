@@ -30,7 +30,7 @@ filesystem.readdirSync(models_path).forEach(function (file) {
 
 require('./config/routes')(app, io)
 
-var port = process.env.PORT || 80
+var port = process.env.PORT || 3000
 server.listen(port)
 console.log('listening on port '+port)
 

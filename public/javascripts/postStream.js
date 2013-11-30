@@ -1,19 +1,22 @@
 $(document).ready(function() {
-
   var data = {};
   data["start"] = 0;
   data["username"] = getCookie("username");
   data["password"] = getCookie("password");
   socket.emit('getPosts', data);
 
-  $(window).scroll(function() {
+  var loadIfScrollBottom = function() {
     if ($(this).scrollTop() + $(this).height() == $(document).height()) {
+      $(this).unbind("scroll");   // Unbind to prevent same load multiple times
       loadMorePosts(data);
     }
-  });
+  }
+  $(window).scroll(loadIfScrollBottom);  
 
   socket.on('getPostsSuccess', function(postsData) {
     $(".postStreamLoading").fadeOut("fast");
+    $(window).scroll(loadIfScrollBottom);    
+
     if (postsData["result"].length > 0) {
       data["start"] += 10;  // Don't hardcode magic numbers...
       appendPosts(postsData["result"], postsData["isLoggedIn"]);
@@ -25,7 +28,6 @@ $(document).ready(function() {
     selector: "[data-toggle=\"tooltip\"]",
     placement: "left"
   });  
-
 });
 
 function loadMorePosts(data) {
@@ -36,7 +38,6 @@ function loadMorePosts(data) {
 function appendPosts(posts, isLoggedIn) {
   for (var i=0; i<posts.length; i++) {
     (function(){
-
       var post = posts[i];
       socket.emit('getUserName', { posterId: post["posterId"], postId: post["_id"] });
 
@@ -92,9 +93,7 @@ function appendPosts(posts, isLoggedIn) {
 
 $(document).on("click", 
   ".postName :not(.promptSignup), .postGet :not(.promptSignup)", function(e) {
-
   (function(){
-
     var post = $(e.target).closest(".post");
     var postId = post.attr("id");
     var postViews = post.find(".postViews").html();
@@ -113,6 +112,5 @@ $(document).on("click",
       }
       socket.removeAllListeners('incrementViewsSuccess');
     });
-
   })();
 });
