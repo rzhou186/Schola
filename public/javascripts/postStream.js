@@ -1,6 +1,8 @@
 $(document).ready(function() {
   var data = {};
-  data["start"] = 0;
+  data["oldLatest"] = 0;
+  data["nextLatest"] = 0;
+  data["nextMostViews"] = 0;
   data["username"] = getCookie("username");
   data["password"] = getCookie("password");
   loadMorePosts(data);
@@ -18,7 +20,10 @@ $(document).ready(function() {
     $(window).scroll(loadIfScrollBottom);    
 
     if (postsData["result"].length > 0) {
-      data["start"] += 10;                // Don't hardcode magic numbers...
+      data["oldLatest"] = postsData["oldLatest"];
+      data["nextLatest"] = postsData["nextLatest"];
+      data["nextMostViews"] = postsData["nextMostViews"];
+      // data["start"] += 10;                // Don't hardcode magic numbers...
       appendPosts(postsData["result"], postsData["isLoggedIn"]);
     }
     else $(window).off("scroll");
