@@ -50,6 +50,8 @@ exports.getPosts = function(data, socket) {
 				postModel.find({}, 'name desc URL created views posterId', {skip:latest, limit:7, sort:{
 					created: -1, views: -1
 				}}, function(err, docs2) {
+					docs.sort(function(a,b) {return b.views - a.views});
+					docs2.sort(function(a,b) {return b.views - a.views});
 					var finalDocs = docs.concat(docs2);
 					userModel.find({username : data.username}, function (err, userData) {
 						if(userData && userData.length > 0) {
@@ -87,6 +89,8 @@ exports.getPosts = function(data, socket) {
 					postModel.find({}, 'name desc URL created views posterId', {skip:data.nextMostViews, limit:7, sort: {
 						created: -1, views: -1
 					}}, function(err, docs2){
+						docs.sort(function(a,b) {return b.views - a.views});
+						docs2.sort(function(a,b) {return b.views - a.views});
 						var finalDocs = docs.concat(docs2);
 						userModel.find({username : data.username}, function (err, userData) {
 							if(userData && userData.length > 0) {
@@ -122,6 +126,8 @@ exports.getPosts = function(data, socket) {
 					postModel.find({}, 'name desc URL created views posterId', {skip:data.nextMostViews, limit:7, sort: {
 						created: -1, views: -1
 					}}, function(err, docs2) {
+						docs.sort(function(a,b) {return b.views - a.views});
+						docs2.sort(function(a,b) {return b.views - a.views});
 						var finalDocs = docs.concat(docs2);
 						userModel.find({username : data.username}, function (err, userData) {
 							if(userData && userData.length > 0) {
