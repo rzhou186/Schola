@@ -1,3 +1,5 @@
+var app = app || {};
+
 $("#requestForm").submit(function(event) {
 
   event.preventDefault();
@@ -16,12 +18,12 @@ $("#requestForm").submit(function(event) {
   });
 
   if (data) {
-    data["username"] = getCookie("username");
-    data["password"] = getCookie("password");
+    data["username"] = app.cookie.getCookie("username");
+    data["password"] = app.cookie.getCookie("password");
     data["URL"] = "#";
-    socket.emit('postRequest', data);
+    app.socket.emit('postRequest', data);
 
-    socket.on('postRequestSuccess', function(response) {
+    app.socket.on('postRequestSuccess', function(response) {
     $("#requestFormSubmit").removeClass("disabled");
       switch(response.requestStatus) {
         case 1:
@@ -30,7 +32,7 @@ $("#requestForm").submit(function(event) {
           break;
         case 2:
           globalAlert("Request could not be added.");
-          socket.removeAllListeners('postRequestSuccess');
+          app.socket.removeAllListeners('postRequestSuccess');
           break;
       }
     });

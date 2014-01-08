@@ -1,3 +1,5 @@
+var app = app || {};
+
 $("#postForm").submit(function(event) {
 
   event.preventDefault();
@@ -16,11 +18,11 @@ $("#postForm").submit(function(event) {
   });
 
   if (data) {
-    data["username"] = getCookie("username");
-    data["password"] = getCookie("password");
-    socket.emit('postPost', data);
+    data["username"] = app.cookie.getCookie("username");
+    data["password"] = app.cookie.getCookie("password");
+    app.socket.emit('postPost', data);
     
-    socket.on('postPostSuccess', function(response) {
+    app.socket.on('postPostSuccess', function(response) {
       $("#postFormSubmit").removeClass("disabled");
       switch(response.postStatus) {
         case 1:
@@ -29,7 +31,7 @@ $("#postForm").submit(function(event) {
           break;
         case 2:
           globalAlert("Post could not be added.");
-          socket.removeAllListeners('postPostSuccess');
+          app.socket.removeAllListeners('postPostSuccess');
           break;
       }
     });

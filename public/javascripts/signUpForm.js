@@ -1,3 +1,5 @@
+var app = app || {};
+
 $("#signUpFormSubmit").click(function() {
 
   $("#signUpFormSubmit").addClass("disabled");
@@ -16,18 +18,18 @@ $("#signUpFormSubmit").click(function() {
 
   if (data) {
     data["password"] = CryptoJS.SHA1(data["password"]).toString(CryptoJS.enc.hex);
-    socket.emit('signUp', data);
+    app.socket.emit('signUp', data);
 
-    socket.on('signUpSuccess', function(response) {
+    app.socket.on('signUpSuccess', function(response) {
       switch(response.signUpStatus) {
         case 1:
           $("#signUpFormSubmit").removeClass("disabled");
-          socket.removeAllListeners('signUpSuccess');
+          app.socket.removeAllListeners('signUpSuccess');
           globalAlert("Signup failed.");
           break;
         case 2:
-          setCookie("username", data["username"]);
-          setCookie("password", data["password"]);
+          app.cookie.setCookie("username", data["username"]);
+          app.cookie.setCookie("password", data["password"]);
           location.reload();
           break;
       }

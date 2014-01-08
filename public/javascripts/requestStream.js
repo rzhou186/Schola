@@ -1,11 +1,13 @@
+var app = app || {};
+
 $(document).ready(function() {
   positionRequestCol();
   $(window).resize(positionRequestCol);
 
   var data = {};
   data["start"] = 0;
-  data["username"] = getCookie("username");
-  data["password"] = getCookie("password");
+  data["username"] = app.cookie.getCookie("username");
+  data["password"] = app.cookie.getCookie("password");
   loadMoreRequests(data);
 
   var loadIfScrollBottom = function() {
@@ -16,7 +18,7 @@ $(document).ready(function() {
   };
   $("#requestStream").scroll(loadIfScrollBottom);
 
-  socket.on('getRequestsSuccess', function(requestsData) {
+  app.socket.on('getRequestsSuccess', function(requestsData) {
     $(".requestStreamLoading").fadeOut("fast");
     $("#requestStream").scroll(loadIfScrollBottom);
     
@@ -30,7 +32,7 @@ $(document).ready(function() {
 
 function loadMoreRequests(data) {
   $("#requestStream").off("scroll");   // Unbind to prevent same load multiple times
-  socket.emit('getRequests', data);
+  app.socket.emit('getRequests', data);
 }
 
 function appendRequests(requests, isLoggedIn) {
@@ -38,7 +40,7 @@ function appendRequests(requests, isLoggedIn) {
     var request = requests[i];
     var requestStatus = "<span class=\"glyphicon glyphicon-unchecked\"></span>";
     var requestName = request["name"];
-    var requestDate = formatDate(request["created"]);
+    var requestDate = app.dateTime.formatDateTime(request["created"]);
     var requestUpvoteAccess = isLoggedIn ? "" : "promptSignup"
 
     if (request["status"] === 1) {  // Request has been fulfilled
@@ -83,12 +85,12 @@ $(document).on("click", ".upvoteRequest:not(.promptSignup)", function(e) {
     var requestUpvotes = request.find(".requestUpvotes").html();
     var data = {
       requestId: requestId,
-      username: getCookie("username"),
-      password: getCookie("password")
+      username: app.cookie.getCookie("username"),
+      password: app.cookie.getCookie("password")
     }
 
-    socket.emit('incrementUpVotes', data);
-    socket.on('incrementUpVotesSuccess', function(resp) {
+    app.socket.emit('incrementUpVotes', data);
+    app.socket.on('incrementUpVotesSuccess', function(resp) {
       if (resp["requestId"] === requestId) {
         if (resp["upvoteStatus"] === 1) {
           requestUpvotes++;
@@ -96,7 +98,7 @@ $(document).on("click", ".upvoteRequest:not(.promptSignup)", function(e) {
         }
         else globalAlert("Upvote failed.");
       }
-      socket.removeAllListeners('incrementUpVotesSuccess');
+      app.socket.removeAllListeners('incrementUpVotesSuccess');
     });
 
   })();

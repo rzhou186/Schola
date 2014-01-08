@@ -1,10 +1,12 @@
+var app = app || {};
+
 $(document).ready(function() {
   var data = {};
   data["oldLatest"] = 0;
   data["nextLatest"] = 0;
   data["nextMostViews"] = 0;
-  data["username"] = getCookie("username");
-  data["password"] = getCookie("password");
+  data["username"] = app.cookie.getCookie("username");
+  data["password"] = app.cookie.getCookie("password");
   loadMorePosts(data);
 
   var loadIfScrollBottom = function() {
@@ -15,7 +17,7 @@ $(document).ready(function() {
   }
   $(window).scroll(loadIfScrollBottom);  
 
-  socket.on('getPostsSuccess', function(postsData) {
+  app.socket.on('getPostsSuccess', function(postsData) {
     $(".postStreamLoading").fadeOut("fast");
     $(window).scroll(loadIfScrollBottom);    
 
@@ -37,16 +39,16 @@ $(document).ready(function() {
 
 function loadMorePosts(data) {
   $(window).off("scroll");      // Unbind to prevent same load multiple times
-  socket.emit('getPosts', data);
+  app.socket.emit('getPosts', data);
 }
 
 function appendPosts(posts, isLoggedIn) {
   for (var i=0; i<posts.length; i++) {
     (function(){
       var post = posts[i];
-      socket.emit('getUserName', { posterId: post["posterId"], postId: post["_id"] });
+      app.socket.emit('getUserName', { posterId: post["posterId"], postId: post["_id"] });
 
-      var postDate = formatDate(post["created"]);
+      var postDate = app.dateTime.formatDateTime(post["created"]);
       var postName = "<a class=\"promptSignup\">" + post["name"] + "</a>";
       var postGet = "<a class=\"promptSignup postGet btn btn-schola btn-xs\">View</a>"
 
@@ -84,7 +86,7 @@ function appendPosts(posts, isLoggedIn) {
         "</div>"
       );
 
-      socket.on('getUserNameSuccess', function(data) {
+      app.socket.on('getUserNameSuccess', function(data) {
         if (data["postId"] === post["_id"]) {
           if (data["getUserNameStatus"] === 1) {
             $(".post#" + post["_id"]).find(".postUsername")
@@ -106,8 +108,8 @@ $(document).on("click",
       postId: postId
     }
 
-    socket.emit('incrementViews', data);
-    socket.on('incrementViewsSuccess', function(resp) {
+    app.socket.emit('incrementViews', data);
+    app.socket.on('incrementViewsSuccess', function(resp) {
       if (resp["postId"] === postId) {
         if (resp["viewStatus"] === 1) {
           postViews++;
@@ -115,7 +117,7 @@ $(document).on("click",
           post.find(".postViewsContainer").attr("title", postViews + " views");
         }
       }
-      socket.removeAllListeners('incrementViewsSuccess');
+      app.socket.removeAllListeners('incrementViewsSuccess');
     });
   })();
 });

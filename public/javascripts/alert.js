@@ -1,3 +1,5 @@
+var app = app || {};
+
 function globalAlert(message) {
   $(".globalAlerts").empty();
   var alert = $(
