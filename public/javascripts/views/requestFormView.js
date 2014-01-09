@@ -2,20 +2,20 @@ var app = app || {};
 
 (function() {
 
-  app.SignUpFormView = Backbone.View.extend({
+  app.RequestFormView = Backbone.View.extend({
 
-    el: "#logInForm",
+    el: "#requestForm",
 
     events: {
-      "click #signUpFormSubmit": "attemptSignUp"
+      "submit": "attemptPostRequest"
     },
 
     enableFormSubmit: function() {
-      this.$("#signUpFormSubmit").removeClass("disabled");
+      this.$("#requestFormSubmit").removeClass("disabled");
     },
 
     disableFormSubmit: function() {
-      this.$("#signUpFormSubmit").addClass("disabled");
+      this.$("#requestFormSubmit").addClass("disabled");
     },
 
     extractFormData: function() {
@@ -34,31 +34,31 @@ var app = app || {};
     },
 
     augmentFormData: function(formData){
-      formData["password"] = app.crypto.encrypt(formData["password"]);
+      formData["username"] = app.cookies.getCookie("username");
+      formData["password"] = app.cookies.getCookie("password");
+      formData["URL"] = "#";
       return formData;
     },
 
-    handleSignUpResp: function(resp, formData) {
-      if (resp.signUpStatus === SIGN_UP_SUCCESS) {
-        app.cookies.setCookie("username", formData["username"]);
-        app.cookies.setCookie("password", formData["password"]);
+    handlePostRequestResp: function(resp, formData) {
+      if (resp.requestStatus === POST_REQUEST_SUCCESS)
         location.reload();
-      }
-      else if (resp.signUpStatus === SIGN_UP_FAILURE) {
-        app.socket.removeAllListeners("signUpSuccess");
-        app.alerter.alert("Sign up failed.");
+      else if (resp.requestStatus === POST_REQUEST_FAILURE) {
+        app.socket.removeAllListeners("postRequestSuccess");
+        app.alerter.alert("Post request failed.");
       }
     },
 
-    attemptSignUp: function() {
+    attemptPostRequest: function(e) {
+      e.preventDefault();
       this.disableFormSubmit();
       var formData = this.extractFormData();
       if (formData) {
         formData = this.augmentFormData(formData);
-        app.socket.emit("signUp", formData);
+        app.socket.emit("postRequest", formData);
         var that = this;
-        app.socket.on("signUpSuccess", function(resp) {
-          that.handleSignUpResp(resp, formData);
+        app.socket.on("postRequestSuccess", function(resp) {
+          that.handlePostRequestResp(resp, formData);
           that.enableFormSubmit();
         });
       }

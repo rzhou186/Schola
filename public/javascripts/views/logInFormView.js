@@ -1,10 +1,10 @@
-(function () {
+var app = app || {};
+
+(function() {
 
   app.LogInFormView = Backbone.View.extend({
 
     el: "#logInForm",
-
-    tagName: "form",
 
     events: {
       "submit": "attemptLogIn"
@@ -33,6 +33,11 @@
       return formData;
     },
 
+    augmentFormData: function(formData){
+      formData["password"] = app.crypto.encrypt(formData["password"]);
+      return formData;
+    },
+
     handleLogInResp: function(resp, formData) {
       if (resp.logInStatus === LOG_IN_SUCCESS) {
         app.cookies.setCookie("username", formData["username"]);
@@ -50,7 +55,7 @@
       this.disableFormSubmit();
       var formData = this.extractFormData();
       if (formData) {
-        formData["password"] = app.crypto.encrypt(formData["password"]);
+        formData = this.augmentFormData(formData);
         app.socket.emit("logIn", formData);
         var that = this;
         app.socket.on("logInSuccess", function(resp) {

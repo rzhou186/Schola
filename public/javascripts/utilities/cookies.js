@@ -1,6 +1,6 @@
 var app = app || {};
 
-(function () {
+(function() {
 
   var Cookies = function() {};
 

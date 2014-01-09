@@ -1,4 +1,6 @@
-(function () {
+var app = app || {};
+
+(function() {
 
   app.LogOutView = Backbone.View.extend({
 
