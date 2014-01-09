@@ -4,14 +4,15 @@ html
   head
     title Schola
     include headerFiles.jade
+    
   body
-    nav.navbar.navbar-default.navbar-fixed-top(role='navigation')
+    nav.navbar.navbar-default.navbar-fixed-top(role="navigation")
       div.container
         div.navbar-header
-          a.navbar-brand(href='')
-            img(src='/images/logo-white.png')
+          a.navbar-brand(href="")
+            img(src="/images/logo-white.png")
             | Schola
-          button.navbar-toggle(data-toggle='collapse', data-target='.navbar-collapse')
+          button.navbar-toggle(data-toggle="collapse", data-target=".navbar-collapse")
             span.icon-bar
             span.icon-bar
             span.icon-bar
@@ -19,57 +20,51 @@ html
           if isLoggedIn
             div.nav.navbar-nav.navbar-right
               li
-                a#logOut(href='#') Logout 
+                a#logOut(href="#") Logout 
                   span.glyphicon.glyphicon-chevron-right
           else
-            form#logInForm.navbar-form.navbar-right(role='search')
+            form#logInForm.navbar-form.navbar-right(role="search")
               div.form-group
-                input.form-control(type='text', name='username', placeholder='Username')
+                input.form-control(type="text", name="username", placeholder="Username")
               div.form-group
-                input.form-control(type='password', name='password', placeholder='Password')
-              button#logInFormSubmit.btn.btn-schola.btn-sm(type='submit') Log In
-              button#signUpFormSubmit.btn.btn-schola.btn-sm(type='button') Sign Up
+                input.form-control(type="password", name="password", placeholder="Password")
+              button#logInFormSubmit.btn.btn-schola.btn-sm(type="submit") Log In
+              button#signUpFormSubmit.btn.btn-schola.btn-sm(type="button") Sign Up
 
     div.fixedOverlay
       div.container.nonResponsive
         div.row
           div.col-xs-9
           div.col-xs-3.requestsColFixed
-            
-            div.globalAlerts
-
+            div#alerts
             if isLoggedIn
               form#requestForm
                 p
                   strong Add Request
-                input.requestFormName.form-control(type='text', name='name', maxlength='100', placeholder='Add anonymous request...')
-                button#requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
-
+                input.requestFormName.form-control(type="text", name="name", maxlength="100", placeholder="Add anonymous request...")
+                button#requestFormSubmit.btn.btn-schola.btn-xs(type="submit") Request
             div#requestStream
               div#requests
               div.requestStreamLoading
-                img(src='/images/loading.gif')
+                img(src="/images/loading.gif")
 
     div.container.nonResponsive
       div.row
         div.col-xs-9.postsCol
-
           if isLoggedIn && isModerator
             form#postForm
               div.postFormSide
                 p
                   strong Add Post
-                input.postFormName.form-control(name='name', type='text', placeholder='Post name')
-                input.postFormURL.form-control(name='URL', type='text', placeholder='Post URL')
+                input.postFormName.form-control(name="name", type="text", placeholder="Post name")
+                input.postFormURL.form-control(name="URL", type="text", placeholder="Post URL")
               div.postFormMain
-                textarea.postFormDescription.form-control(name='desc', rows='3', placeholder='Post description')
-                button#postFormSubmit.btn.btn-schola.btn-xs(type='submit') Post
-
+                textarea.postFormDescription.form-control(name="desc", rows="3", placeholder="Post description")
+                button#postFormSubmit.btn.btn-schola.btn-xs(type="submit") Post
           div#postStream
             div#posts
             div.postStreamLoading
-              img(src='/images/loading.gif')
-
+              img(src="/images/loading.gif")
         div.col-xs-3.requestsCol
 
     include footerFiles.jade

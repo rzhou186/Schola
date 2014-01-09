@@ -1,21 +1,8 @@
 var app = app || {};
 
-function globalAlert(message) {
-  $(".globalAlerts").empty();
-  var alert = $(
-    "<div class=\"alert alert-danger\">" +
-      "<strong>" + message + "</strong>" +
-    "</div>"
-  );
-  $(".globalAlerts").prepend(alert);
-  setTimeout(function(){
-    alert.fadeOut(500);
-  }, 1000);
-}
-
-$(document).on("click", ".promptSignup", function() {
-  $(".globalAlerts").empty();
-  $(".globalAlerts").prepend(
+$(document).on("click", ".promptSignUp", function() {
+  $("#alerts").empty();
+  $("#alerts").prepend(
     "<div class=\"alert alert-success\">" +
       "<button type=\"button\" class=\"close\"" +
         "data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>" +

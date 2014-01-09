@@ -5,8 +5,8 @@ $(document).ready(function() {
   data["oldLatest"] = 0;
   data["nextLatest"] = 0;
   data["nextMostViews"] = 0;
-  data["username"] = app.cookie.getCookie("username");
-  data["password"] = app.cookie.getCookie("password");
+  data["username"] = app.cookies.getCookie("username");
+  data["password"] = app.cookies.getCookie("password");
   loadMorePosts(data);
 
   var loadIfScrollBottom = function() {
@@ -49,8 +49,8 @@ function appendPosts(posts, isLoggedIn) {
       app.socket.emit('getUserName', { posterId: post["posterId"], postId: post["_id"] });
 
       var postDate = app.dateTime.formatDateTime(post["created"]);
-      var postName = "<a class=\"promptSignup\">" + post["name"] + "</a>";
-      var postGet = "<a class=\"promptSignup postGet btn btn-schola btn-xs\">View</a>"
+      var postName = "<a class=\"promptSignUp\">" + post["name"] + "</a>";
+      var postGet = "<a class=\"promptSignUp postGet btn btn-schola btn-xs\">View</a>"
 
       if (isLoggedIn) {
         postName = "<a href=\"" + post["URL"] + "\" target=\"_blank\">"
@@ -99,7 +99,7 @@ function appendPosts(posts, isLoggedIn) {
 }
 
 $(document).on("click", 
-  ".postName :not(.promptSignup), .postGet :not(.promptSignup)", function(e) {
+  ".postName :not(.promptSignUp), .postGet :not(.promptSignUp)", function(e) {
   (function(){
     var post = $(e.target).closest(".post");
     var postId = post.attr("id");

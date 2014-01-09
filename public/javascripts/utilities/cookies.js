@@ -2,9 +2,9 @@ var app = app || {};
 
 (function () {
 
-  var Cookie = function() {};
+  var Cookies = function() {};
 
-  Cookie.prototype.setCookie = function(name, value, expires) {
+  Cookies.prototype.setCookie = function(name, value, expires) {
     var cookie = name + "=" + escape(value) + ";";
     if (expires) {
       if (expires instanceof Date) {
@@ -17,16 +17,16 @@ var app = app || {};
     document.cookie = cookie;
   };
 
-  Cookie.prototype.getCookie = function(name) {
+  Cookies.prototype.getCookie = function(name) {
     var parts = document.cookie.split(name + "=");
     if (parts.length == 2)
       return parts.pop().split(";").shift();
   };
 
-  Cookie.prototype.deleteCookie = function(name) {
+  Cookies.prototype.deleteCookie = function(name) {
     this.setCookie(name, "", -1);
   };
 
-  app.cookie = new Cookie();
+  app.cookies = new Cookies();
 
 })();

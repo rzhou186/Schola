@@ -11,15 +11,15 @@ $("#postForm").submit(function(event) {
     if (!field.value) {
       data = false;
       $("#postFormSubmit").removeClass("disabled");
-      globalAlert("Empty post form field.");
+      app.alerter.alert("Empty post form field.");
       return false;
     }
     data[field.name] = field.value;
   });
 
   if (data) {
-    data["username"] = app.cookie.getCookie("username");
-    data["password"] = app.cookie.getCookie("password");
+    data["username"] = app.cookies.getCookie("username");
+    data["password"] = app.cookies.getCookie("password");
     app.socket.emit('postPost', data);
     
     app.socket.on('postPostSuccess', function(response) {
@@ -30,7 +30,7 @@ $("#postForm").submit(function(event) {
           location.reload();
           break;
         case 2:
-          globalAlert("Post could not be added.");
+          app.alerter.alert("Post could not be added.");
           app.socket.removeAllListeners('postPostSuccess');
           break;
       }

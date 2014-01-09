@@ -6,8 +6,8 @@ $(document).ready(function() {
 
   var data = {};
   data["start"] = 0;
-  data["username"] = app.cookie.getCookie("username");
-  data["password"] = app.cookie.getCookie("password");
+  data["username"] = app.cookies.getCookie("username");
+  data["password"] = app.cookies.getCookie("password");
   loadMoreRequests(data);
 
   var loadIfScrollBottom = function() {
@@ -41,7 +41,7 @@ function appendRequests(requests, isLoggedIn) {
     var requestStatus = "<span class=\"glyphicon glyphicon-unchecked\"></span>";
     var requestName = request["name"];
     var requestDate = app.dateTime.formatDateTime(request["created"]);
-    var requestUpvoteAccess = isLoggedIn ? "" : "promptSignup"
+    var requestUpvoteAccess = isLoggedIn ? "" : "promptSignUp"
 
     if (request["status"] === 1) {  // Request has been fulfilled
       requestStatus = "<span class=\"glyphicon glyphicon-ok\"></span>";
@@ -49,7 +49,7 @@ function appendRequests(requests, isLoggedIn) {
         requestName = "<a href=\"" + request["URL"] + "\" target=\"_blank\">" +
           request["name"] + "</a>"  
       }
-      else requestName = "<a class=\"promptSignup\">" + request["name"] + "</a>"  
+      else requestName = "<a class=\"promptSignUp\">" + request["name"] + "</a>"  
     }
 
     $("#requests").append(
@@ -78,15 +78,15 @@ function appendRequests(requests, isLoggedIn) {
   }
 }
 
-$(document).on("click", ".upvoteRequest:not(.promptSignup)", function(e) {
+$(document).on("click", ".upvoteRequest:not(.promptSignUp)", function(e) {
   (function(){
     var request = $(e.target).closest(".request");
     var requestId = request.attr("id");
     var requestUpvotes = request.find(".requestUpvotes").html();
     var data = {
       requestId: requestId,
-      username: app.cookie.getCookie("username"),
-      password: app.cookie.getCookie("password")
+      username: app.cookies.getCookie("username"),
+      password: app.cookies.getCookie("password")
     }
 
     app.socket.emit('incrementUpVotes', data);
@@ -96,7 +96,7 @@ $(document).on("click", ".upvoteRequest:not(.promptSignup)", function(e) {
           requestUpvotes++;
           request.find(".requestUpvotes").html(requestUpvotes);
         }
-        else globalAlert("Upvote failed.");
+        else app.alerter.alert("Upvote failed.");
       }
       app.socket.removeAllListeners('incrementUpVotesSuccess');
     });
@@ -106,7 +106,7 @@ $(document).on("click", ".upvoteRequest:not(.promptSignup)", function(e) {
 
 // Move request divs off of fixed sidebar if window is too small
 function positionRequestCol() {
-  $(".globalAlerts").empty();
+  $("#alerts").empty();
   if ($(this).width() >= $(".fixedOverlay .container").width()) {
     // Move request divs to fixed sidebar
     if ($(".requestsCol").html()) {

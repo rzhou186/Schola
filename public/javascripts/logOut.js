@@ -2,7 +2,7 @@ var app = app || {};
 
 $("#logOut").click(function(event) {
   event.preventDefault();
-  app.cookie.deleteCookie("username");
-  app.cookie.deleteCookie("password");
+  app.cookies.deleteCookie("username");
+  app.cookies.deleteCookie("password");
   location.reload();
 });

@@ -5,17 +5,17 @@ var app = app || {};
   var DateTime = function() {};
 
   DateTime.prototype.formatDateTime = function(rawDateTime) {
-    var monthAbbrev = [
+    var monthAbbrevs = [
       "Jan", "Feb", "Mar",
       "Apr", "May", "Jun",
       "Jul", "Aug", "Sep",
       "Oct", "Nov", "Dec"
     ];
     var date = new Date(rawDateTime);
-    var dateDay = date.getDate();
-    var dateMonth = date.getMonth();
-    var dateMonthAbbrev = monthAbbrev[dateMonth];
-    return dateDay + " " + dateMonth;
+    var day = date.getDate();
+    var month = date.getMonth();
+    var monthAbbrev = monthAbbrevs[month];
+    return day + " " + monthAbbrev;
   }
 
   app.dateTime = new DateTime();
