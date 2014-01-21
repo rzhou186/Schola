@@ -18,6 +18,7 @@ var POST_REQUEST_FAILURE = 2;
   new app.LogInFormView();
   new app.SignUpFormView();
   new app.LogOutView();
+  new app.PostStreamView();
   new app.PostFormView();
   new app.RequestFormView();
 

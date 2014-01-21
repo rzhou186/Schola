@@ -48,7 +48,7 @@ function appendPosts(posts, isLoggedIn) {
       var post = posts[i];
       app.socket.emit('getUserName', { posterId: post["posterId"], postId: post["_id"] });
 
-      var postDate = app.dateTime.formatDateTime(post["created"]);
+      var postDate = app.dateTime.format(post["created"]);
       var postName = "<a class=\"promptSignUp\">" + post["name"] + "</a>";
       var postGet = "<a class=\"promptSignUp postGet btn btn-schola btn-xs\">View</a>"
 

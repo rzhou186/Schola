@@ -4,7 +4,7 @@ var app = app || {};
 
   var DateTime = function() {};
 
-  DateTime.prototype.formatDateTime = function(rawDateTime) {
+  DateTime.prototype.format = function(rawDateTime) {
     var monthAbbrevs = [
       "Jan", "Feb", "Mar",
       "Apr", "May", "Jun",

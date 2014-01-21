@@ -40,7 +40,7 @@ function appendRequests(requests, isLoggedIn) {
     var request = requests[i];
     var requestStatus = "<span class=\"glyphicon glyphicon-unchecked\"></span>";
     var requestName = request["name"];
-    var requestDate = app.dateTime.formatDateTime(request["created"]);
+    var requestDate = app.dateTime.format(request["created"]);
     var requestUpvoteAccess = isLoggedIn ? "" : "promptSignUp"
 
     if (request["status"] === 1) {  // Request has been fulfilled
