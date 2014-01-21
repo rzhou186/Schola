@@ -15,11 +15,9 @@ var POST_REQUEST_FAILURE = 2;
 (function () {
 
   new app.BodyView();
-  new app.LogInFormView();
-  new app.SignUpFormView();
-  new app.LogOutView();
-  new app.PostStreamView();
+  new app.NavbarView();
   new app.PostFormView();
   new app.RequestFormView();
+  new app.PostStreamView();
 
 })();

@@ -1,0 +1,26 @@
+nav#navbar.navbar.navbar-default.navbar-fixed-top(role="navigation")
+  div.container
+    div.navbar-header
+      a.navbar-brand(href="")
+        img(src="/images/logo-white.png")
+        | Schola
+      button.navbar-toggle(data-toggle="collapse", data-target=".navbar-collapse")
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+    div.collapse.navbar-collapse
+      if isLoggedIn
+        div.nav.navbar-nav.navbar-right
+          if isModerator
+            li
+              a#profileAccess(href="#")
+          li
+            a#logOut(href="#") Logout
+      else
+        form#logInForm.navbar-form.navbar-right(role="search")
+          div.form-group
+            input.form-control(type="text", name="username", placeholder="Username")
+          div.form-group
+            input.form-control(type="password", name="password", placeholder="Password")
+          button#logInFormSubmit.btn.btn-schola.btn-sm(type="submit") Log In
+          button#signUpFormSubmit.btn.btn-schola.btn-sm(type="button") Sign Up
