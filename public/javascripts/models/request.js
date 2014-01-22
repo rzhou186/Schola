@@ -2,23 +2,23 @@ var app = app || {};
 
 (function() {
 
-  app.Post = Backbone.Model.extend({
+  app.Request = Backbone.Model.extend({
 
     defaults: {
       id: null,
       name: "",
-      description: "",
       url: "",
-      views: 0,
+      upvotes: 0,
+      status: 0,  // This should be a constant
       dateTime: null,
       openable: false
     },
 
     // Overwrite sync so it uses sockets, so that save works
 
-    incrementViews: function() {
+    incrementUpvotes: function() {
       this.save({
-        views: this.get("views") + 1
+        upvotes: this.get("upvotes") + 1
       });
     }
 

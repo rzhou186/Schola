@@ -8,40 +8,12 @@ html
   body
     include navbar.jade
 
-    div.fixedOverlay
-      div.container.nonResponsive
-        div.row
-          div.col-xs-9
-          div.col-xs-3.requestsColFixed
-            div#alerts
-            if isLoggedIn
-              form#requestForm
-                p
-                  strong Add Request
-                input.requestFormName.form-control(type="text", name="name", maxlength="100", placeholder="Add anonymous request...")
-                button#requestFormSubmit.btn.btn-schola.btn-xs(type="submit") Request
-            div#requestStream
-              div#requests
-              div.requestStreamLoading
-                img(src="/images/loading.gif")
-
     div.container.nonResponsive
       div.row
-        div.col-xs-9.postsCol
-          if isLoggedIn && isModerator
-            form#postForm
-              div.postFormSide
-                p
-                  strong Add Post
-                input.postFormName.form-control(name="name", type="text", placeholder="Post name")
-                input.postFormURL.form-control(name="URL", type="text", placeholder="Post URL")
-              div.postFormMain
-                textarea.postFormDescription.form-control(name="desc", rows="3", placeholder="Post description")
-                button#postFormSubmit.btn.btn-schola.btn-xs(type="submit") Post
-          div#postStream
-            div#posts
-            div.postStreamLoading
+        div.col-xs-12
+          div#requestStream
+            div#requests
+            div#requestStreamLoading
               img(src="/images/loading.gif")
-        div.col-xs-3.requestsCol
 
     include footerFiles.jade

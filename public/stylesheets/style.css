@@ -3,143 +3,36 @@ body {
   font-size: 13px;
 }
 
-.fixedOverlay {
-  position: fixed;
-  top: 0px;
-  padding-top: 75px;
-  width: 100%;
-}
-
 .container {
   max-width: 970px;
 }
 
-.container.nonResponsive {
-  max-width: none !important;
-  width: 970px;
-}
-
-#requestForm {
-  overflow: hidden;
-  margin-bottom: 15px;
-}
-
-#requestForm .requestFormName {
-  min-width: 100%;
-  max-width: 100%;
-  display: block;
-  margin-bottom: 10px;
-}
-
-#requestForm #requestFormSubmit {
-  float: right;
-}
-
-#requestStream {
-  height: 350px;
-  overflow: auto;
-  padding-right: 20px;
-  padding-top: 10px;
-  border-top: 2px solid #eeeeee;
-  border-bottom: 2px solid #eeeeee;
-}
-
 .request {
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 20px;
 }
 
 .requestSide {
-  width: 15%;
-  display: inline-block;
-  vertical-align: top;
-  text-align: right;
-}
-
-.requestSide .requestStatus {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.requestMain {
-  width: 85%;
-  display: inline-block;
-  vertical-align: top;
-  padding-right: 10px;
-}
-
-.requestMain .requestTitle {
-  color: #666666;
-}
-
-.requestMain .requestTitle .requestUsername {
-  font-weight: bold;
-}
-
-.requestMain .requestDate {
-  margin-bottom: 5px;
-  color: #999999;
-}
-
-.requestStreamLoading {
-  text-align: center;
-  padding-bottom: 20px;
-  display: none;
-}
-
-#postForm {
-  width: 60%;
-  margin-left: 40%;
-  margin-bottom: 20px;
-  overflow: hidden;
-}
-
-#postForm .postFormName,
-#postForm .postFormURL {
-  min-width: 100%;
-  max-width: 100%;
-  display: block;
-  margin-bottom: 10px;
-}
-
-#postForm .postFormDescription {
-  min-width: 100%;
-  max-width: 100%;
-  display: block;
-  margin-bottom: 10px;
-}
-
-#postForm #postFormSubmit {
-  float: right;
-}
-
-.post {
-  margin-bottom: 20px;
-}
-
-.postSide {
-  width: 40%;
+  width: 30%;
   display: inline-block;
   vertical-align: top;
   padding-right: 30px;
   text-align: right;
 }
 
-.postSide .postTitle {
+.requestSide .requestTitle {
   color: #666666;
 }
 
-.postSide .postTitle .postUsername {
+.requestSide .requestTitle .requestUsername {
   font-weight: bold;
 }
 
-.postSide .postDate {
+.requestSide .requestDate {
   margin-bottom: 10px;
   color: #999999;
 }
 
-.postSide .postViewsContainer {
+.requestSide .requestViewsContainer {
   display: inline-block;
   border: 1px solid #cccccc;
   border-radius: 3px;
@@ -147,27 +40,27 @@ body {
   cursor: default;
 }
 
-.postMain {
-  width: 60%;
+.requestMain {
+  width: 70%;
   display: inline-block;
   vertical-align: top;
   padding-bottom: 10px;
   border-bottom: 2px solid #eeeeee;
 }
 
-.postMain .postName {
+.requestMain .requestName {
   margin-bottom: 10px;
   font-weight: bold;
   font-size: 14px;
   max-width: 90%;
 }
 
-.postMain .postIcon,
-.postMain .postGet {
+.requestMain .requestIcon,
+.requestMain .requestGet {
   float: right;
 }
 
-.postStreamLoading {
+#requestStreamLoading {
   text-align: center;
   padding-bottom: 20px;
   margin-left: 40%;
@@ -181,14 +74,6 @@ body {
 
 a.promptSignUp {
   cursor: pointer;
-}
-
-.requestStatus .glyphicon-unchecked {
-  color: #3c95d2;
-}
-
-.requestStatus .glyphicon-ok {
-  color: #468847;
 }
 
 .navbar-default .navbar-header .navbar-brand {
@@ -267,5 +152,5 @@ fieldset[disabled] .btn-schola.active {
 }
 
 .btn-schola .caret {
-  border-top-color: #fff;
+  border-top-color: #ffffff;
 }
