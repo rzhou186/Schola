@@ -63,10 +63,17 @@ var app = app || {};
       return new app.Request({
         id: request["_id"],
         name: request["name"],
-        url: request["URL"],
         upvotes: request["views"],
         status: request["status"],
         dateTime: request["created"],
+        requesterId: request["requesterId"],
+        requesterName: request["requesterName"],
+        satisfierId: request["satisfierId"],
+        satisfierName: request["satisfierName"],
+        reponseUrl: request["responseURL"],
+        reponseDescription: request["responseDescription"],
+        responseViews: request["responseViews"],
+        responseDateTime: request["responseDate"],
         openable: this.info["isLoggedIn"]
       });
     },

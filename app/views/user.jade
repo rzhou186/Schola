@@ -1,0 +1,29 @@
+doctype 5
+html
+
+  head
+    title Schola
+    include headerFiles.jade
+    link(rel="stylesheet", href="/stylesheets/requestForm.css")
+    
+  body
+    include navbar.jade
+
+    div.fixedOverlay
+      div.container.notResponsive
+        div.row
+          div.col-xs-9
+            div#requestStream
+              div#requests
+              div#requestStreamLoading
+                img(src="/images/loading.gif")
+          div.col-xs-3
+            div#alerts
+            form#requestForm
+              p
+                strong Add Request
+              input.requestFormName.form-control(type='text', name='name', maxlength='100', placeholder='Add anonymous request...')
+              button#requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
+
+    include footerFiles.jade
+    script(type="text/javascript", src="/javascripts/views/user.js")

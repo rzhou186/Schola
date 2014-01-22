@@ -1,0 +1,59 @@
+.request {
+  margin-bottom: 20px;
+}
+
+.requestSide {
+  width: 40%;
+  display: inline-block;
+  vertical-align: top;
+  padding-right: 30px;
+  text-align: right;
+}
+
+.requestSide .requestTitle {
+  color: #666666;
+}
+
+.requestSide .requestTitle .requestUsername {
+  font-weight: bold;
+}
+
+.requestSide .requestDateTime {
+  margin-bottom: 10px;
+  color: #999999;
+}
+
+.requestSide .requestViews {
+  display: inline-block;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  padding: 1px 5px 1px 5px;
+  cursor: default;
+}
+
+.requestMain {
+  width: 60%;
+  display: inline-block;
+  vertical-align: top;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eeeeee;
+}
+
+.requestMain .requestName {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  max-width: 90%;
+}
+
+.requestMain .requestUpvotes {
+  float: right;
+  width: 30px;
+}
+
+#requestStreamLoading {
+  text-align: center;
+  padding-bottom: 20px;
+  margin-left: 40%;
+  display: none;
+}

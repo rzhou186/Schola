@@ -1,0 +1,44 @@
+.btn-schola {
+  color: #ffffff;
+  background-color: #3c95d2;
+  border-color: #2e89c7;
+}
+
+.btn-schola:hover,
+.btn-schola:focus,
+.btn-schola:active,
+.btn-schola.active,
+.open .dropdown-toggle.btn-schola {
+  color: #ffffff;
+  background-color: #2e89c7;
+  border-color: #297ab2;
+}
+
+.btn-schola:active,
+.btn-schola.active,
+.open .dropdown-toggle.btn-schola {
+  background-image: none;
+}
+
+.btn-schola.disabled,
+.btn-schola[disabled],
+fieldset[disabled] .btn-schola,
+.btn-schola.disabled:hover,
+.btn-schola[disabled]:hover,
+fieldset[disabled] .btn-schola:hover,
+.btn-schola.disabled:focus,
+.btn-schola[disabled]:focus,
+fieldset[disabled] .btn-schola:focus,
+.btn-schola.disabled:active,
+.btn-schola[disabled]:active,
+fieldset[disabled] .btn-schola:active,
+.btn-schola.disabled.active,
+.btn-schola[disabled].active,
+fieldset[disabled] .btn-schola.active {
+  background-color: #3c95d2;
+  border-color: #2e89c7;
+}
+
+.btn-schola .caret {
+  border-top-color: #ffffff;
+}

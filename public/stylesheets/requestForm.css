@@ -1,0 +1,17 @@
+#requestForm {
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+#requestForm .requestFormName {
+  min-width: 100%;
+  max-width: 100%;
+  display: block;
+  margin-bottom: 10px;
+}
+
+#requestForm #requestFormSubmit {
+  float: right;
+  font-weight: bold;
+  width: 70px;
+}

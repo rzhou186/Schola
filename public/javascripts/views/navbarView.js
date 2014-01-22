@@ -15,7 +15,7 @@ var app = app || {};
 
     enableProfileAccess: function() {
       // profileAccess is rendered only for moderators.
-      var profileAccess = this.$el.find("#profileAccess");
+      var profileAccess = this.$el.find("#userAccess");
       if (profileAccess.length) {
         var username = app.cookies.getCookie("username");
         profileAccess.html(username);

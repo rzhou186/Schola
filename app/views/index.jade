@@ -8,12 +8,14 @@ html
   body
     include navbar.jade
 
-    div.container.nonResponsive
+    div.container.notResponsive
       div.row
-        div.col-xs-12
+        div.col-xs-9
           div#requestStream
             div#requests
             div#requestStreamLoading
               img(src="/images/loading.gif")
+        div#sidebar.col-xs-3
+          div#alerts
 
     include footerFiles.jade

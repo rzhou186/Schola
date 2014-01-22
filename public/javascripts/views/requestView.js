@@ -29,14 +29,27 @@ var app = app || {};
             "<div class=\"requestTitle\">" + 
               "Hello world!" +
             "</div>" +
-            "<div class=\"requestTitle\">" + 
+            "<div class=\"requestDateTime\">" + 
               requestDate + 
             "</div>" +
+            "<div class=\"requestViews\" data-toggle=\"tooltip\" title=\"" + 
+              "20" + " views\">" + 
+              "20" +
+              " <span class=\"glyphicon glyphicon-eye-open\"></span>" + 
+            "</div>" + 
           "</div>" + 
           "<div class=\"requestMain\">" + 
+            "<button class=\"requestUpvotes btn btn-schola btn-xs btn-block\">" + 
+              "<span class=\"glyphicon glyphicon-chevron-up\"></span>" + 
+              "<div>" + this.model.get("upvotes") + "</div>" + 
+            "</button>" + 
             "<div class=\"requestName\">" +
               requestName +
             "</div>" + 
+            "<div class=\"requestDescription\">" + 
+              "<p>" + "I like trains." + "</p>" + 
+            "</div>" + 
+            "</br>" + 
           "</div>" + 
         "</div>"
       );
