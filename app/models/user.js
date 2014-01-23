@@ -9,7 +9,8 @@ var userSchema = new mongoose.Schema({
 	password : String,
 	isModerator : Number,
 	created : Date,
-	postedPosts : [mongoose.Schema.Types.ObjectId],
+	description : String,
+	receivedRequests : [mongoose.Schema.Types.ObjectId],
 	upvotedRequests : [mongoose.Schema.Types.ObjectId],
 	postedRequests : [mongoose.Schema.Types.ObjectId],
 })

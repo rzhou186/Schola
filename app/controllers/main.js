@@ -1,10 +1,18 @@
 //#######__MODULE DEPENDENCIES__#########
 var mongoose 	= require('mongoose'),
 	userModel	= mongoose.model('user'),
-	postModel = mongoose.model('post'),
 	requestModel = mongoose.model('request'),
 	users = require('../../config/users.json')
 	// mock_data = JSON.parse(fs)
+
+exports.userProfile = function(req, res) {
+	var currentUserName = req.params.username;
+	userModel.find({username : currentUserName}, function (err, docs) {
+		if(docs && docs.length > 0) {
+			res.render('user', {data : docs[0]})
+		}
+	})
+}
 
 exports.index = function(req, res) {
 	console.log(req.cookies.username);
@@ -31,6 +39,7 @@ exports.index = function(req, res) {
 		})
 	}
 }
+
 // ask for data.oldlatest
 exports.getPosts = function(data, socket) {
 	if(data.oldLatest == 0) {
@@ -170,14 +179,7 @@ exports.getPosts = function(data, socket) {
 	// 	})
 	// })
 }
-/*function(err,allNews){
-    socket.emit('news-load', allNews); // Do something with the array of 10 objects
-})
-	postModel.find({}, function (err, docs) {
-		socket.emit('getPostsSuccess', {result : docs})
-	})
-}
-*/
+
 /* Gets the user name of the user with _id equal to data._id. Thus, pass in a
 JSON object containing the _id
 */
@@ -194,49 +196,92 @@ exports.getUserName = function(data, socket) {
 }
 
 exports.getRequests = function(data, socket) {
-	requestModel.find({},'name upvotes created posterId status URL', { skip: data.start, limit:10, sort:{
-        upvotes: -1
-    }
-	}, function (err, docs) {
-		userModel.find({username : data.username}, function (err, userData) {
-			if(userData && userData.length > 0) {
-				if(userData[0].password === data.password) {
-					socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 1});
+	if(data.username === "") {
+		requestModel.find({},'name upvotes requesterId satisfierId requesterName satisfierName status created responseURL responseDescription responseViews responseDate', { skip: data.start, limit:10, sort:{
+	        upvotes: -1
+	    }
+		}, function (err, docs) {
+			userModel.find({username : data.username}, function (err, userData) {
+				if(userData && userData.length > 0) {
+					if(userData[0].password === data.password) {
+						socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 1});
+					}
+					else {
+						socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 0});
+					}
 				}
 				else {
 					socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 0});
 				}
+			})
+		})
+	}
+	else {
+		userModel.find({username : data.username}, function (err, docs) {
+			if (docs && docs.length > 0) {
+				var finalRequests = [];
+				for (var i = 0; i < docs[0].receivedRequests.length; i++) {
+					requestModel.find({_id : docs[0].receivedRequests[i]}, function (err, docsTwo) {
+						finalRequests.push(docs[0]);
+					})
+				}
+				socket.emit('getRequestsSuccess', {result : finalRequests});
 			}
 			else {
-				socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 0});
+				socket.emit('getRequestsSuccess', {result : []})
 			}
 		})
-	})
+	}
 }
 
-exports.postRequest = function(data, socket) {
-	userModel.find({username : data.username}, function (err, docs) {
+exports.updateRequest = function (data, socket) {
+	requestModel.find({_id : data.requestId}, function (err, docs) {
+		docs[0].status = 1;
+		docs[0].responseURL = data.responseURL;
+		docs[0].responseDescription = data.responseDescription;
+		docs[0].responseDate = new Date();
+		docs[0].save();
+		socket.emit('updateRequestSuccess', {updateStatus : 1});
+	})
+}
+exports.createRequest = function(data, socket) {
+	userModel.find({username : data.requesterName}, function (err, docs) {
 		if(docs && docs.length > 0) {
 			if(docs[0].password === data.password) {
-				var newData = {};
-				newData.name = data.name;
-				newData.upvotes = 0;
-				newData.status = 0;
-				newData.posterId = docs[0]._id;
-				newData.URL = data.URL;
-				newData.created = new Date();
-				var newPost = new requestModel(newData);
-				newPost.save();
-				docs[0].postedRequests.push(newPost._id);
-				docs[0].save();
-				socket.emit('postRequestSuccess', {requestStatus : 1});
+				userModel.find({username: data.satisfierName}, function (err, docsTwo) {
+					if(docsTwo && docsTwo.length > 0) {
+						var newData = {};
+						newData.name = data.name;
+						newData.upvotes = 0;
+						newData.requesterId = docs[0].requesterId;
+						newData.satisfierId = docs[0].satisfierId;
+						newData.satisfierName = docs[0].satisfierName;
+						newData.requesterName = docs[0].requesterName;
+						newData.status = 0;
+						newData.created = new Date();
+						newData.responseURL = data.responseURL;
+						newData.responseDescription = data.responseDescription;
+						newData.responseViews = 0;
+						newData.responseDate = new Date();
+						var newRequest = new requestModel(newData);
+						newPost.save();
+						docs[0].postedRequests.push(newRequest._id);
+						docs[0].save();
+						docsTwo[0].receivedRequests.push(newRequest._id);
+						docsTwo[0].save();
+						socket.emit('createRequestSuccess', {requestStatus : 1});
+					}
+					else {
+						socket.emit('createRequestSuccess', {requestStatus : 2});
+					}
+				})
 			}
 			else {
-				socket.emit('postRequestSuccess', {requestStatus : 2});
+				socket.emit('createRequestSuccess', {requestStatus : 2});
 			}
 		}
 		else {
-			socket.emit('postRequestSuccess', {requestStatus : 2});
+			socket.emit('createRequestSuccess', {requestStatus : 2});
 		}
 	})
 }
@@ -247,11 +292,22 @@ can view it again and again and increase the views, that should be fine yes?
 or do we want similar constraints as requests?
 */
 exports.incrementViews = function(data, socket) {
-	console.log(data);
-	postModel.find({_id : data.postId}, function (err, docs) {
-		docs[0].views++;
-		docs[0].save()
-		socket.emit('incrementViewsSuccess', {viewStatus : 1, postId : data.postId})
+	requestModel.find({_id : data.requestId}, function (err, docs) {
+		userModel.find({username : data.username}, function (err, userData) {
+			if(userData && userData.length > 0) {
+				if (userData[0].password === data.password) {
+						docs[0].responseViews++;
+						docs[0].save()
+						socket.emit('incrementViewsSuccess', {viewStatus : 1})
+				}
+				else {
+					socket.emit ('incrementViewsSuccess', {viewStatus : 0})
+				}
+			}
+			else {
+				socket.emit ('incrementViewsSuccess', {viewStatus : 0})
+			}
+		})
 	})
 }
 
@@ -291,42 +347,7 @@ exports.incrementUpVotes = function(data, socket) {
 	})
 }
 
-exports.postPost = function(data, socket) {
-	userModel.find({username : data.username}, function (err, docs) {
-		if(docs && docs.length > 0) {
-			if(docs[0].password === data.password) {
-				var newData = {};
-				newData.name = data.name;
-				newData.desc = data.desc;
-				newData.URL = data.URL;
-				newData.views = 0;
-				newData.created  = new Date();
-				newData.posterId = docs[0]._id;
-				var newPost = new postModel(newData);
-				newPost.save();
-				docs[0].postedPosts.push(newPost._id);
-				docs[0].save();
-				socket.emit('postPostSuccess', {postStatus : 1});
-			}
-			else {
-				socket.emit('postPostSuccess', {postStatus : 2});
-			}
-		}
-		else {
-				socket.emit('postPostSuccess', {postStatus : 2});
-		}
-	})
-}
- 
 
-exports.addTestUsers = function(data, socket) {
-	for (var i in users.user) {
-		console.log(users.user[i])
-		var user = new userModel(users.user[i])
-		user.save()
-	}
-	console.log("Users added");
-}
 
 exports.logIn = function(data, socket) {
 	console.log(data.username);
@@ -364,6 +385,8 @@ exports.signUp = function(data, socket) {
 			user.postedPosts = [];
 			user.postedRequests = [];
 			user.upvotedRequests = [];
+			user.receivedRequests = [];
+			user.description = "";
 			var newUser = new userModel(user);
 			newUser.save();
 			//var user = [ {username : data.username}, {password : data.password}, {isModerator : 0}, {postedPosts : []}, {postedRequests : []}]

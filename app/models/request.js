@@ -8,10 +8,16 @@ var requestSchema = new mongoose.Schema({
 	//schema here
 	name : String,
 	upvotes : Number,
-	posterId : mongoose.Schema.Types.ObjectId,
+	requesterId : mongoose.Schema.Types.ObjectId,
+	satisfierId : mongoose.Schema.Types.ObjectId,
+	requesterName : String,
+	satisfierName : String,
 	status : Number,
 	created : Date,
-	URL : String
+	responseURL : String,
+	responseDescription : String,
+	responseViews : Number,
+	responseDate : Date
 })
 
 //Publish the model to be used in other files and storage etc.
