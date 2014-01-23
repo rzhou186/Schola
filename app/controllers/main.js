@@ -8,7 +8,7 @@ var mongoose 	= require('mongoose'),
 exports.userProfile = function(req, res) {
 	var currentUserName = req.params.username;
 	userModel.find({username : currentUserName}, function (err, docs) {
-		userModel.find({username : req.cookies.username}, function(err, docsTwo) {
+		userModel.find({username : req.cookies.username}, function (err, docsTwo) {
 			if(docsTwo && docsTwo.length > 0) {
 				if (docsTwo[0].password === req.cookies.password) {
 					if(docs && docs.length > 0) {
@@ -255,7 +255,7 @@ exports.getRequests = function(data, socket) {
 
 exports.updateRequest = function (data, socket) {
 	requestModel.find({_id : data.requestId}, function (err, docs) {
-		userModel.find({username : data.username}, function (err, docsTwo)) {
+		userModel.find({username : data.username}, function (err, docsTwo) {
 			if (docsTwo && docsTwo.length > 0) {
 				if (docsTwo[0].password === data.password) {
 					docs[0].status = 1;
@@ -272,7 +272,7 @@ exports.updateRequest = function (data, socket) {
 			else {
 				socket.emit ('updateRequestSuccess', {updateStatus : 0});
 			}
-		}
+		})
 	})
 }
 exports.createRequest = function(data, socket) {
