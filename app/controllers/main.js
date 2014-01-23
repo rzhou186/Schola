@@ -12,7 +12,10 @@ exports.userProfile = function(req, res) {
 			if(docsTwo && docsTwo.length > 0) {
 				if (docsTwo[0].password === req.cookies.password) {
 					if(docs && docs.length > 0) {
-						res.render('user', {data : docs[0], isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier})
+						var returnDocs = {};
+						returnDocs.username = docs[0].username;
+						returnDocs._id = docs[0]._id;
+						res.render('user', {data : returnDocs, isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier})
 					}
 					else {
 						res.render('user', {data : [], isLoggedIn : 1, isSatisfier: docsTwo[0].isSatisfier})
