@@ -14,6 +14,8 @@ var app = app || {};
       else expires = new Date(new Date().getTime() + parseInt(expires) * 1000 * 60 * 60 * 24);
       cookie += "expires=" + expires.toGMTString() + ";";
     }
+    cookie += "path=/;";
+    console.log(cookie);
     document.cookie = cookie;
   };
 

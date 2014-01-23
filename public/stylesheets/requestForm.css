@@ -3,6 +3,11 @@
   margin-bottom: 15px;
 }
 
+#requestForm .btn-schola {
+  font-weight: bold;
+  width: 70px;
+}
+
 #requestForm .requestFormName {
   min-width: 100%;
   max-width: 100%;
@@ -12,6 +17,4 @@
 
 #requestForm #requestFormSubmit {
   float: right;
-  font-weight: bold;
-  width: 70px;
 }

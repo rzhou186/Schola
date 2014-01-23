@@ -5,61 +5,92 @@ var app = app || {};
   app.RequestView = Backbone.View.extend({
 
     events: {
-      // Add listener for click on upvote button
+      // "click .requestUpvotes": recordUpvote
+      // "click .requestName": recordResponseView,
     },
 
     initialize: function() {
+      if (this.isViewingOwnUser() &&
+          this.model.status === REQUEST_NOT_SATISFIED)
+        this.addResponseForm();
+
       this.listenTo(this.model, "change", this.render);
     },
 
     render: function() {
-      var requestDate = app.dateTime.format(this.model.get("dateTime"));
+      var requestTitle = "<span class=\"satisfierName\">" + this.model.get("satisfierName") + "</span> received a request.";
+      var requestDateTime = app.dateTime.format(this.model.get("dateTime"));
+      var requestViews = "";
+      var requestUpvotes = this.model.get("upvotes");
       var requestName = this.model.get("name");
-      
-      if (this.model.get("status") === 1) { // This should be a constant
-        if (this.model.get("openable")) {
-          requestName = "<a href=\"" + this.model.get("url") + "\" target=\"_blank\">" + this.model.get("name") + "</a>";
-        }
-        else requestName = "<a class=\"promptSignUp\">" + this.model.get("name") + "</a>";
+      var requestOrigin = "from <span class=\"requesterName\">" + this.model.get("requesterName") + "</span>";
+      var requestDescription = "<em>This request is pending a response.</em>";
+
+      if (this.model.status === REQUEST_SATISFIED) {
+        requestTitle = "<span class=\"satisfierName\">" + this.model.get("satisfierName") + "</span> satisfied a request.";
+        requestViews = "<div class=\"requestViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
+        requestName = "<a href=\"" + this.model.get("responseURL") + "\" target=\"_blank\">" + this.model.get("name") + "</a>";
+        requestDescription = this.model.get("responseDescription");
+
+        if (!this.model.get("openable"))
+          requestName = "<a class=\"promptSignUp\">" + this.model.get("name") + "</a>";
       }
 
       this.$el.html(
-        "<div class=\"request\" id=" + this.model.get("id") + ">" + 
+        "<div class=\"request\">" + 
           "<div class=\"requestSide\">" + 
             "<div class=\"requestTitle\">" + 
-              "Hello world!" +
+              requestTitle +
             "</div>" +
             "<div class=\"requestDateTime\">" + 
-              requestDate + 
+              requestDateTime + 
             "</div>" +
-            "<div class=\"requestViews\" data-toggle=\"tooltip\" title=\"" + 
-              "20" + " views\">" + 
-              "20" +
-              " <span class=\"glyphicon glyphicon-eye-open\"></span>" + 
-            "</div>" + 
-          "</div>" + 
+            requestViews + 
+          "</div>" +
           "<div class=\"requestMain\">" + 
             "<button class=\"requestUpvotes btn btn-schola btn-xs btn-block\">" + 
               "<span class=\"glyphicon glyphicon-chevron-up\"></span>" + 
-              "<div>" + this.model.get("upvotes") + "</div>" + 
+              requestUpvotes + 
             "</button>" + 
-            "<div class=\"requestName\">" +
-              requestName +
-            "</div>" + 
+            "<div class=\"requestName\">" + 
+              requestName + 
+            "</div>" +
+            "<div class=\"requestOrigin\">" +
+              requestOrigin + 
+            "</div>" +
             "<div class=\"requestDescription\">" + 
-              "<p>" + "I like trains." + "</p>" + 
-            "</div>" + 
-            "</br>" + 
+              responseDescription +
+            "</div>" +
           "</div>" + 
-        "</div>"
+        "</div>" 
       );
       return this;
     },
 
-    recordView: function(e) {
+    isViewingOwnUser: function() {
+      if (!app.pageData) return false;
+      return app.pageData.username === app.cookies.getCookie("username");
+    },
+
+    addResponseForm: function() {
+      var responseFormView = new app.RequestResponseFormView({
+        requestId: this.model.get("id")
+      });
+      this.$(".requestMain").append(
+        requestFormView.render().el
+      );
+    },
+
+    recordUpvote: function(e) {
       // Where should the screening for promptSignUp happen? here or in events?
       // I think i like here better.
       // this.model.incrementUpvotes();
+    },
+
+    recordResponseView: function(e) {
+      // Where should the screening for promptSignUp happen? here or in events?
+      // I think i like here better.
+      // this.model.incrementResponseViews();
     }
 
   });

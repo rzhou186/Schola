@@ -16,11 +16,19 @@ var app = app || {};
       this.loadMoreRequests();
     },
 
+    isViewingUser: function() {
+      if (app.pageData) return true;
+      return false;
+    },
+
     initInfo: function() {
       this.info = {};
       this.info["start"] = 0;
       this.info["username"] = app.cookies.getCookie("username");
       this.info["password"] = app.cookies.getCookie("password");
+      if (this.isViewingUser())
+        this.info["satisfierName"] = app.pageData.username;
+      else this.info["satisfierName"] = "";
     },
 
     showStreamLoading: function() {
@@ -63,7 +71,7 @@ var app = app || {};
       return new app.Request({
         id: request["_id"],
         name: request["name"],
-        upvotes: request["views"],
+        upvotes: request["upvotes"],
         status: request["status"],
         dateTime: request["created"],
         requesterId: request["requesterId"],

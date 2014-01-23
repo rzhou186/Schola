@@ -29,3 +29,8 @@
 .navbar-form > * {
   margin-left: 5px;
 }
+
+.navbar-form .btn-schola {
+  font-weight: bold;
+  width: 70px; 
+}

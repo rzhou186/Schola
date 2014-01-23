@@ -7,7 +7,7 @@ var app = app || {};
     el: "#requestForm",
 
     events: {
-      "submit": "attemptPostRequest"
+      "submit": "postRequest"
     },
 
     enableFormSubmit: function() {
@@ -34,31 +34,33 @@ var app = app || {};
     },
 
     augmentFormData: function(formData){
-      formData["username"] = app.cookies.getCookie("username");
+      formData["requesterName"] = app.cookies.getCookie("username");
+      formData["satisfierName"] = app.pageData.username;
       formData["password"] = app.cookies.getCookie("password");
-      formData["URL"] = "#";
+      formData["responseURL"] = "#";
+      formData["responseDescription"] = "";
       return formData;
     },
 
-    handlePostRequestResp: function(resp, formData) {
+    handlePostResp: function(resp, formData) {
       if (resp.requestStatus === POST_REQUEST_SUCCESS)
         location.reload();
       else if (resp.requestStatus === POST_REQUEST_FAILURE) {
-        app.socket.removeAllListeners("postRequestSuccess");
+        app.socket.removeAllListeners("createRequestSuccess");
         app.alerter.alert("Post request failed.");
       }
     },
 
-    attemptPostRequest: function(e) {
+    postRequest: function(e) {
       e.preventDefault();
       this.disableFormSubmit();
       var formData = this.extractFormData();
       if (formData) {
         formData = this.augmentFormData(formData);
-        app.socket.emit("postRequest", formData);
+        app.socket.emit("createRequest", formData);
         var that = this;
-        app.socket.on("postRequestSuccess", function(resp) {
-          that.handlePostRequestResp(resp, formData);
+        app.socket.on("createRequestSuccess", function(resp) {
+          that.handlePostResp(resp, formData);
           that.enableFormSubmit();
         });
       }

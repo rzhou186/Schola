@@ -7,7 +7,7 @@ var app = app || {};
     initialize: function() {
       this.REQUEST_NOT_SATISFIED = 0;
       this.REQUEST_SATISFIED = 1;
-    }
+    },
 
     defaults: {
       id: null,
@@ -28,13 +28,15 @@ var app = app || {};
 
     // Overwrite sync so it uses sockets, so that save works
 
-    incrementViews: function() {
-
-    }
-
     incrementUpvotes: function() {
       // this.save({
       //   upvotes: this.get("upvotes") + 1
+      // });
+    },
+
+    incrementResponseViews: function() {
+      // this.save({
+      //   responseViews: this.get("responseViews") + 1
       // });
     }
 

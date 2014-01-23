@@ -15,18 +15,19 @@ exports.userProfile = function(req, res) {
 						var returnDocs = {};
 						returnDocs.username = docs[0].username;
 						returnDocs._id = docs[0]._id;
+						returnDocs = JSON.stringify(returnDocs);
 						res.render('user', {data : returnDocs, isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier})
 					}
 					else {
-						res.render('user', {data : [], isLoggedIn : 1, isSatisfier: docsTwo[0].isSatisfier})
+						res.render('user', {data : {}, isLoggedIn : 1, isSatisfier: docsTwo[0].isSatisfier})
 					}
 				}
 				else {
-					res.render('user', {data : [], isLoggedIn : 0, isSatisfier : 0})
+					res.render('user', {data : {}, isLoggedIn : 0, isSatisfier : 0})
 				}
 			}
 			else {
-				res.render('user', {data : [], isLoggedIn : 0, isSatisfier : 0})
+				res.render('user', {data : {}, isLoggedIn : 0, isSatisfier : 0})
 			}
 		})
 

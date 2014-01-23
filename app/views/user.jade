@@ -9,6 +9,8 @@ html
   body
     include navbar.jade
 
+    //- Deal with responsive sidebar later, in bodyView.js
+
     div.fixedOverlay
       div.container.notResponsive
         div.row
@@ -25,5 +27,9 @@ html
               input.requestFormName.form-control(type='text', name='name', maxlength='100', placeholder='Add anonymous request...')
               button#requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
 
+    script
+      var app = app || {};
+      app.pageData = !{data};
+
     include footerFiles.jade
-    script(type="text/javascript", src="/javascripts/views/user.js")
+    script(type="text/javascript", src="/javascripts/user.js")

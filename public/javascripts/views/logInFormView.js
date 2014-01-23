@@ -7,7 +7,7 @@ var app = app || {};
     el: "#logInForm",
 
     events: {
-      "submit": "attemptLogIn"
+      "submit": "logIn"
     },
 
     enableFormSubmit: function() {
@@ -50,7 +50,7 @@ var app = app || {};
       }
     },
 
-    attemptLogIn: function(e) {
+    logIn: function(e) {
       e.preventDefault();
       this.disableFormSubmit();
       var formData = this.extractFormData();

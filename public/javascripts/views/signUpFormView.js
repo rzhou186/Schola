@@ -7,7 +7,7 @@ var app = app || {};
     el: "#logInForm",
 
     events: {
-      "click #signUpFormSubmit": "attemptSignUp"
+      "click #signUpFormSubmit": "signUp"
     },
 
     enableFormSubmit: function() {
@@ -50,7 +50,7 @@ var app = app || {};
       }
     },
 
-    attemptSignUp: function() {
+    signUp: function() {
       this.disableFormSubmit();
       var formData = this.extractFormData();
       if (formData) {

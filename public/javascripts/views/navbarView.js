@@ -9,7 +9,7 @@ var app = app || {};
     initialize: function() {
       new app.LogInFormView();
       new app.SignUpFormView();
-      new app.LogOutView();
+      new app.LogOutView
       this.enableProfileAccess();
     },
 
@@ -19,7 +19,7 @@ var app = app || {};
       if (profileAccess.length) {
         var username = app.cookies.getCookie("username");
         profileAccess.html(username);
-        profileAccess.attr("href", username);
+        profileAccess.attr("href", "user/" + username);
       }
     }
 
