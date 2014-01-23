@@ -295,7 +295,7 @@ exports.createRequest = function(data, socket) {
 						newData.responseViews = 0;
 						newData.responseDate = new Date();
 						var newRequest = new requestModel(newData);
-						newPost.save();
+						newRequest.save();
 						docs[0].postedRequests.push(newRequest._id);
 						docs[0].save();
 						docsTwo[0].receivedRequests.push(newRequest._id);
