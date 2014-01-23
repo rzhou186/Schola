@@ -252,12 +252,24 @@ exports.getRequests = function(data, socket) {
 
 exports.updateRequest = function (data, socket) {
 	requestModel.find({_id : data.requestId}, function (err, docs) {
-		docs[0].status = 1;
-		docs[0].responseURL = data.responseURL;
-		docs[0].responseDescription = data.responseDescription;
-		docs[0].responseDate = new Date();
-		docs[0].save();
-		socket.emit('updateRequestSuccess', {updateStatus : 1});
+		userModel.find({username : data.username}, function (err, docsTwo)) {
+			if (docsTwo && docsTwo.length > 0) {
+				if (docsTwo[0].password === data.password) {
+					docs[0].status = 1;
+					docs[0].responseURL = data.responseURL;
+					docs[0].responseDescription = data.responseDescription;
+					docs[0].responseDate = new Date();
+					docs[0].save();
+					socket.emit('updateRequestSuccess', {updateStatus : 1});
+				}
+				else {
+					socket.emit('updateRequestSuccess', {updateStatus : 0});
+				}
+			}
+			else {
+				socket.emit ('updateRequestSuccess', {updateStatus : 0});
+			}
+		}
 	})
 }
 exports.createRequest = function(data, socket) {
