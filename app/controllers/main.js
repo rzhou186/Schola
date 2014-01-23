@@ -8,12 +8,25 @@ var mongoose 	= require('mongoose'),
 exports.userProfile = function(req, res) {
 	var currentUserName = req.params.username;
 	userModel.find({username : currentUserName}, function (err, docs) {
-		if(docs && docs.length > 0) {
-			res.render('user', {data : docs[0]})
-		}
-		else {
-			res.render('user', {data : []})
-		}
+		userModel.find({username : req.cookies.username}, function(err, docsTwo) {
+			if(docsTwo && docsTwo.length > 0) {
+				if (docsTwo[0].password === req.cookies.password) {
+					if(docs && docs.length > 0) {
+						res.render('user', {data : docs[0], isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier})
+					}
+					else {
+						res.render('user', {data : [], isLoggedIn : 1, isSatisfier: docsTwo[0].isSatisfier})
+					}
+				}
+				else {
+					res.render('user', {data : [], isLoggedIn : 0, isSatisfier : 0})
+				}
+			}
+			else {
+				res.render('user', {data : [], isLoggedIn : 0, isSatisfier : 0})
+			}
+		})
+
 	})
 }
 
