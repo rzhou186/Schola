@@ -20,21 +20,21 @@ exports.index = function(req, res) {
 	console.log(req.cookies);
 	//find all the files linked to that user and pass them on to the template
 	if (req.cookies.username == undefined || req.cookies.password == undefined) {
-		res.render('index', {isLoggedIn : 0, isModerator : 0})
+		res.render('index', {isLoggedIn : 0, isSatisfier : 0})
 	}
 	else {
 		userModel.find({username : req.cookies.username}, function (err, docs) {
 			console.log(docs);
 			if(docs && docs.length > 0) {
 				if(docs[0].password === req.cookies.password) {
-					res.render('index', {isLoggedIn : 1, isModerator : docs[0].isModerator});
+					res.render('index', {isLoggedIn : 1, isSatisfier : docs[0].isSatisfier});
 				}
 				else {
-					res.render('index', {isLoggedIn : 0, isModerator : 0})
+					res.render('index', {isLoggedIn : 0, isSatisfier : 0})
 				}
 			}
 			else {
-				res.render('index', {isLoggedIn : 0, isModerator : 0})
+				res.render('index', {isLoggedIn : 0, isSatisfier : 0})
 			}
 		})
 	}
@@ -196,7 +196,7 @@ exports.getUserName = function(data, socket) {
 }
 
 exports.getRequests = function(data, socket) {
-	if(data.username === "") {
+	if(data.satisfierName === "") {
 		requestModel.find({},'name upvotes requesterId satisfierId requesterName satisfierName status created responseURL responseDescription responseViews responseDate', { skip: data.start, limit:10, sort:{
 	        upvotes: -1
 	    }
@@ -217,7 +217,7 @@ exports.getRequests = function(data, socket) {
 		})
 	}
 	else {
-		userModel.find({username : data.username}, function (err, docs) {
+		userModel.find({username : data.satisfierName}, function (err, docs) {
 			if (docs && docs.length > 0) {
 				var finalRequests = [];
 				for (var i = 0; i < docs[0].receivedRequests.length; i++) {
@@ -380,7 +380,7 @@ exports.signUp = function(data, socket) {
 			var user = {};
 			user.username = data.username;
 			user.password = data.password;
-			user.isModerator = 0;
+			user.isSatisfier = 0;
 			user.created = new Date();
 			user.postedPosts = [];
 			user.postedRequests = [];
