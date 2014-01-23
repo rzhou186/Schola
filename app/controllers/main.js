@@ -11,6 +11,9 @@ exports.userProfile = function(req, res) {
 		if(docs && docs.length > 0) {
 			res.render('user', {data : docs[0]})
 		}
+		else {
+			res.render('user', {data : []})
+		}
 	})
 }
 
