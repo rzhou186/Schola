@@ -10,10 +10,6 @@ var app = app || {};
     },
 
     initialize: function() {
-      if (this.isViewingOwnUser() &&
-          this.model.status === REQUEST_NOT_SATISFIED)
-        this.addResponseForm();
-
       this.listenTo(this.model, "change", this.render);
     },
 
@@ -24,13 +20,13 @@ var app = app || {};
       var requestUpvotes = this.model.get("upvotes");
       var requestName = this.model.get("name");
       var requestOrigin = "from <span class=\"requesterName\">" + this.model.get("requesterName") + "</span>";
-      var requestDescription = "<em>This request is pending a response.</em>";
+      var responseDescription = "<em>This request is pending a response.</em>";
 
       if (this.model.status === REQUEST_SATISFIED) {
         requestTitle = "<span class=\"satisfierName\">" + this.model.get("satisfierName") + "</span> satisfied a request.";
         requestViews = "<div class=\"requestViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
         requestName = "<a href=\"" + this.model.get("responseURL") + "\" target=\"_blank\">" + this.model.get("name") + "</a>";
-        requestDescription = this.model.get("responseDescription");
+        responseDescription = this.model.get("responseDescription");
 
         if (!this.model.get("openable"))
           requestName = "<a class=\"promptSignUp\">" + this.model.get("name") + "</a>";
@@ -50,7 +46,9 @@ var app = app || {};
           "<div class=\"requestMain\">" + 
             "<button class=\"requestUpvotes btn btn-schola btn-xs btn-block\">" + 
               "<span class=\"glyphicon glyphicon-chevron-up\"></span>" + 
-              requestUpvotes + 
+              "<div>" +
+                requestUpvotes + 
+              "</div>" +
             "</button>" + 
             "<div class=\"requestName\">" + 
               requestName + 
@@ -58,18 +56,22 @@ var app = app || {};
             "<div class=\"requestOrigin\">" +
               requestOrigin + 
             "</div>" +
-            "<div class=\"requestDescription\">" + 
+            "<div class=\"responseDescription\">" + 
               responseDescription +
             "</div>" +
           "</div>" + 
         "</div>" 
       );
+      
+      if (this.isOwnRequest() &&
+          this.model.get("status") === REQUEST_NOT_SATISFIED)
+        this.addResponseForm();
+
       return this;
     },
 
-    isViewingOwnUser: function() {
-      if (!app.pageData) return false;
-      return app.pageData.username === app.cookies.getCookie("username");
+    isOwnRequest: function() {
+      return this.model.get("satisfierName") === app.cookies.getCookie("username");
     },
 
     addResponseForm: function() {
@@ -77,7 +79,7 @@ var app = app || {};
         requestId: this.model.get("id")
       });
       this.$(".requestMain").append(
-        requestFormView.render().el
+        responseFormView.render().el
       );
     },
 

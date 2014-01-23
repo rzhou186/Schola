@@ -60,7 +60,8 @@
   width: 70px;
 }
 
-.requestMain .requestResponseForm .requestResponseFormName {
+.requestMain .requestResponseForm .requestResponseFormName,
+.requestMain .requestResponseForm .requestResponseFormDescription {
   min-width: 100%;
   max-width: 100%;
   display: block;

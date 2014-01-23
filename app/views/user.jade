@@ -10,22 +10,22 @@ html
     include navbar.jade
 
     //- Deal with responsive sidebar later, in bodyView.js
+    //- Use fixedOverlay
 
-    div.fixedOverlay
-      div.container.notResponsive
-        div.row
-          div.col-xs-9
-            div#requestStream
-              div#requests
-              div#requestStreamLoading
-                img(src="/images/loading.gif")
-          div.col-xs-3
-            div#alerts
-            form#requestForm
-              p
-                strong Add Request
-              input.requestFormName.form-control(type='text', name='name', maxlength='100', placeholder='Add anonymous request...')
-              button#requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
+    div.container.notResponsive
+      div.row
+        div.col-xs-9
+          div#requestStream
+            div#requests
+            div#requestStreamLoading
+              img(src="/images/loading.gif")
+        div.col-xs-3
+          div#alerts
+          form#requestForm
+            p
+              strong Add Request
+            input.requestFormName.form-control(type='text', name='name', maxlength='100', placeholder='Add anonymous request...')
+            button#requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
 
     script
       var app = app || {};

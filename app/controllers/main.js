@@ -8,26 +8,26 @@ var mongoose 	= require('mongoose'),
 exports.userProfile = function(req, res) {
 	var currentUserName = req.params.username;
 	userModel.find({username : currentUserName}, function (err, docs) {
+		var returnDocs = {};
+		returnDocs.username = docs[0].username;
+		returnDocs._id = docs[0]._id;
+		returnDocs = JSON.stringify(returnDocs);
 		userModel.find({username : req.cookies.username}, function (err, docsTwo) {
 			if(docsTwo && docsTwo.length > 0) {
 				if (docsTwo[0].password === req.cookies.password) {
 					if(docs && docs.length > 0) {
-						var returnDocs = {};
-						returnDocs.username = docs[0].username;
-						returnDocs._id = docs[0]._id;
-						returnDocs = JSON.stringify(returnDocs);
 						res.render('user', {data : returnDocs, isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier})
 					}
 					else {
-						res.render('user', {data : {}, isLoggedIn : 1, isSatisfier: docsTwo[0].isSatisfier})
+						res.render('user', {data : returnDocs, isLoggedIn : 1, isSatisfier: docsTwo[0].isSatisfier})
 					}
 				}
 				else {
-					res.render('user', {data : {}, isLoggedIn : 0, isSatisfier : 0})
+					res.render('user', {data : returnDocs, isLoggedIn : 0, isSatisfier : 0})
 				}
 			}
 			else {
-				res.render('user', {data : {}, isLoggedIn : 0, isSatisfier : 0})
+				res.render('user', {data : returnDocs, isLoggedIn : 0, isSatisfier : 0})
 			}
 		})
 
@@ -240,15 +240,12 @@ exports.getRequests = function(data, socket) {
 		userModel.find({username : data.satisfierName}, function (err, docs) {
 			if (docs && docs.length > 0) {
 				var finalRequests = [];
-				for (var i = 0; i < docs[0].receivedRequests.length; i++) {
-					requestModel.find({_id : docs[0].receivedRequests[i]}, function (err, docsTwo) {
-						finalRequests.push(docs[0]);
-					})
-				}
-				socket.emit('getRequestsSuccess', {result : finalRequests});
+				requestModel.find({_id : {$in : docs[0].receivedRequests}}, function (err, docsTwo) {
+					socket.emit ('getRequestsSuccess', {result : docsTwo});
+				})
 			}
 			else {
-				socket.emit('getRequestsSuccess', {result : []})
+				socket.emit('getRequestsSuccess', {result : {}})
 			}
 		})
 	}
@@ -285,10 +282,10 @@ exports.createRequest = function(data, socket) {
 						var newData = {};
 						newData.name = data.name;
 						newData.upvotes = 0;
-						newData.requesterId = docs[0].requesterId;
-						newData.satisfierId = docs[0].satisfierId;
-						newData.satisfierName = docs[0].satisfierName;
-						newData.requesterName = docs[0].requesterName;
+						newData.requesterId = docs[0]._id;
+						newData.satisfierId = docsTwo[0]._id;
+						newData.satisfierName = data.satisfierName;
+						newData.requesterName = data.requesterName;
 						newData.status = 0;
 						newData.created = new Date();
 						newData.responseURL = data.responseURL;

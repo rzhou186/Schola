@@ -17,8 +17,7 @@ var app = app || {};
     },
 
     isViewingUser: function() {
-      if (app.pageData) return true;
-      return false;
+      return app.pageData;
     },
 
     initInfo: function() {

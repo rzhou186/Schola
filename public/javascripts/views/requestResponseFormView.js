@@ -14,7 +14,7 @@ var app = app || {};
           "<p><strong>Satisfy Request</strong></p>" +
           "<input type=\"text\" name=\"responseURL\" maxlength=\"100\" placeholder=\"Resource URL\" class=\"requestResponseFormName form-control\"/>" +
           "<textarea name=\"responseDescription\" rows=\"3\" placeholder=\"Resource Description\" class=\"requestResponseFormDescription form-control\"></textarea>" +
-          "<button class=\"requestResponseFormSubmit\" type=\"submit\" class=\"btn btn-schola btn-xs\">Satisfy</button>" +
+          "<button type=\"submit\" class=\"requestResponseFormSubmit btn btn-schola btn-xs\">Satisfy</button>" +
         "</form>"
       );
       return this;
