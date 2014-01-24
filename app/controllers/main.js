@@ -8,29 +8,38 @@ var mongoose 	= require('mongoose'),
 exports.userProfile = function(req, res) {
 	var currentUserName = req.params.username;
 	userModel.find({username : currentUserName}, function (err, docs) {
-		var returnDocs = {};
-		returnDocs.username = docs[0].username;
-		returnDocs._id = docs[0]._id;
-		returnDocs = JSON.stringify(returnDocs);
-		userModel.find({username : req.cookies.username}, function (err, docsTwo) {
-			if(docsTwo && docsTwo.length > 0) {
-				if (docsTwo[0].password === req.cookies.password) {
-					if(docs && docs.length > 0) {
-						res.render('user', {data : returnDocs, isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier})
+		if (docs && docs.length > 0) {
+			if (docs[0].isSatisfier) {
+				var returnDocs = {};
+				returnDocs.username = docs[0].username;
+				returnDocs._id = docs[0]._id;
+				returnDocs = JSON.stringify(returnDocs);
+				userModel.find({username : req.cookies.username}, function (err, docsTwo) {
+					if(docsTwo && docsTwo.length > 0) {
+						if (docsTwo[0].password === req.cookies.password) {
+							if(docs && docs.length > 0) {
+								res.render('user', {data : returnDocs, isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier})
+							}
+							else {
+								res.render('error');
+							}
+						}
+						else {
+							res.render('user', {data : returnDocs, isLoggedIn : 0, isSatisfier : 0})
+						}
 					}
 					else {
-						res.render('user', {data : returnDocs, isLoggedIn : 1, isSatisfier: docsTwo[0].isSatisfier})
+						res.render('user', {data : returnDocs, isLoggedIn : 0, isSatisfier : 0})
 					}
-				}
-				else {
-					res.render('user', {data : returnDocs, isLoggedIn : 0, isSatisfier : 0})
-				}
+				})
 			}
 			else {
-				res.render('user', {data : returnDocs, isLoggedIn : 0, isSatisfier : 0})
+				res.render('error');
 			}
-		})
-
+		}
+		else {
+			res.render('error');
+		}
 	})
 }
 
@@ -255,6 +264,8 @@ exports.getRequests = function(data, socket) {
 }
 
 exports.updateRequest = function (data, socket) {
+	console.log('IM HERE')
+	console.log(data.requestId);
 	requestModel.find({_id : data.requestId}, function (err, docs) {
 		userModel.find({username : data.username}, function (err, docsTwo) {
 			if (docsTwo && docsTwo.length > 0) {
