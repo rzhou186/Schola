@@ -5,6 +5,7 @@ var app = app || {};
   app.Request = Backbone.Model.extend({
 
     initialize: function() {
+      // Is there a better place for these constants?
       this.REQUEST_NOT_SATISFIED = 0;
       this.REQUEST_SATISFIED = 1;
     },
@@ -19,8 +20,8 @@ var app = app || {};
       requesterName: "",
       satisfierId: null,
       satisfierName: "",
-      reponseUrl: "",
-      reponseDescription: "",
+      responseUrl: "",
+      responseDescription: "",
       responseViews: 0,
       responseDateTime: null,
       openable: false

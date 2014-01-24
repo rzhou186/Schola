@@ -77,8 +77,8 @@ var app = app || {};
         requesterName: request["requesterName"],
         satisfierId: request["satisfierId"],
         satisfierName: request["satisfierName"],
-        reponseUrl: request["responseURL"],
-        reponseDescription: request["responseDescription"],
+        responseUrl: request["responseURL"],
+        responseDescription: request["responseDescription"],
         responseViews: request["responseViews"],
         responseDateTime: request["responseDate"],
         openable: this.info["isLoggedIn"]
