@@ -17,14 +17,14 @@ exports.userProfile = function(req, res) {
 				userModel.find({username : req.cookies.username}, function (err, docsTwo) {
 					if(docsTwo && docsTwo.length > 0) {
 						if (docsTwo[0].password === req.cookies.password) {
-								res.render('user', {data : returnDocs, isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier})
+								res.render('userPage', {data : returnDocs, isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier})
 						}
 						else {
-							res.render('user', {data : returnDocs, isLoggedIn : 0, isSatisfier : 0})
+							res.render('userPage', {data : returnDocs, isLoggedIn : 0, isSatisfier : 0})
 						}
 					}
 					else {
-						res.render('user', {data : returnDocs, isLoggedIn : 0, isSatisfier : 0})
+						res.render('userPage', {data : returnDocs, isLoggedIn : 0, isSatisfier : 0})
 					}
 				})
 			}
@@ -32,10 +32,10 @@ exports.userProfile = function(req, res) {
 				userModel.find({username : req.cookies.username}, function (err, docsTwo) {
 					if (docsTwo && docsTwo.length > 0) {
 						if (docsTwo[0].password === req.cookies.password) {
-							res.render ('error', { isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier});
+							res.render ('errorPage', { isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier});
 						}
 						else {
-							res.render ('error', { isLoggedIn : 0, isSatisfier : 0});
+							res.render ('errorPage', { isLoggedIn : 0, isSatisfier : 0});
 						}
 					}
 				})
@@ -45,10 +45,10 @@ exports.userProfile = function(req, res) {
 			userModel.find({username : req.cookies.username}, function (err, docsTwo) {
 				if (docsTwo && docsTwo.length > 0) {
 					if (docsTwo[0].password === req.cookies.password) {
-						res.render ('error', { isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier});
+						res.render ('errorPage', { isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier});
 					}
 					else {
-						res.render ('error', {isLoggedIn : 0, isSatisfier : 0});
+						res.render ('errorPage', {isLoggedIn : 0, isSatisfier : 0});
 					}
 				}
 			})
@@ -62,21 +62,21 @@ exports.index = function(req, res) {
 	console.log(req.cookies);
 	//find all the files linked to that user and pass them on to the template
 	if (req.cookies.username == undefined || req.cookies.password == undefined) {
-		res.render('index', {isLoggedIn : 0, isSatisfier : 0})
+		res.render('homePage', {isLoggedIn : 0, isSatisfier : 0})
 	}
 	else {
 		userModel.find({username : req.cookies.username}, function (err, docs) {
 			console.log(docs);
 			if(docs && docs.length > 0) {
 				if(docs[0].password === req.cookies.password) {
-					res.render('index', {isLoggedIn : 1, isSatisfier : docs[0].isSatisfier});
+					res.render('homePage', {isLoggedIn : 1, isSatisfier : docs[0].isSatisfier});
 				}
 				else {
-					res.render('index', {isLoggedIn : 0, isSatisfier : 0})
+					res.render('homePage', {isLoggedIn : 0, isSatisfier : 0})
 				}
 			}
 			else {
-				res.render('index', {isLoggedIn : 0, isSatisfier : 0})
+				res.render('homePage', {isLoggedIn : 0, isSatisfier : 0})
 			}
 		})
 	}
