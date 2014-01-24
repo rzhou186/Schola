@@ -27,7 +27,7 @@ var app = app || {};
       if (this.model.get("status") === REQUEST_SATISFIED) {
         requestTitle = "<a class=\"satisfierName\" href=\"/user/" + this.model.get("satisfierName") + "\">" + this.model.get("satisfierName") + "</a> satisfied a request.";
         requestViews = "<div class=\"requestViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
-        requestName = "<a href=\"" + this.model.get("responseURL") + "\" target=\"_blank\">" + this.model.get("name") + "</a>";
+        requestName = "<a href=\"" + this.model.get("responseUrl") + "\" target=\"_blank\">" + this.model.get("name") + "</a>";
         responseDescription = this.model.get("responseDescription");
 
         if (!this.model.get("openable"))
