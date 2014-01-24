@@ -57,16 +57,12 @@ exports.userProfile = function(req, res) {
 }
 
 exports.index = function(req, res) {
-	console.log(req.cookies.username);
-	console.log(req.cookies.password);
-	console.log(req.cookies);
 	//find all the files linked to that user and pass them on to the template
 	if (req.cookies.username == undefined || req.cookies.password == undefined) {
 		res.render('homePage', {isLoggedIn : 0, isSatisfier : 0})
 	}
 	else {
 		userModel.find({username : req.cookies.username}, function (err, docs) {
-			console.log(docs);
 			if(docs && docs.length > 0) {
 				if(docs[0].password === req.cookies.password) {
 					res.render('homePage', {isLoggedIn : 1, isSatisfier : docs[0].isSatisfier});
@@ -266,19 +262,42 @@ exports.getRequests = function(data, socket) {
 	        		upvotes: -1
 	    		}
 		}, function (err, docsTwo) {
-					socket.emit ('getRequestsSuccess', {result : docsTwo});
+					userModel.find({username : data.username}, function(err, userData) {
+						if (userData && userData.length > 0) {
+							if(userData[0].password === data.password) {
+								socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 1});
+							}
+							else {
+								socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
+							}
+						}
+						else {
+							socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
+						}
+					})
+
 				})
 			}
 			else {
-				socket.emit('getRequestsSuccess', {result : {}})
+				userModel.find({username : data.username}, function (err, userData) {
+					if (userData && userData.length > 0) {
+						if (userData[0].password === data.password) {
+							socket.emit('getRequestsSuccess', {result : {}, isLoggedIn : 1})
+						}
+						else {
+							socket.emit('getRequestsSuccess', {result : {}, isLoggedIn : 0})
+						}
+					}
+					else {
+						socket.emit('getRequestsSuccess', {result : {}, isLoggedIn : 0})
+					}
+				})				
 			}
 		})
 	}
 }
 
 exports.updateRequest = function (data, socket) {
-	console.log('IM HERE')
-	console.log(data.requestId);
 	requestModel.find({_id : data.requestId}, function (err, docs) {
 		userModel.find({username : data.username}, function (err, docsTwo) {
 			if (docsTwo && docsTwo.length > 0) {
@@ -406,8 +425,6 @@ exports.incrementUpVotes = function(data, socket) {
 
 
 exports.logIn = function(data, socket) {
-	console.log(data.username);
-	console.log(data.password);
 	userModel.find({username : data.username}, function (err, docs) {
 		if(docs && docs.length > 0) {
 			if(docs[0].password === data.password) {
@@ -424,8 +441,6 @@ exports.logIn = function(data, socket) {
 }
 
 exports.signUp = function(data, socket) {
-	console.log(data.username);
-	console.log(data.password);
 	userModel.find({username : data.username}, function (err, docs) {
 		if(docs && docs.length > 0) {
 			socket.emit('signUpSuccess', {signUpStatus : 1})
