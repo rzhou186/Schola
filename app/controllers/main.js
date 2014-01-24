@@ -17,12 +17,7 @@ exports.userProfile = function(req, res) {
 				userModel.find({username : req.cookies.username}, function (err, docsTwo) {
 					if(docsTwo && docsTwo.length > 0) {
 						if (docsTwo[0].password === req.cookies.password) {
-							if(docs && docs.length > 0) {
 								res.render('user', {data : returnDocs, isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier})
-							}
-							else {
-								res.render('error');
-							}
 						}
 						else {
 							res.render('user', {data : returnDocs, isLoggedIn : 0, isSatisfier : 0})
@@ -34,11 +29,29 @@ exports.userProfile = function(req, res) {
 				})
 			}
 			else {
-				res.render('error');
+				userModel.find({username : req.cookies.username}, function (err, docsTwo) {
+					if (docsTwo && docsTwo.length > 0) {
+						if (docsTwo[0].password === req.cookies.password) {
+							res.render ('error', { isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier});
+						}
+						else {
+							res.render ('error', { isLoggedIn : 0, isSatisfier : 0});
+						}
+					}
+				})
 			}
 		}
 		else {
-			res.render('error');
+			userModel.find({username : req.cookies.username}, function (err, docsTwo) {
+				if (docsTwo && docsTwo.length > 0) {
+					if (docsTwo[0].password === req.cookies.password) {
+						res.render ('error', { isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier});
+					}
+					else {
+						res.render ('error', {isLoggedIn : 0, isSatisfier : 0});
+					}
+				}
+			})
 		}
 	})
 }
