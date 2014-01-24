@@ -42,7 +42,7 @@ var app = app || {};
       return formData;
     },
 
-    handlePostResp: function(resp, formData) {
+    handlePostResp: function(resp) {
       if (resp.requestStatus === POST_REQUEST_SUCCESS)
         location.reload();
       else if (resp.requestStatus === POST_REQUEST_FAILURE) {
@@ -60,7 +60,7 @@ var app = app || {};
         app.socket.emit("createRequest", formData);
         var that = this;
         app.socket.on("createRequestSuccess", function(resp) {
-          that.handlePostResp(resp, formData);
+          that.handlePostResp(resp);
           that.enableFormSubmit();
         });
       }

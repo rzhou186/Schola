@@ -1,0 +1,17 @@
+doctype 5
+html
+
+  head
+    title Schola
+    include headerFiles.jade
+    link(rel="stylesheet", href="/stylesheets/errorPage.css")
+    
+  body
+    include navbar.jade
+    div.container.notResponsive
+      div.row
+        div.col-xs-12
+          h1 Uh oh.
+          p Looks like this page doesn't exist.
+
+    include footerFiles.jade

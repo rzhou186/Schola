@@ -8,6 +8,11 @@ var app = app || {};
       "submit": "postRequestResponse"
     },
 
+    initialize: function(options) {
+      // For data received from parent requestView.
+      this.options = options || {};
+    },
+
     render: function() {
       this.$el.html(
         "<form class=\"requestResponseForm\">" +
@@ -44,16 +49,16 @@ var app = app || {};
     },
 
     augmentFormData: function(formData){
-      formData["requestId"] = this.requestId;
+      formData["requestId"] = this.options.requestId;
       formData["username"] = app.cookies.getCookie("username");
       formData["password"] = app.cookies.getCookie("password");
       return formData;
     },
 
-    handlePostResp: function(resp, formData) {
-      if (resp.requestStatus === POST_REQUEST_SUCCESS)
+    handlePostResp: function(resp) {
+      if (resp.updateStatus === POST_REQUEST_RESPONSE_SUCCESS)
         location.reload();
-      else if (resp.requestStatus === POST_REQUEST_FAILURE) {
+      else if (resp.updateStatus === POST_REQUEST_RESPONSE_FAILURE) {
         app.socket.removeAllListeners("updateRequestSuccess");
         app.alerter.alert("Post request response failed.");
       }
@@ -68,7 +73,7 @@ var app = app || {};
         app.socket.emit("updateRequest", formData);
         var that = this;
         app.socket.on("updateRequestSuccess", function(resp) {
-          that.handlePostResp(resp, formData);
+          that.handlePostResp(resp);
           that.enableFormSubmit();
         });
       }

@@ -14,7 +14,7 @@ var app = app || {};
     },
 
     render: function() {
-      var requestTitle = "<span class=\"satisfierName\">" + this.model.get("satisfierName") + "</span> received a request.";
+      var requestTitle = "<a class=\"satisfierName\" href=\"/user/" + this.model.get("satisfierName") + "\">" + this.model.get("satisfierName") + "</a> received a request.";
       var requestDateTime = app.dateTime.format(this.model.get("dateTime"));
       var requestViews = "";
       var requestUpvotes = this.model.get("upvotes");
@@ -23,7 +23,7 @@ var app = app || {};
       var responseDescription = "<em>This request is pending a response.</em>";
 
       if (this.model.status === REQUEST_SATISFIED) {
-        requestTitle = "<span class=\"satisfierName\">" + this.model.get("satisfierName") + "</span> satisfied a request.";
+        requestTitle = "<a class=\"satisfierName\" href=\"/user/" + this.model.get("satisfierName") + "\">" + this.model.get("satisfierName") + "</a> satisfied a request.";
         requestViews = "<div class=\"requestViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
         requestName = "<a href=\"" + this.model.get("responseURL") + "\" target=\"_blank\">" + this.model.get("name") + "</a>";
         responseDescription = this.model.get("responseDescription");
@@ -76,6 +76,7 @@ var app = app || {};
 
     addResponseForm: function() {
       var responseFormView = new app.RequestResponseFormView({
+        // Passed to requestResponseFormView's options hash.
         requestId: this.model.get("id")
       });
       this.$(".requestMain").append(
