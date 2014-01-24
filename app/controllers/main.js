@@ -240,7 +240,10 @@ exports.getRequests = function(data, socket) {
 		userModel.find({username : data.satisfierName}, function (err, docs) {
 			if (docs && docs.length > 0) {
 				var finalRequests = [];
-				requestModel.find({_id : {$in : docs[0].receivedRequests}}, function (err, docsTwo) {
+				requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId satisfierId requesterName satisfierName status created responseURL responseDescription responseViews responseDate', { skip: data.start, limit:10, sort:{
+	        		upvotes: -1
+	    		}
+		}, function (err, docsTwo) {
 					socket.emit ('getRequestsSuccess', {result : docsTwo});
 				})
 			}
