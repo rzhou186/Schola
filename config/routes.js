@@ -9,7 +9,7 @@ module.exports = function(app, io) {
 	app.get('/', main.index);
 	app.get('/user/:username', main.userProfile)
  	//__FINALLY IF THERE IS NO KNOWN URL INCL. '/' THEN GO TO HOME
- 	app.get('/*', main.index);
+ 	app.get('/*', main.userProfile);
 
  	sock.get('test', function(data, socket) {
  		console.log('message on server received');
