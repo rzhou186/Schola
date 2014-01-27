@@ -7,8 +7,8 @@ var app = app || {};
     className: "request",
 
     events: {
-      // "click .requestUpvotes": recordUpvote
-      // "click .requestName": recordResponseView,
+      "click .requestUpvotes": "recordUpvote",
+      "click .requestName": "recordResponseView"
     },
 
     initialize: function() {
@@ -16,50 +16,39 @@ var app = app || {};
     },
 
     render: function() {
-      var requestTitle = "<a class=\"satisfierName\" href=\"/user/" + this.model.get("satisfierName") + "\">" + this.model.get("satisfierName") + "</a> received a request.";
-      var requestDateTime = app.dateTime.format(this.model.get("dateTime"));
+      var requestTitle = "<div class=\"requestTitle\"><a class=\"satisfierName\" href=\"/user/" + this.model.get("satisfierName") + "\">" + this.model.get("satisfierName") + "</a> received a request.</div>";
+      var requestDateTime = "<div class=\"requestDateTime\">" + app.dateTime.format(this.model.get("dateTime")) + "</div>";
       var requestViews = "";
-      var requestUpvotes = this.model.get("upvotes");
-      var requestName = this.model.get("name");
-      var requestOrigin = "from <span class=\"requesterName\">" + this.model.get("requesterName") + "</span>";
-      var responseDescription = "<em>This request is pending a response.</em>";
+      var requestUpvotes = "<button class=\"requestUpvotes btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
+      var requestName = "<div class=\"requestName\">" + this.model.get("name") + "</div>";
+      var requestOrigin = "<div class=\"requestOrigin\">from <span class=\"requesterName\">" + this.model.get("requesterName") + "</span></div>";
+      var responseDescription = "<div class=\"responseDescription\"><em>This request is pending a response.</em></div>";
+
+      if (!this.model.get("accessible"))
+        requestUpvotes = "<button class=\"requestUpvotes promptSignUp btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
 
       if (this.model.get("status") === REQUEST_SATISFIED) {
-        requestTitle = "<a class=\"satisfierName\" href=\"/user/" + this.model.get("satisfierName") + "\">" + this.model.get("satisfierName") + "</a> satisfied a request.";
+        requestTitle = "<div class=\"requestTitle\"><a class=\"satisfierName\" href=\"/user/" + this.model.get("satisfierName") + "\">" + this.model.get("satisfierName") + "</a> satisfied a request.</div>";
         requestViews = "<div class=\"requestViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
-        requestName = "<a href=\"" + this.model.get("responseUrl") + "\" target=\"_blank\">" + this.model.get("name") + "</a>";
-        responseDescription = this.model.get("responseDescription");
+        requestName = "<div class=\"requestName\"><a href=\"" + this.model.get("responseUrl") + "\" target=\"_blank\">" + this.model.get("name") + "</a></div>";
+        responseDescription = "<div class=\"responseDescription\">" + this.model.get("responseDescription") + "</div>";
 
-        if (!this.model.get("openable"))
-          requestName = "<a class=\"promptSignUp\">" + this.model.get("name") + "</a>";
+        if (!this.model.get("accessible")) {
+          requestName = "<div class=\"requestName promptSignUp\"><a>" + this.model.get("name") + "</a></div>";
+        }
       }
 
       this.$el.html(
         "<div class=\"requestSide\">" + 
-          "<div class=\"requestTitle\">" + 
-            requestTitle +
-          "</div>" +
-          "<div class=\"requestDateTime\">" + 
-            requestDateTime + 
-          "</div>" +
+          requestTitle +
+          requestDateTime + 
           requestViews + 
         "</div>" +
         "<div class=\"requestMain\">" + 
-          "<button class=\"requestUpvotes btn btn-schola btn-xs btn-block\">" + 
-            "<span class=\"glyphicon glyphicon-chevron-up\"></span>" + 
-            "<div>" +
-              requestUpvotes + 
-            "</div>" +
-          "</button>" + 
-          "<div class=\"requestName\">" + 
-            requestName + 
-          "</div>" +
-          "<div class=\"requestOrigin\">" +
-            requestOrigin + 
-          "</div>" +
-          "<div class=\"responseDescription\">" + 
-            responseDescription +
-          "</div>" +
+          requestUpvotes +
+          requestName + 
+          requestOrigin + 
+          responseDescription +
         "</div>"
       );
       
@@ -85,15 +74,15 @@ var app = app || {};
     },
 
     recordUpvote: function(e) {
-      // Where should the screening for promptSignUp happen? here or in events?
-      // I think i like here better.
-      // this.model.incrementUpvotes();
+      if (!$(e.currentTarget).hasClass("promptSignUp")) {
+        this.model.incrementUpvotes();
+      }
     },
 
     recordResponseView: function(e) {
-      // Where should the screening for promptSignUp happen? here or in events?
-      // I think i like here better.
-      // this.model.incrementResponseViews();
+      if (!$(e.currentTarget).hasClass("promptSignUp")) {
+        this.model.incrementResponseViews();
+      }
     }
 
   });

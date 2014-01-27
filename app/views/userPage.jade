@@ -4,13 +4,11 @@ html
   head
     title Schola
     include headerFiles.jade
+    link(rel="stylesheet", href="/stylesheets/userInfo.css")
     link(rel="stylesheet", href="/stylesheets/requestForm.css")
     
   body
     include navbar.jade
-
-    //- Deal with responsive sidebar later, in bodyView.js
-    //- Use fixedOverlay
 
     div.container.notResponsive
       div.row
@@ -21,7 +19,10 @@ html
               img(src="/images/loading.gif")
         div.col-xs-3
           div#alerts
-          //- Either disable this if they're not logged in, or make it prompt a sign up
+          div#userInfo
+            div.userUsername
+              span.glyphicon.glyphicon-user
+            div.userDescription
           form#requestForm
             p
               strong Add Request

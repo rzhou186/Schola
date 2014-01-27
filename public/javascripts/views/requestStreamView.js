@@ -81,7 +81,7 @@ var app = app || {};
         responseDescription: request["responseDescription"],
         responseViews: request["responseViews"],
         responseDateTime: request["responseDate"],
-        openable: this.info["isLoggedIn"]
+        accessible: this.info["isLoggedIn"]
       });
     },
 

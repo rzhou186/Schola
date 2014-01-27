@@ -5,7 +5,7 @@ var app = app || {};
   app.Request = Backbone.Model.extend({
 
     initialize: function() {
-      // Is there a better place for these constants?
+      // Find a better location for these constants.
       this.REQUEST_NOT_SATISFIED = 0;
       this.REQUEST_SATISFIED = 1;
     },
@@ -24,7 +24,7 @@ var app = app || {};
       responseDescription: "",
       responseViews: 0,
       responseDateTime: null,
-      openable: false
+      accessible: false
     },
 
     // Overwrite sync so it uses sockets, so that save works
