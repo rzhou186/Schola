@@ -38,6 +38,9 @@ exports.userProfile = function(req, res) {
 							res.render ('errorPage', { isLoggedIn : 0, isSatisfier : 0});
 						}
 					}
+					else {
+						res.render('errorPage', { isLoggedIn : 0, isSatisfier : 0});
+					}
 				})
 			}
 		}
@@ -50,6 +53,9 @@ exports.userProfile = function(req, res) {
 					else {
 						res.render ('errorPage', {isLoggedIn : 0, isSatisfier : 0});
 					}
+				}
+				else {
+					res.render('errorPage', {isLoggedIn : 0, isSatisfier : 0});
 				}
 			})
 		}
