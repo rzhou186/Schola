@@ -377,16 +377,21 @@ exports.incrementViews = function(data, socket) {
 		userModel.find({username : data.username}, function (err, userData) {
 			if(userData && userData.length > 0) {
 				if (userData[0].password === data.password) {
-						docs[0].responseViews++;
-						docs[0].save()
-						socket.emit('incrementViewsSuccess', {viewStatus : 1})
+						if(docs[0].status == 1) {
+							docs[0].responseViews++;
+							docs[0].save()
+							socket.emit('incrementViewsSuccess', {viewStatus : 1, requestId : data.requestId});
+						}
+						else {
+							socket.emit('incrementViewsSuccess', {viewStatus : 0, requestId : data.requestId});
+						}	
 				}
 				else {
-					socket.emit ('incrementViewsSuccess', {viewStatus : 0})
+					socket.emit ('incrementViewsSuccess', {viewStatus : 0, requestId : data.requestId});
 				}
 			}
 			else {
-				socket.emit ('incrementViewsSuccess', {viewStatus : 0})
+				socket.emit ('incrementViewsSuccess', {viewStatus : 0, requestId : data.requestId});
 			}
 		})
 	})
