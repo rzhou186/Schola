@@ -38,7 +38,11 @@ html
 
     script
       var app = app || {};
+      app.viewerData = {
+        isLoggedIn: !{isLoggedIn},
+        isSatisfier: !{isSatisfier}
+      };
       app.pageData = !{data};
 
     include footerFiles.jade
-    script(type="text/javascript", src="/javascripts/userPage.js")
+    script(type="text/javascript", src="/javascripts/userApp.js")

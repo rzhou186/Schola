@@ -10,6 +10,11 @@ var app = app || {};
       "submit": "postRequest"
     },
 
+    initialize: function() {
+      if (!app.viewerData.isLoggedIn)
+        this.$el.addClass("submitSignUp");
+    },
+
     enableFormSubmit: function() {
       this.$("#requestFormSubmit").removeClass("disabled");
     },
@@ -53,16 +58,18 @@ var app = app || {};
 
     postRequest: function(e) {
       e.preventDefault();
-      this.disableFormSubmit();
-      var formData = this.extractFormData();
-      if (formData) {
-        formData = this.augmentFormData(formData);
-        app.socket.emit("createRequest", formData);
-        var that = this;
-        app.socket.on("createRequestSuccess", function(resp) {
-          that.handlePostResp(resp);
-          that.enableFormSubmit();
-        });
+      if (app.viewerData.isLoggedIn) {
+        this.disableFormSubmit();
+        var formData = this.extractFormData();
+        if (formData) {
+          formData = this.augmentFormData(formData);
+          app.socket.emit("createRequest", formData);
+          var that = this;
+          app.socket.on("createRequestSuccess", function(resp) {
+            that.handlePostResp(resp);
+            that.enableFormSubmit();
+          });
+        }
       }
     }
 

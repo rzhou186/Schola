@@ -15,11 +15,23 @@ var app = app || {};
     setTimeout(function(){
       alert.fadeOut(500);
     }, 1000);
+  };
+
+  Alerter.prototype.remind = function(message) {
+    $("#alerts").empty();
+    var reminder = $(
+      "<div class=\"alert alert-success\">" +
+        "<button type=\"button\" class=\"close\"" +
+          "data-dismiss=\"alert\" aria-hidden=\"true\">&times;</button>" +
+        message + 
+      "</div>"
+    );
+    $("#alerts").prepend(reminder);
   }
 
   Alerter.prototype.clear = function(message) {
     $("#alerts").empty();
-  }
+  };
 
   app.alerter = new Alerter();
 

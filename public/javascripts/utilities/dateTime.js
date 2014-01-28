@@ -16,7 +16,7 @@ var app = app || {};
     var month = date.getMonth();
     var monthAbbrev = monthAbbrevs[month];
     return day + " " + monthAbbrev;
-  }
+  };
 
   app.dateTime = new DateTime();
 

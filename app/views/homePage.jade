@@ -27,4 +27,11 @@ html
             div#alerts
             div#trendingUsers
 
+    script
+      var app = app || {};
+      app.viewerData = {
+        isLoggedIn: !{isLoggedIn},
+        isSatisfier: !{isSatisfier}
+      };
+
     include footerFiles.jade

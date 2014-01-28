@@ -25,7 +25,7 @@ var app = app || {};
       var responseDescription = "<div class=\"responseDescription\"><em>This request is pending a response.</em></div>";
 
       if (!this.model.get("accessible"))
-        requestUpvotes = "<button class=\"requestUpvotes promptSignUp btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
+        requestUpvotes = "<button class=\"requestUpvotes clickSignUp btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
 
       if (this.model.get("status") === REQUEST_SATISFIED) {
         requestTitle = "<div class=\"requestTitle\"><a class=\"satisfierName\" href=\"/user/" + this.model.get("satisfierName") + "\">" + this.model.get("satisfierName") + "</a> satisfied a request.</div>";
@@ -34,7 +34,7 @@ var app = app || {};
         responseDescription = "<div class=\"responseDescription\">" + this.model.get("responseDescription") + "</div>";
 
         if (!this.model.get("accessible")) {
-          requestName = "<div class=\"requestName promptSignUp\"><a>" + this.model.get("name") + "</a></div>";
+          requestName = "<div class=\"requestName clickSignUp\"><a>" + this.model.get("name") + "</a></div>";
         }
       }
 
@@ -74,13 +74,13 @@ var app = app || {};
     },
 
     recordUpvote: function(e) {
-      if (!$(e.currentTarget).hasClass("promptSignUp")) {
+      if (!$(e.currentTarget).hasClass("clickSignUp")) {
         this.model.incrementUpvotes();
       }
     },
 
     recordResponseView: function(e) {
-      if (!$(e.currentTarget).hasClass("promptSignUp")) {
+      if (!$(e.currentTarget).hasClass("clickSignUp")) {
         this.model.incrementResponseViews();
       }
     }

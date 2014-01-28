@@ -64,7 +64,6 @@ var app = app || {};
 
     updateInfo: function(requestsData) {
       this.info["start"] += REQUESTS_PER_LOAD;
-      this.info["isLoggedIn"] = requestsData["isLoggedIn"];
     },
 
     buildRequestModel: function(request) {
@@ -82,7 +81,7 @@ var app = app || {};
         responseDescription: request["responseDescription"],
         responseViews: request["responseViews"],
         responseDateTime: request["responseDate"],
-        accessible: this.info["isLoggedIn"]
+        accessible: app.viewerData.isLoggedIn
       });
     },
 
