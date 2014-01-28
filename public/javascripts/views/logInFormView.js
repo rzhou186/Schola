@@ -42,7 +42,7 @@ var app = app || {};
       if (resp.logInStatus === LOG_IN_SUCCESS) {
         app.cookies.setCookie("username", formData["username"]);
         app.cookies.setCookie("password", formData["password"]);
-        location.reload();
+        window.location.href = "/";
       }
       else if (resp.logInStatus === LOG_IN_FAILURE) {
         app.socket.removeAllListeners("logInSuccess");
