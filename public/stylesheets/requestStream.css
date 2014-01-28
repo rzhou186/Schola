@@ -43,6 +43,10 @@
   max-width: 90%;
 }
 
+.requestMain .responseDescription {
+  padding-right: 30px;
+}
+
 .requestMain .requestUpvotes {
   float: right;
   width: 30px;

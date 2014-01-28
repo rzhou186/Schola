@@ -10,6 +10,12 @@ html
   body
     include navbar.jade
 
+    div.fixedOverlay
+      div.container.notResponsive
+        div.row
+          div.col-xs-9
+          div.col-xs-3#sidebarFixed
+
     div.container.notResponsive
       div.row
         div.col-xs-9
@@ -17,17 +23,18 @@ html
             div#requests
             div#requestStreamLoading
               img(src="/images/loading.gif")
-        div.col-xs-3#sidebar
-          div#alerts
-          div#userInfo
-            div.userUsername
-              span.glyphicon.glyphicon-user
-            div.userDescription
-          form#requestForm
-            p
-              strong Add Request
-            input.requestFormName.form-control(type='text', name='name', maxlength='100', placeholder='Add anonymous request...')
-            button#requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
+        div.col-xs-3#sidebarRelative
+          div#sidebar
+            div#alerts
+            div#userInfo
+              div.userUsername
+                span.glyphicon.glyphicon-user
+              div.userDescription
+            form#requestForm
+              p
+                strong Add Request
+              input.requestFormName.form-control(type='text', name='name', maxlength='100', placeholder='Add anonymous request...')
+              button#requestFormSubmit.btn.btn-schola.btn-xs(type='submit') Request
 
     script
       var app = app || {};

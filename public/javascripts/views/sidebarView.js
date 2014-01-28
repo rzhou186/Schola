@@ -23,7 +23,7 @@ var app = app || {};
       });
     },
 
-    // Find a better way to determine page being viewed.
+    // Find a better way to determine the page being viewed.
     isViewingHomePage: function() {
       if (!app.pageData) return true;
       return false;

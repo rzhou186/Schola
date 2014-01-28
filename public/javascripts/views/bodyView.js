@@ -10,6 +10,13 @@ var app = app || {};
       "click .promptSignUp": "promptSignUp"
     },
 
+    initialize: function() {
+      this.enableSidebarRepositioning();
+
+      // Decide initial position of sidebar.
+      this.repositionSidebarIfAble();
+    },
+
     promptSignUp: function() {
       this.$("#alerts").empty();
       this.$("#alerts").prepend(
@@ -20,6 +27,34 @@ var app = app || {};
           "That's all we ask for. Sign up and unlock Schola." +
         "</div>"
       );
+    },
+
+    hasRoomForFixedSidebar: function()  {
+      var fixedContainerWidth = this.$(".fixedOverlay .container").width();
+      return $(window).width() >= fixedContainerWidth;
+    },
+
+    repositionSidebarIfAble: function() {
+      app.alerter.clear();
+      if (this.hasRoomForFixedSidebar()) {
+        if (this.$("#sidebarRelative").html()) {
+          this.$("#sidebarFixed").html(this.$("#sidebarRelative").html());
+          this.$("#sidebarRelative").empty();
+        }
+      }
+      else {
+        if (this.$("#sidebarFixed").html()) {
+          this.$("#sidebarRelative").html(this.$("#sidebarFixed").html());
+          this.$("#sidebarFixed").empty();
+        }
+      }
+    },
+
+    enableSidebarRepositioning: function() {
+      var that = this;
+      $(window).on("resize", function() {
+        that.repositionSidebarIfAble();
+      });
     }
 
   });

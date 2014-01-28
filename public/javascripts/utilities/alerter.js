@@ -17,6 +17,10 @@ var app = app || {};
     }, 1000);
   }
 
+  Alerter.prototype.clear = function(message) {
+    $("#alerts").empty();
+  }
+
   app.alerter = new Alerter();
 
 })();
