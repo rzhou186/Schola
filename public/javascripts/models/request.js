@@ -28,6 +28,11 @@ var app = app || {};
     },
 
     // Overwrite sync so it uses sockets, so that save works
+    // save: function(data) {
+      // https://stackoverflow.com/questions/5096549/how-to-override-backbone-sync
+      // Do some socket shit here?
+    // }
+    // sync: myOwnSpecificSync
 
     incrementUpvotes: function() {
       // this.save({

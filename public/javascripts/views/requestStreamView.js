@@ -16,8 +16,9 @@ var app = app || {};
       this.loadMoreRequests();
     },
 
-    isViewingUser: function() {
-      return app.pageData;
+    isViewingUserPage: function() {
+      if (app.pageData) return true;
+      return false;
     },
 
     initInfo: function() {
@@ -25,7 +26,7 @@ var app = app || {};
       this.info["start"] = 0;
       this.info["username"] = app.cookies.getCookie("username");
       this.info["password"] = app.cookies.getCookie("password");
-      if (this.isViewingUser())
+      if (this.isViewingUserPage())
         this.info["satisfierName"] = app.pageData.username;
       else this.info["satisfierName"] = "";
     },

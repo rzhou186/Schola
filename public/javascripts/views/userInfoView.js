@@ -12,12 +12,14 @@ var app = app || {};
     },
 
     populateUsername: function() {
-      var username = app.pageData.username;
+      var username = this.model.get("username");
       this.$(".userUsername").prepend(username);
     },
 
     populateDescription: function() {
-      var description = "<em>This user has not provided a user description yet.</em>";
+      var description = this.model.get("description");
+      if (!description)
+        description = "<em>This user has not provided a user description yet.</em>";
       this.$(".userDescription").html(description);
     }
 

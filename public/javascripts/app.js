@@ -18,6 +18,7 @@ var REQUESTS_PER_LOAD = 10;
 
   new app.BodyView();
   new app.NavbarView();
+  new app.SidebarView();
   new app.RequestStreamView();
 
 })();

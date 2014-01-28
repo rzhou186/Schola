@@ -21,7 +21,7 @@ var app = app || {};
       var requestViews = "";
       var requestUpvotes = "<button class=\"requestUpvotes btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
       var requestName = "<div class=\"requestName\">" + this.model.get("name") + "</div>";
-      var requestOrigin = "<div class=\"requestOrigin\">from <span class=\"requesterName\">" + this.model.get("requesterName") + "</span></div>";
+      var requestOrigin = "<div class=\"requestOrigin\">from <span class=\"requesterName\">" + "anonymous" + "</span></div>";
       var responseDescription = "<div class=\"responseDescription\"><em>This request is pending a response.</em></div>";
 
       if (!this.model.get("accessible"))
@@ -52,14 +52,14 @@ var app = app || {};
         "</div>"
       );
       
-      if (this.isOwnRequest() &&
+      if (this.isViewingOwnRequest() &&
           this.model.get("status") === REQUEST_NOT_SATISFIED)
         this.addResponseForm();
 
       return this;
     },
 
-    isOwnRequest: function() {
+    isViewingOwnRequest: function() {
       return this.model.get("satisfierName") === app.cookies.getCookie("username");
     },
 

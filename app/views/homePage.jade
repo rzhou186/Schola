@@ -4,6 +4,7 @@ html
   head
     title Schola
     include headerFiles.jade
+    link(rel="stylesheet", href="/stylesheets/trendingUsers.css")
     
   body
     include navbar.jade
@@ -15,7 +16,8 @@ html
             div#requests
             div#requestStreamLoading
               img(src="/images/loading.gif")
-        div#sidebar.col-xs-3
+        div.col-xs-3#sidebar
           div#alerts
+          div#trendingUsers
 
     include footerFiles.jade
