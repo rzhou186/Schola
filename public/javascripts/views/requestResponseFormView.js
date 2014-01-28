@@ -60,10 +60,8 @@ var app = app || {};
     handlePostResp: function(resp) {
       if (resp.updateStatus === POST_REQUEST_RESPONSE_SUCCESS)
         location.reload();
-      else if (resp.updateStatus === POST_REQUEST_RESPONSE_FAILURE) {
-        app.socket.removeAllListeners("updateRequestSuccess");
+      else if (resp.updateStatus === POST_REQUEST_RESPONSE_FAILURE)
         app.alerter.alert("Post request response failed.");
-      }
     },
 
     postRequestResponse: function(e) {
@@ -74,7 +72,7 @@ var app = app || {};
         formData = this.augmentFormData(formData);
         app.socket.emit("updateRequest", formData);
         var that = this;
-        app.socket.on("updateRequestSuccess", function(resp) {
+        app.socket.once("updateRequestSuccess", function(resp) {
           that.handlePostResp(resp);
           that.enableFormSubmit();
         });

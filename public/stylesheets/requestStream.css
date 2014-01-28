@@ -15,7 +15,7 @@
   color: #999999;
 }
 
-.requestSide .requestViews {
+.requestSide .responseViews {
   display: inline-block;
   border: 1px solid #cccccc;
   border-radius: 3px;

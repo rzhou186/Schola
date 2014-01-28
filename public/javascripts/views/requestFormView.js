@@ -50,10 +50,8 @@ var app = app || {};
     handlePostResp: function(resp) {
       if (resp.requestStatus === POST_REQUEST_SUCCESS)
         location.reload();
-      else if (resp.requestStatus === POST_REQUEST_FAILURE) {
-        app.socket.removeAllListeners("createRequestSuccess");
+      else if (resp.requestStatus === POST_REQUEST_FAILURE)
         app.alerter.alert("Post request failed.");
-      }
     },
 
     postRequest: function(e) {
@@ -65,7 +63,7 @@ var app = app || {};
           formData = this.augmentFormData(formData);
           app.socket.emit("createRequest", formData);
           var that = this;
-          app.socket.on("createRequestSuccess", function(resp) {
+          app.socket.once("createRequestSuccess", function(resp) {
             that.handlePostResp(resp);
             that.enableFormSubmit();
           });

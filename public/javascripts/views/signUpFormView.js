@@ -42,12 +42,10 @@ var app = app || {};
       if (resp.signUpStatus === SIGN_UP_SUCCESS) {
         app.cookies.setCookie("username", formData["username"]);
         app.cookies.setCookie("password", formData["password"]);
-        window.location.href = "/";
+        location.reload();
       }
-      else if (resp.signUpStatus === SIGN_UP_FAILURE) {
-        app.socket.removeAllListeners("signUpSuccess");
+      else if (resp.signUpStatus === SIGN_UP_FAILURE)
         app.alerter.alert("Sign up failed.");
-      }
     },
 
     signUp: function() {
@@ -57,7 +55,7 @@ var app = app || {};
         formData = this.augmentFormData(formData);
         app.socket.emit("signUp", formData);
         var that = this;
-        app.socket.on("signUpSuccess", function(resp) {
+        app.socket.once("signUpSuccess", function(resp) {
           that.handleSignUpResp(resp, formData);
           that.enableFormSubmit();
         });

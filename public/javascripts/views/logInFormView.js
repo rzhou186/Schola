@@ -42,12 +42,10 @@ var app = app || {};
       if (resp.logInStatus === LOG_IN_SUCCESS) {
         app.cookies.setCookie("username", formData["username"]);
         app.cookies.setCookie("password", formData["password"]);
-        window.location.href = "/";
+        location.reload();
       }
-      else if (resp.logInStatus === LOG_IN_FAILURE) {
-        app.socket.removeAllListeners("logInSuccess");
+      else if (resp.logInStatus === LOG_IN_FAILURE)
         app.alerter.alert("Log in failed.");
-      }
     },
 
     logIn: function(e) {
@@ -58,7 +56,7 @@ var app = app || {};
         formData = this.augmentFormData(formData);
         app.socket.emit("logIn", formData);
         var that = this;
-        app.socket.on("logInSuccess", function(resp) {
+        app.socket.once("logInSuccess", function(resp) {
           that.handleLogInResp(resp, formData);
           that.enableFormSubmit();
         });

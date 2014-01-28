@@ -8,7 +8,7 @@ var app = app || {};
 
     events: {
       "click .requestUpvotes": "recordUpvote",
-      "click .requestName": "recordResponseView"
+      "click .requestName a": "recordResponseView"
     },
 
     initialize: function() {
@@ -18,7 +18,7 @@ var app = app || {};
     render: function() {
       var requestTitle = "<div class=\"requestTitle\"><a class=\"satisfierName\" href=\"/user/" + this.model.get("satisfierName") + "\">" + this.model.get("satisfierName") + "</a> received a request.</div>";
       var requestDateTime = "<div class=\"requestDateTime\">" + app.dateTime.format(this.model.get("dateTime")) + "</div>";
-      var requestViews = "";
+      var responseViews = "";
       var requestUpvotes = "<button class=\"requestUpvotes btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
       var requestName = "<div class=\"requestName\">" + this.model.get("name") + "</div>";
       var requestOrigin = "<div class=\"requestOrigin\">from <span class=\"requesterName\">" + "anonymous" + "</span></div>";
@@ -29,7 +29,7 @@ var app = app || {};
 
       if (this.model.get("status") === REQUEST_SATISFIED) {
         requestTitle = "<div class=\"requestTitle\"><a class=\"satisfierName\" href=\"/user/" + this.model.get("satisfierName") + "\">" + this.model.get("satisfierName") + "</a> satisfied a request.</div>";
-        requestViews = "<div class=\"requestViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
+        responseViews = "<div class=\"responseViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
         requestName = "<div class=\"requestName\"><a href=\"" + this.model.get("responseUrl") + "\" target=\"_blank\">" + this.model.get("name") + "</a></div>";
         responseDescription = "<div class=\"responseDescription\">" + this.model.get("responseDescription") + "</div>";
 
@@ -42,7 +42,7 @@ var app = app || {};
         "<div class=\"requestSide\">" + 
           requestTitle +
           requestDateTime + 
-          requestViews + 
+          responseViews + 
         "</div>" +
         "<div class=\"requestMain\">" + 
           requestUpvotes +
@@ -74,13 +74,13 @@ var app = app || {};
     },
 
     recordUpvote: function(e) {
-      if (!$(e.currentTarget).hasClass("clickSignUp")) {
+      if (app.viewerData.isLoggedIn) {
         this.model.incrementUpvotes();
       }
     },
 
     recordResponseView: function(e) {
-      if (!$(e.currentTarget).hasClass("clickSignUp")) {
+      if (app.viewerData.isLoggedIn) {
         this.model.incrementResponseViews();
       }
     }
