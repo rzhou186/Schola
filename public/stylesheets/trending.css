@@ -1,0 +1,19 @@
+#trending {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.trendingTitle {
+  margin-bottom: 10px;
+  border-bottom: 2px solid #eeeeee;
+  padding-bottom: 10px;
+}
+
+.trendingUser {
+  margin-bottom: 10px;
+}
+
+.trendingUser .glyphicon {
+  font-size: 12px;
+  margin-right: 10px;
+}

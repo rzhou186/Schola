@@ -19,10 +19,10 @@ var app = app || {};
 
     render: function() {
       this.$el.html(
-        "<p><strong>Satisfy Request</strong></p>" +
-        "<input type=\"text\" name=\"responseURL\" maxlength=\"100\" placeholder=\"Resource URL\" class=\"requestResponseFormName form-control\"/>" +
-        "<textarea name=\"responseDescription\" rows=\"3\" placeholder=\"Resource Description\" class=\"requestResponseFormDescription form-control\"></textarea>" +
-        "<button type=\"submit\" class=\"requestResponseFormSubmit btn btn-schola btn-xs\">Satisfy</button>"
+        "<p><strong>Answer Request</strong></p>" +
+        "<input type=\"text\" name=\"responseURL\" maxlength=\"100\" placeholder=\"URL\" class=\"requestResponseFormName form-control\"/>" +
+        "<textarea name=\"responseDescription\" rows=\"3\" placeholder=\"Comments\" class=\"requestResponseFormDescription form-control\"></textarea>" +
+        "<button type=\"submit\" class=\"requestResponseFormSubmit btn btn-schola btn-xs\">Answer</button>"
       );
       return this;
     },

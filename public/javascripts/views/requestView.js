@@ -33,7 +33,7 @@ var app = app || {};
         requestUpvotes = "<button class=\"requestUpvotes clickSignUp btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
 
       if (this.model.get("status") === app.REQUEST_SATISFIED) {
-        requestTitle = "<div class=\"requestTitle\"><a class=\"satisfierName\" href=\"/user/" + this.model.get("satisfierName") + "\">" + this.model.get("satisfierName") + "</a> satisfied a request.</div>";
+        requestTitle = "<div class=\"requestTitle\"><a class=\"satisfierName\" href=\"/user/" + this.model.get("satisfierName") + "\">" + this.model.get("satisfierName") + "</a> answered a request.</div>";
         responseViews = "<div class=\"responseViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
         requestName = "<div class=\"requestName\"><a href=\"" + this.model.get("responseUrl") + "\" target=\"_blank\">" + this.model.get("name") + "</a></div>";
         responseDescription = "<div class=\"responseDescription\">" + this.model.get("responseDescription") + "</div>";

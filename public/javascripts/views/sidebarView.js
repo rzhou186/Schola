@@ -8,7 +8,7 @@ var app = app || {};
 
     initialize: function() {
       if (this.isViewingHomePage())
-        new app.TrendingUsersView();
+        new app.TrendingView();
       else if (this.isViewingUserPage()) {
         var userModel = this.buildUserModel();
         new app.UserInfoView({

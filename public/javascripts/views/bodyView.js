@@ -20,7 +20,7 @@ var app = app || {};
 
     promptSignUp: function() {
       var message = "<strong>A username and password. </strong>" +
-        "That's literally all we ask for. Sign up to unlock Schola.";
+        "That's literally all we ask for. Sign up to join Schola.";
       app.alerter.remind(message);
     },
 

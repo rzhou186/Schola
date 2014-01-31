@@ -4,7 +4,7 @@ html
   head
     title Schola
     include headerFiles.jade
-    link(rel="stylesheet", href="/stylesheets/trendingUsers.css")
+    link(rel="stylesheet", href="/stylesheets/trending.css")
     
   body
     include navbar.jade
@@ -13,7 +13,7 @@ html
       div.container.notResponsive
         div.row
           div.col-xs-9
-          div.col-xs-3#sidebarFixed
+          div#sidebarFixed.col-xs-3
 
     div.container.notResponsive
       div.row
@@ -22,10 +22,18 @@ html
             div#requests
             div#requestStreamLoading
               img(src="/images/loading.gif")
-        div.col-xs-3#sidebarRelative
+        div#sidebarRelative.col-xs-3
           div#sidebar
             div#alerts
-            div#trendingUsers
+            div#trending
+              div.trendingTitle Trending Users
+              div#trendingUsers
+                div.trendingUser
+                  span.glyphicon.glyphicon-user
+                  a(href="/user/testingdude") testingdude
+                div.trendingUser
+                  span.glyphicon.glyphicon-user
+                  a(href="/user/testingdude2") testingdude2
 
     script
       var app = app || {};

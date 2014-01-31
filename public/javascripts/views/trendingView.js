@@ -2,9 +2,9 @@ var app = app || {};
 
 (function() {
 
-  app.TrendingUsersView = Backbone.View.extend({
+  app.TrendingView = Backbone.View.extend({
 
-    el: "#trendingUsers",
+    el: "#trending",
 
     initialize: function() {
     }
