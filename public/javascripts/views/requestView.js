@@ -8,7 +8,8 @@ var app = app || {};
 
     events: {
       "click .requestUpvotes": "recordUpvote",
-      "click .requestName a": "recordResponseView"
+      "click .requestName a": "recordResponseView",
+      "click .requestDestroy": "destroy"
     },
 
     initialize: function() {
@@ -19,15 +20,19 @@ var app = app || {};
       var requestTitle = "<div class=\"requestTitle\"><a class=\"satisfierName\" href=\"/user/" + this.model.get("satisfierName") + "\">" + this.model.get("satisfierName") + "</a> received a request.</div>";
       var requestDateTime = "<div class=\"requestDateTime\">" + app.dateTime.format(this.model.get("dateTime")) + "</div>";
       var responseViews = "";
+      var requestDelete = "";
       var requestUpvotes = "<button class=\"requestUpvotes btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
       var requestName = "<div class=\"requestName\">" + this.model.get("name") + "</div>";
       var requestOrigin = "<div class=\"requestOrigin\">from <span class=\"requesterName\">" + "anonymous" + "</span></div>";
       var responseDescription = "<div class=\"responseDescription\"><em>This request is pending a response.</em></div>";
 
+      if (this.isViewingOwnRequest())
+        requestDelete = "<div class=\"requestDestroy\"><span class=\"glyphicon glyphicon-remove\"></span></div>";
+
       if (!this.model.get("accessible"))
         requestUpvotes = "<button class=\"requestUpvotes clickSignUp btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
 
-      if (this.model.get("status") === REQUEST_SATISFIED) {
+      if (this.model.get("status") === app.REQUEST_SATISFIED) {
         requestTitle = "<div class=\"requestTitle\"><a class=\"satisfierName\" href=\"/user/" + this.model.get("satisfierName") + "\">" + this.model.get("satisfierName") + "</a> satisfied a request.</div>";
         responseViews = "<div class=\"responseViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
         requestName = "<div class=\"requestName\"><a href=\"" + this.model.get("responseUrl") + "\" target=\"_blank\">" + this.model.get("name") + "</a></div>";
@@ -45,6 +50,7 @@ var app = app || {};
           responseViews + 
         "</div>" +
         "<div class=\"requestMain\">" + 
+          requestDelete +
           requestUpvotes +
           requestName + 
           requestOrigin + 
@@ -53,7 +59,7 @@ var app = app || {};
       );
       
       if (this.isViewingOwnRequest() &&
-          this.model.get("status") === REQUEST_NOT_SATISFIED)
+          this.model.get("status") === app.REQUEST_NOT_SATISFIED)
         this.addResponseForm();
 
       return this;
@@ -83,6 +89,10 @@ var app = app || {};
       if (app.viewerData.isLoggedIn) {
         this.model.incrementResponseViews();
       }
+    },
+
+    destroy: function(e) {
+      this.model.destroy();
     }
 
   });

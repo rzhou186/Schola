@@ -20,11 +20,11 @@ var app = app || {};
 
     promptSignUp: function() {
       var message = "<strong>A username and password. </strong>" +
-        "That's honestly all we ask for. Sign up to unlock Schola.";
+        "That's literally all we ask for. Sign up to unlock Schola.";
       app.alerter.remind(message);
     },
 
-    hasRoomForFixedSidebar: function()  {
+    hasRoomForFixedSidebar: function() {
       var fixedContainerWidth = this.$(".fixedOverlay .container").width();
       return $(window).width() >= fixedContainerWidth;
     },

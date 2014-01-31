@@ -39,12 +39,12 @@ var app = app || {};
     },
 
     handleSignUpResp: function(resp, formData) {
-      if (resp.signUpStatus === SIGN_UP_SUCCESS) {
+      if (resp.signUpStatus === app.SIGN_UP_SUCCESS) {
         app.cookies.setCookie("username", formData["username"]);
         app.cookies.setCookie("password", formData["password"]);
         location.reload();
       }
-      else if (resp.signUpStatus === SIGN_UP_FAILURE)
+      else if (resp.signUpStatus === app.SIGN_UP_FAILURE)
         app.alerter.alert("Sign up failed.");
     },
 

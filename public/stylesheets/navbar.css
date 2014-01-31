@@ -1,9 +1,17 @@
+.navbar-default {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
+}
+
 .navbar-default .navbar-header .navbar-brand {
   color: #ffffff;
   background-color: #3c95d2;
   font-family: 'Libre Baskerville', serif;
   font-weight: bold;
-  max-height: 50px;
+  height: 50px;
 }
 
 .navbar-default .navbar-header .navbar-brand img {

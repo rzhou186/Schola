@@ -63,7 +63,7 @@ var app = app || {};
     },
 
     updateInfo: function(requestsData) {
-      this.info["start"] += REQUESTS_PER_LOAD;
+      this.info["start"] += app.REQUESTS_PER_LOAD;
     },
 
     buildRequestModel: function(request) {

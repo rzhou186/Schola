@@ -48,9 +48,9 @@ var app = app || {};
     },
 
     handlePostResp: function(resp) {
-      if (resp.requestStatus === POST_REQUEST_SUCCESS)
+      if (resp.requestStatus === app.POST_REQUEST_SUCCESS)
         location.reload();
-      else if (resp.requestStatus === POST_REQUEST_FAILURE)
+      else if (resp.requestStatus === app.POST_REQUEST_FAILURE)
         app.alerter.alert("Post request failed.");
     },
 

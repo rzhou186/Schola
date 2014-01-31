@@ -44,12 +44,36 @@
 }
 
 .requestMain .responseDescription {
-  padding-right: 30px;
+  margin-right: 40px;
+}
+
+.requestMain .requestDestroy {
+  float: right;
+  width: 30px;
+  margin: -5px 0px 10px 0px;
+  text-align: center;
+}
+
+.requestMain .requestDestroy .glyphicon {
+  padding: 5px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
+}
+
+.requestMain .requestDestroy .glyphicon:hover {
+  cursor: pointer;
+  color: #ffffff;
+  background-color: #2e89c7;
+  border-radius: 4px;
 }
 
 .requestMain .requestUpvotes {
   float: right;
   width: 30px;
+  clear: right;
 }
 
 .requestMain .requestResponseForm {

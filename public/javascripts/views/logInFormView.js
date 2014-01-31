@@ -39,12 +39,12 @@ var app = app || {};
     },
 
     handleLogInResp: function(resp, formData) {
-      if (resp.logInStatus === LOG_IN_SUCCESS) {
+      if (resp.logInStatus === app.LOG_IN_SUCCESS) {
         app.cookies.setCookie("username", formData["username"]);
         app.cookies.setCookie("password", formData["password"]);
         location.reload();
       }
-      else if (resp.logInStatus === LOG_IN_FAILURE)
+      else if (resp.logInStatus === app.LOG_IN_FAILURE)
         app.alerter.alert("Log in failed.");
     },
 
