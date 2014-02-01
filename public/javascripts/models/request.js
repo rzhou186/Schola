@@ -58,7 +58,6 @@ var app = app || {};
     },
 
     destroy: function() {
-      console.log("Yay!");
     }
 
   });

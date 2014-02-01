@@ -23,10 +23,6 @@
   cursor: default;
 }
 
-.requestSide .responseViews .glyphicon {
-  font-size: 11px;
-}
-
 .requestMain {
   width: 60%;
   display: inline-block;
@@ -48,7 +44,7 @@
 }
 
 .requestMain .responseDescription {
-  margin-right: 40px;
+  padding-right: 40px;
 }
 
 .requestMain .requestDestroy {

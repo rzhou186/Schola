@@ -1,7 +1,6 @@
 body {
   padding-top: 75px;
   font-size: 13px;
-  color: #666666;
 }
 
 .fixedOverlay {
@@ -18,6 +17,10 @@ body {
 .container.notResponsive {
   max-width: none !important;
   width: 970px;
+}
+
+.glyphicon {
+  font-size: 11px;
 }
 
 .alert {

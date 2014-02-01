@@ -19,7 +19,7 @@ var app = app || {};
     populateDescription: function() {
       var description = this.model.get("description");
       if (!description)
-        description = "<em>This user has not provided a user description yet.</em>";
+        description = "<em>This publisher has not provided a self-description yet.</em>";
       this.$(".userDescription").html(description);
     }
 
