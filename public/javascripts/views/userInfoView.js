@@ -12,12 +12,12 @@ var app = app || {};
     },
 
     populateUsername: function() {
-      var username = this.model.get("username");
+      var username = this.model.escape("username");
       this.$(".userUsername").prepend(username);
     },
 
     populateDescription: function() {
-      var description = this.model.get("description");
+      var description = this.model.escape("description");
       if (!description)
         description = "<em>This publisher has not provided a self-description yet.</em>";
       this.$(".userDescription").html(description);
