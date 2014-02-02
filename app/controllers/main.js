@@ -27,7 +27,6 @@ exports.getTrendingPublishers = function (data, socket) {
 	trendingQuery.limit(5);
 	trendingQuery.sort('-receivedRequests');
 	trendingQuery.exec(function (err, publishers) {
-		console.log(users);
 		socket.emit ('getTrendingPublishersSuccess', {result : publishers});
 	})
 }
