@@ -42,7 +42,7 @@ exports.getTrendingPublishers = function (data, socket) {
 	var trendingQuery = userModel.find({isPublisher : 1});
 	trendingQuery.select('username receivedRequests');
 	trendingQuery.limit(5);
-	trendingQuery.sort('-receivedRequests');
+	trendingQuery.sort([['receivedRequests', 'descending']]);
 	trendingQuery.exec(function (err, publishers) {
 		socket.emit ('getTrendingPublishersSuccess', {result : publishers});
 	})
@@ -537,6 +537,7 @@ exports.logIn = function(data, socket) {
 }
 
 exports.signUp = function(data, socket) {
+	console.log ("IN SIGN UP FUNCTION :DDD");
 	userModel.find({username : data.username}, function (err, docs) {
 		if(docs && docs.length > 0) {
 			socket.emit('signUpSuccess', {signUpStatus : 1})
