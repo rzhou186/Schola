@@ -81,6 +81,7 @@ var app = app || {};
         responseDescription: request["responseDescription"],
         responseViews: request["responseViews"],
         responseDateTime: request["responseDate"],
+        upvotingDisabled: request["disabled"],
         accessible: app.viewerData.isLoggedIn
       });
     },

@@ -18,7 +18,8 @@ var app = app || {};
       responseDescription: "",
       responseViews: 0,
       responseDateTime: null,
-      accessible: false
+      upvotingDisabled: false,
+      accessible: false,
     },
 
     recordUpvote: function() {
@@ -32,7 +33,10 @@ var app = app || {};
       app.socket.once("incrementUpVotesSuccess", function(resp) {
         if (resp.requestId === that.get("id")) {
           if (resp.upvoteStatus === app.INCREMENT_UPVOTES_SUCCESS)
-            that.set({ upvotes: that.get("upvotes") + 1 });
+            that.set({ 
+              upvotes: that.get("upvotes") + 1,
+              upvotingDisabled: true
+            });
           else if (resp.upvoteStatus === app.INCREMENT_UPVOTES_FAILURE)
             app.alerter.alert("Record upvote failed.");
         }

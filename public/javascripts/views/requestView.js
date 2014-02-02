@@ -30,6 +30,9 @@ var app = app || {};
       if (this.isViewingOwnRequest())
         requestDelete = "<div class=\"requestDestroy\"><span class=\"glyphicon glyphicon-remove\"></span></div>";
 
+      if (this.model.get("upvotingDisabled"))
+        requestUpvotes = "<button class=\"requestUpvotes disabled btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
+
       if (!this.model.get("accessible"))
         requestUpvotes = "<button class=\"requestUpvotes clickSignUp btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
 
