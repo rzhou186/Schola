@@ -40,9 +40,7 @@ exports.submitEmail = function(data, socket) {
 
 exports.getTrendingPublishers = function (data, socket) {
 	var trendingQuery = userModel.find({isPublisher : 1});
-	trendingQuery.select('username receivedRequests');
-	trendingQuery.limit(5);
-	trendingQuery.sort({receivedRequests : -1});
+	trendingQuery.select('username receivedRequests').sort({receivedRequests : -1}).limit(5);
 	trendingQuery.exec(function (err, publishers) {
 		socket.emit ('getTrendingPublishersSuccess', {result : publishers});
 	})
