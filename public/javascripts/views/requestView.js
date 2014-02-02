@@ -39,7 +39,7 @@ var app = app || {};
       if (this.model.get("status") === app.REQUEST_SATISFIED) {
         requestTitle = "<div class=\"requestTitle\"><a class=\"satisfierName\" href=\"/user/" + this.model.escape("satisfierName") + "\">" + this.model.escape("satisfierName") + "</a> answered a request.</div>";
         responseViews = "<div class=\"responseViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
-        requestName = "<div class=\"requestName\"><a href=\"" + this.model.escape("responseUrl") + "\" target=\"_blank\">" + this.model.escape("name") + "</a></div>";
+        requestName = "<div class=\"requestName\"><a href=\"" + this.model.escape("responseUrl") + "\">" + this.model.escape("name") + "</a></div>";
         responseDescription = "<div class=\"responseDescription\">" + this.model.escape("responseDescription") + "</div>";
 
         if (!this.model.get("accessible")) {

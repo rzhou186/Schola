@@ -4,15 +4,41 @@ html
   head
     title Schola
     include headerFiles.jade
+    link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Crimson+Text:400,700")
     link(rel="stylesheet", href="/stylesheets/recruitPage.css")
     
   body
     include navbar.jade
     div.container.notResponsive
       div.row
-        div.col-xs-12
-          h1 I like trains.
-          p Do you like trains?
+        div.col-xs-4
+        div#recruitLetter.col-xs-8
+          div.title Schola is disrupting education.
+            div
+              strong Join us.
+          p
+            | Getting into college has become 
+            strong absurdly competitive. 
+            | Acceptance rates for elite schools have fallen to single digits, and getting good grades simply isn't enough anymore.
+          p 
+            strong You
+            | , among millions of 
+            strong successful alumni
+            | , built an entire corpus of work and wisdom beating this system. Now it's locked up in your laptop, offline, and worth nothing. But it's 
+            strong exactly what current students need.
+          p
+            | Schola is the first platform that makes this kind of academic publishing scale. Whether you're ready to 
+            strong cash out 
+            | on your own corpus or 
+            strong impact hundreds 
+            | of students in parallel, Schola Publisher Network is the place to start.
+          p.closing Interested? Welcome aboard.
+          div.input-group
+            input.input-lg.form-control(type="text", placeholder="Your email address")
+            span.input-group-btn
+              button.btn.btn-schola.btn-lg(type="button") 
+                span.glyphicon.glyphicon-send
+                | Submit
 
     script
       var app = app || {};

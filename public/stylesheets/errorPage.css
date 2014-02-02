@@ -1,4 +1,8 @@
-h1 {
+.row {
+  text-align: right;
+}
+
+.title {
   font-size: 72px;
   font-weight: bold;
 }

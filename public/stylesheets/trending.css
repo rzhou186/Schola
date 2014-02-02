@@ -3,15 +3,15 @@
   margin-bottom: 20px;
 }
 
-.trendingTitle {
+#trending .trendingTitle {
   font-size: 14px;
   margin-bottom: 10px;
 }
 
-.trendingPublisher {
+#trending .trendingPublisher {
   margin-bottom: 10px;
 }
 
-.trendingPublisher .glyphicon {
+#trending .trendingPublisher .glyphicon {
   margin-right: 10px;
 }

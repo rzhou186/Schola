@@ -13,6 +13,7 @@ var app = app || {};
 
     initialize: function() {
       this.enableSidebarRepositioning();
+      this.enableTooltips();
 
       // Initialize position of sidebar.
       this.repositionSidebarIfNeeded();
@@ -53,6 +54,13 @@ var app = app || {};
       var that = this;
       $(window).on("resize", function() {
         that.repositionSidebarIfNeeded();
+      });
+    },
+
+    enableTooltips: function() {
+      this.$el.tooltip({
+        selector: "[data-toggle=\"tooltip\"]",
+        placement: "left"
       });
     }
 

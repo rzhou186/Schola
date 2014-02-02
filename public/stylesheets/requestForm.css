@@ -8,6 +8,11 @@
   width: 70px;
 }
 
+#requestForm .requestFormTitle {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
 #requestForm .requestFormName {
   min-width: 100%;
   max-width: 100%;

@@ -10,7 +10,6 @@ var app = app || {};
       this.initInfo();
       this.listenForLoads();
       this.enableScrollLoad();
-      this.enableTooltips();
 
       // Load initial batch of requests.
       this.loadMoreRequests();
@@ -109,13 +108,6 @@ var app = app || {};
           that.addRequests(requests);
         }
         else that.disableScrollLoad();
-      });
-    },
-
-    enableTooltips: function() {
-      this.$el.tooltip({
-        selector: "[data-toggle=\"tooltip\"]",
-        placement: "left"
       });
     }
 

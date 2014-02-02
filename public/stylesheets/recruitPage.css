@@ -1,8 +1,35 @@
-h1 {
-  font-size: 72px;
-  font-weight: bold;
+body {
+  padding-top: 50px;
 }
 
-p {
+#recruitLetter {
+  font-family: "Crimson Text", serif;
+  padding: 25px 20px 40px 20px;
+  background-color: rgb(255, 255, 255);
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+#recruitLetter .title {
+  font-size: 36px;
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+#recruitLetter p {
   font-size: 20px;
+  margin: 0px 0px 30px 0px;
+}
+
+#recruitLetter .closing {
+  text-align: right;
+  margin-bottom: 35px;
+}
+
+#recruitLetter input.input-lg {
+  height: 45px;
+}
+
+#recruitLetter .btn-lg .glyphicon {
+  font-size: 14px;
+  margin-right: 10px;
 }
