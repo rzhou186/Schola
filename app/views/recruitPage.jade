@@ -12,33 +12,34 @@ html
     div.container.notResponsive
       div.row
         div.col-xs-4
-        div#recruitLetter.col-xs-8
-          div.title Schola is disrupting education.
-            div
-              strong Join us.
-          p
-            | Getting into college has become 
-            strong absurdly competitive. 
-            | Acceptance rates for elite schools have fallen to single digits, and getting good grades simply isn't enough anymore.
-          p 
-            strong You
-            | , among millions of 
-            strong successful alumni
-            | , built an entire corpus of work and expertise beating this system. Now that's locked up in your laptop, offline, and worth nothing. But it's 
-            strong exactly what current students need.
-          p
-            | Schola is the first platform that makes this breed of academic publishing scale. Whether you're ready to 
-            strong cash out 
-            | on your own corpus or 
-            strong impact hundreds 
-            | of students at once, Schola Publisher Network is the place to start.
-          p.closing Interested? Welcome aboard.
-          div.input-group
-            input.input-lg.form-control(type="text", placeholder="Your email address")
-            span.input-group-btn
-              button.btn.btn-schola.btn-lg(type="button") 
-                span.glyphicon.glyphicon-send
-                | Submit
+        div.col-xs-8
+          form#recruitForm
+            div.title Schola is disrupting education.
+              div
+                strong Join us.
+            p
+              | Getting into college has become 
+              strong absurdly competitive. 
+              | Acceptance rates for elite schools have fallen to single digits, and getting good grades simply isn't enough anymore.
+            p 
+              strong You
+              | , among millions of 
+              strong successful alumni
+              | , built an entire corpus of work and expertise beating this system. Now that's locked up in your laptop, offline, and worth nothing. But it's 
+              strong exactly what current students need.
+            p
+              | Schola is the first platform that makes this breed of academic publishing scale. Whether you're ready to 
+              strong cash out 
+              | on your own corpus or 
+              strong impact hundreds 
+              | of students at once, Schola Publisher Network is the place to start.
+            p.closing Interested? Welcome aboard.
+            div.input-group
+              input.input-lg.form-control(type="text", name="email", placeholder="Your email address")
+              span.input-group-btn
+                button#recruitFormSubmit.btn.btn-schola.btn-lg(type="submit")
+                  span.glyphicon.glyphicon-send
+                  | Submit
 
     script
       var app = app || {};
@@ -50,3 +51,4 @@ html
     include footerFiles.jade
     script
       new app.NavbarView();
+      new app.RecruitFormView();

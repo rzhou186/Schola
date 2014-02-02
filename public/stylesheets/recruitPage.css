@@ -2,33 +2,33 @@ body {
   padding-top: 50px;
 }
 
-#recruitLetter {
+#recruitForm {
   font-family: "Crimson Text", serif;
   padding: 25px 20px 40px 20px;
   background-color: #ffffff;
 }
 
-#recruitLetter .title {
+#recruitForm .title {
   font-size: 36px;
   text-align: right;
   margin-bottom: 20px;
 }
 
-#recruitLetter p {
+#recruitForm p {
   font-size: 20px;
   margin: 0px 0px 30px 0px;
 }
 
-#recruitLetter .closing {
+#recruitForm .closing {
   text-align: right;
   margin-bottom: 35px;
 }
 
-#recruitLetter input.input-lg {
+#recruitForm input.input-lg {
   height: 45px;
 }
 
-#recruitLetter .btn-lg .glyphicon {
+#recruitForm .btn-lg .glyphicon {
   font-size: 14px;
   margin-right: 10px;
 }
