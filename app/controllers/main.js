@@ -325,6 +325,30 @@ exports.updateRequest = function (data, socket) {
 		})
 	})
 }
+
+exports.deleteRequest = function(data, socket) {
+	userModel.find({username : data.username}, function (err, docs) {
+		if(docs && docs.length > 0) {
+			if(docs[0].password === data.password) {
+				requestModel.find({_id : data.requestId}, function (err, docsTwo) {
+					if (docsTwo && docsTwo.length > 0) {
+						docsTwo.remove();
+						socket.emit ('deleteRequestSuccess', {deleteStatus : 1});
+					}
+					else {
+						socket.emit ('deleteRequestSuccess', {deleteStatus : 0});
+					}
+				})
+			}
+			else {
+				socket.emit ('deleteRequestSuccess', {deleteStatus : 0});
+			}
+		}
+		else {
+			socket.emit ('deleteRequestSuccess', {deleteStatus : 0});
+		}
+	})
+}
 exports.createRequest = function(data, socket) {
 	userModel.find({username : data.requesterName}, function (err, docs) {
 		if(docs && docs.length > 0) {
