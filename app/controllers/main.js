@@ -38,6 +38,7 @@ exports.userProfile = function(req, res) {
 				var returnDocs = {};
 				returnDocs.username = docs[0].username;
 				returnDocs._id = docs[0]._id;
+				returnDocs.description = docs[0].description;
 				returnDocs = JSON.stringify(returnDocs);
 				userModel.find({username : req.cookies.username}, function (err, docsTwo) {
 					if(docsTwo && docsTwo.length > 0) {
