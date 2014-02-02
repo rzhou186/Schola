@@ -9,15 +9,25 @@ exports.recruit = function(req, res) {
 	userModel.find({username : req.cookies.username}, function (err, docs) {
 		if (docs && docs.length > 0) {
 			if (docs[0].password === req.cookies.password) {
-				res.render('recruitPage', {isLoggedIn : 1, isSatisfier : docs[0].isSatisfier});
+				res.render ('recruitPage', {isLoggedIn : 1, isSatisfier : docs[0].isSatisfier});
 			}
 			else {
-				res.render('recruitPage', {isLoggedIn : 0, isSatisfier : 0});
+				res.render ('recruitPage', {isLoggedIn : 0, isSatisfier : 0});
 			}
 		}
 		else {
 			res.render ('recruitPage', {isLoggedIn : 0, isSatisfier : 0});
 		}
+	})
+}
+
+exports.getTrendingUsers = function (data, socket) {
+	var trendingQuery = userModel.find({isSatisfier : 1});
+	trendingQuery.select('username receivedRequests');
+	trendingQuery.limit(5);
+	trendingQuery.sort('-receivedRequests');
+	trendingQuery.exec(function (err, users) {
+		socket.emit ('getTrendingUsersSuccess', {result : users});
 	})
 }
 exports.userProfile = function(req, res) {

@@ -23,6 +23,7 @@ module.exports = function(app, io) {
  	sock.get('createRequest', main.createRequest, io)
  	sock.get('incrementViews', main.incrementViews, io)
  	sock.get('deleteRequest', main.deleteRequest, io)
+ 	sock.get('getTrendingUsers', main.getTrendingUsers, io)
  	sock.get('incrementUpVotes', main.incrementUpVotes, io)
  	sock.get('logIn', main.logIn, io)
  	sock.get('signUp', main.signUp, io)
