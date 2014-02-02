@@ -5,8 +5,7 @@ body {
 #recruitLetter {
   font-family: "Crimson Text", serif;
   padding: 25px 20px 40px 20px;
-  background-color: rgb(255, 255, 255);
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: #ffffff;
 }
 
 #recruitLetter .title {
