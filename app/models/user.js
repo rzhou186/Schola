@@ -7,7 +7,7 @@ var mongoose 		= require('mongoose')
 var userSchema = new mongoose.Schema({
 	username : String,
 	password : String,
-	isSatisfier : Number,
+	isPublisher : Number,
 	created : Date,
 	description : String,
 	receivedRequests : [mongoose.Schema.Types.ObjectId],

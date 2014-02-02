@@ -10,14 +10,14 @@ exports.recruit = function(req, res) {
 	userModel.find({username : req.cookies.username}, function (err, docs) {
 		if (docs && docs.length > 0) {
 			if (docs[0].password === req.cookies.password) {
-				res.render ('recruitPage', {isLoggedIn : 1, isSatisfier : docs[0].isSatisfier});
+				res.render ('recruitPage', {isLoggedIn : 1, isPublisher : docs[0].isPublisher});
 			}
 			else {
-				res.render ('recruitPage', {isLoggedIn : 0, isSatisfier : 0});
+				res.render ('recruitPage', {isLoggedIn : 0, isPublisher : 0});
 			}
 		}
 		else {
-			res.render ('recruitPage', {isLoggedIn : 0, isSatisfier : 0});
+			res.render ('recruitPage', {isLoggedIn : 0, isPublisher : 0});
 		}
 	})
 }
@@ -39,7 +39,7 @@ exports.submitEmail = function(data, socket) {
 }
 
 exports.getTrendingPublishers = function (data, socket) {
-	var trendingQuery = userModel.find({isSatisfier : 1});
+	var trendingQuery = userModel.find({isPublisher : 1});
 	trendingQuery.select('username receivedRequests');
 	trendingQuery.limit(5);
 	trendingQuery.sort('-receivedRequests');
@@ -51,7 +51,7 @@ exports.userProfile = function(req, res) {
 	var currentUserName = req.params.username;
 	userModel.find({username : currentUserName}, function (err, docs) {
 		if (docs && docs.length > 0) {
-			if (docs[0].isSatisfier) {
+			if (docs[0].isPublisher) {
 				var returnDocs = {};
 				returnDocs.username = docs[0].username;
 				returnDocs._id = docs[0]._id;
@@ -60,14 +60,14 @@ exports.userProfile = function(req, res) {
 				userModel.find({username : req.cookies.username}, function (err, docsTwo) {
 					if(docsTwo && docsTwo.length > 0) {
 						if (docsTwo[0].password === req.cookies.password) {
-								res.render('userPage', {data : returnDocs, isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier})
+								res.render('userPage', {data : returnDocs, isLoggedIn : 1, isPublisher : docsTwo[0].isPublisher})
 						}
 						else {
-							res.render('userPage', {data : returnDocs, isLoggedIn : 0, isSatisfier : 0})
+							res.render('userPage', {data : returnDocs, isLoggedIn : 0, isPublisher : 0})
 						}
 					}
 					else {
-						res.render('userPage', {data : returnDocs, isLoggedIn : 0, isSatisfier : 0})
+						res.render('userPage', {data : returnDocs, isLoggedIn : 0, isPublisher : 0})
 					}
 				})
 			}
@@ -75,14 +75,14 @@ exports.userProfile = function(req, res) {
 				userModel.find({username : req.cookies.username}, function (err, docsTwo) {
 					if (docsTwo && docsTwo.length > 0) {
 						if (docsTwo[0].password === req.cookies.password) {
-							res.render ('errorPage', { isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier});
+							res.render ('errorPage', { isLoggedIn : 1, isPublisher : docsTwo[0].isPublisher});
 						}
 						else {
-							res.render ('errorPage', { isLoggedIn : 0, isSatisfier : 0});
+							res.render ('errorPage', { isLoggedIn : 0, isPublisher : 0});
 						}
 					}
 					else {
-						res.render('errorPage', { isLoggedIn : 0, isSatisfier : 0});
+						res.render('errorPage', { isLoggedIn : 0, isPublisher : 0});
 					}
 				})
 			}
@@ -91,14 +91,14 @@ exports.userProfile = function(req, res) {
 			userModel.find({username : req.cookies.username}, function (err, docsTwo) {
 				if (docsTwo && docsTwo.length > 0) {
 					if (docsTwo[0].password === req.cookies.password) {
-						res.render ('errorPage', { isLoggedIn : 1, isSatisfier : docsTwo[0].isSatisfier});
+						res.render ('errorPage', { isLoggedIn : 1, isPublisher : docsTwo[0].isPublisher});
 					}
 					else {
-						res.render ('errorPage', {isLoggedIn : 0, isSatisfier : 0});
+						res.render ('errorPage', {isLoggedIn : 0, isPublisher : 0});
 					}
 				}
 				else {
-					res.render('errorPage', {isLoggedIn : 0, isSatisfier : 0});
+					res.render('errorPage', {isLoggedIn : 0, isPublisher : 0});
 				}
 			})
 		}
@@ -108,20 +108,20 @@ exports.userProfile = function(req, res) {
 exports.index = function(req, res) {
 	//find all the files linked to that user and pass them on to the template
 	if (req.cookies.username == undefined || req.cookies.password == undefined) {
-		res.render('homePage', {isLoggedIn : 0, isSatisfier : 0})
+		res.render('homePage', {isLoggedIn : 0, isPublisher : 0})
 	}
 	else {
 		userModel.find({username : req.cookies.username}, function (err, docs) {
 			if(docs && docs.length > 0) {
 				if(docs[0].password === req.cookies.password) {
-					res.render('homePage', {isLoggedIn : 1, isSatisfier : docs[0].isSatisfier});
+					res.render('homePage', {isLoggedIn : 1, isPublisher : docs[0].isPublisher});
 				}
 				else {
-					res.render('homePage', {isLoggedIn : 0, isSatisfier : 0})
+					res.render('homePage', {isLoggedIn : 0, isPublisher : 0})
 				}
 			}
 			else {
-				res.render('homePage', {isLoggedIn : 0, isSatisfier : 0})
+				res.render('homePage', {isLoggedIn : 0, isPublisher : 0})
 			}
 		})
 	}
@@ -295,8 +295,8 @@ function processRequests (docs, userData) {
 	return docs;
 }
 exports.getRequests = function(data, socket) {
-	if(data.satisfierName === "") {
-		requestModel.find({},'name upvotes requesterId satisfierId requesterName satisfierName status created responseURL responseDescription responseViews responseDate disabled', { skip: data.start, limit:10, sort:{
+	if(data.publisherName === "") {
+		requestModel.find({},'name upvotes requesterId publisherId requesterName publisherName status created responseURL responseDescription responseViews responseDate disabled', { skip: data.start, limit:10, sort:{
 	        upvotes: -1
 	    }
 		}, function (err, docs) {
@@ -317,10 +317,10 @@ exports.getRequests = function(data, socket) {
 		})
 	}
 	else {
-		userModel.find({username : data.satisfierName}, function (err, docs) {
+		userModel.find({username : data.publisherName}, function (err, docs) {
 			if (docs && docs.length > 0) {
 				var finalRequests = [];
-				requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId satisfierId requesterName satisfierName status created responseURL responseDescription responseViews responseDate', { skip: data.start, limit:10, sort:{
+				requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterName publisherName status created responseURL responseDescription responseViews responseDate', { skip: data.start, limit:10, sort:{
 	        		upvotes: -1
 	    		}
 		}, function (err, docsTwo) {
@@ -413,14 +413,14 @@ exports.createRequest = function(data, socket) {
 	userModel.find({username : data.requesterName}, function (err, docs) {
 		if(docs && docs.length > 0) {
 			if(docs[0].password === data.password) {
-				userModel.find({username: data.satisfierName}, function (err, docsTwo) {
+				userModel.find({username: data.publisherName}, function (err, docsTwo) {
 					if(docsTwo && docsTwo.length > 0) {
 						var newData = {};
 						newData.name = data.name;
 						newData.upvotes = 0;
 						newData.requesterId = docs[0]._id;
-						newData.satisfierId = docsTwo[0]._id;
-						newData.satisfierName = data.satisfierName;
+						newData.publisherId = docsTwo[0]._id;
+						newData.publisherName = data.publisherName;
 						newData.requesterName = data.requesterName;
 						newData.status = 0;
 						newData.created = new Date();
@@ -547,7 +547,7 @@ exports.signUp = function(data, socket) {
 			var user = {};
 			user.username = data.username;
 			user.password = data.password;
-			user.isSatisfier = 0;
+			user.isPublisher = 0;
 			user.created = new Date();
 			user.postedPosts = [];
 			user.postedRequests = [];
