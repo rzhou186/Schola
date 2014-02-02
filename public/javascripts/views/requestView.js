@@ -36,7 +36,7 @@ var app = app || {};
       if (!this.model.get("accessible"))
         requestUpvotes = "<button class=\"requestUpvotes clickSignUp btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
 
-      if (this.model.get("status") === app.REQUEST_SATISFIED) {
+      if (this.model.get("status") === app.REQUEST_ANSWERED) {
         requestTitle = "<div class=\"requestTitle\"><a class=\"publisherName\" href=\"/user/" + this.model.escape("publisherName") + "\">" + this.model.escape("publisherName") + "</a> answered a request.</div>";
         responseViews = "<div class=\"responseViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
         requestName = "<div class=\"requestName\"><a href=\"" + this.model.escape("responseUrl") + "\">" + this.model.escape("name") + "</a></div>";
