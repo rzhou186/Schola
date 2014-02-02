@@ -30,7 +30,7 @@ html
               div.trendingTitle Trending Publishers
               div#trendingPublishers
           if isLoggedIn
-            unless isSatisfier
+            unless isPublisher
               div#recruit
                 a.btn.btn-schola.btn-block.btn-sm(href="/recruit")
                   span.glyphicon.glyphicon-send
@@ -40,7 +40,7 @@ html
       var app = app || {};
       app.viewerData = {
         isLoggedIn: !{isLoggedIn},
-        isSatisfier: !{isSatisfier}
+        isPublisher: !{isPublisher}
       };
 
     include footerFiles.jade

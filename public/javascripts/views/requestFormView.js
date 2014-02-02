@@ -40,7 +40,7 @@ var app = app || {};
 
     augmentFormData: function(formData){
       formData["requesterName"] = app.cookies.getCookie("username");
-      formData["satisfierName"] = app.pageData.username;
+      formData["publisherName"] = app.pageData.username;
       formData["password"] = app.cookies.getCookie("password");
       formData["responseURL"] = "#";
       formData["responseDescription"] = "";

@@ -18,7 +18,7 @@ var app = app || {};
     },
 
     render: function() {
-      var requestTitle = "<div class=\"requestTitle\"><a class=\"satisfierName\" href=\"/user/" + this.model.escape("satisfierName") + "\">" + this.model.escape("satisfierName") + "</a> received a request.</div>";
+      var requestTitle = "<div class=\"requestTitle\"><a class=\"publisherName\" href=\"/user/" + this.model.escape("publisherName") + "\">" + this.model.escape("publisherName") + "</a> received a request.</div>";
       var requestDateTime = "<div class=\"requestDateTime\">" + app.dateTime.format(this.model.get("dateTime")) + "</div>";
       var responseViews = "";
       var requestDelete = "";
@@ -37,7 +37,7 @@ var app = app || {};
         requestUpvotes = "<button class=\"requestUpvotes clickSignUp btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
 
       if (this.model.get("status") === app.REQUEST_SATISFIED) {
-        requestTitle = "<div class=\"requestTitle\"><a class=\"satisfierName\" href=\"/user/" + this.model.escape("satisfierName") + "\">" + this.model.escape("satisfierName") + "</a> answered a request.</div>";
+        requestTitle = "<div class=\"requestTitle\"><a class=\"publisherName\" href=\"/user/" + this.model.escape("publisherName") + "\">" + this.model.escape("publisherName") + "</a> answered a request.</div>";
         responseViews = "<div class=\"responseViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
         requestName = "<div class=\"requestName\"><a href=\"" + this.model.escape("responseUrl") + "\">" + this.model.escape("name") + "</a></div>";
         responseDescription = "<div class=\"responseDescription\">" + this.model.escape("responseDescription") + "</div>";
@@ -70,7 +70,7 @@ var app = app || {};
     },
 
     isViewingOwnRequest: function() {
-      return this.model.escape("satisfierName") === app.cookies.getCookie("username");
+      return this.model.escape("publisherName") === app.cookies.getCookie("username");
     },
 
     addResponseForm: function() {

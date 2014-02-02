@@ -45,10 +45,10 @@ html
       var app = app || {};
       app.viewerData = {
         isLoggedIn: !{isLoggedIn},
-        isSatisfier: !{isSatisfier}
+        isPublisher: !{isPublisher}
       };
 
     include footerFiles.jade
-    script
+    script.
       new app.NavbarView();
       new app.RecruitFormView();

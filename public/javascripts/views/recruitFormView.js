@@ -32,12 +32,13 @@ var app = app || {};
       return formData;
     },
 
-    handleLogInResp: function(resp, formData) {
-      if (resp.logInStatus === app.RECRUIT_SUCCESS)
-        this.$el.html(
-          "<div class=\"title\">Welcome to Schola Publisher Network.</div>" + 
-          "<p class=\"title\">We'll be in touch shortly.</p>" + 
-        );
+    handleRecruitResp: function(resp, formData) {
+      if (resp.submitStatus === app.RECRUIT_SUCCESS)
+        location.reload();
+        // this.$el.html(
+        //   "<div class=\"title\">Welcome to Schola Publisher Network.</div>" + 
+        //   "<p class=\"title\">We'll be in touch shortly.</p>"
+        // );
     },
 
     recruit: function(e) {
@@ -48,7 +49,7 @@ var app = app || {};
         app.socket.emit("submitEmail", formData);
         var that = this;
         app.socket.once("submitEmailSuccess", function(resp) {
-          that.handleLogInResp(resp, formData);
+          that.handleRecruitResp(resp, formData);
           that.enableFormSubmit();
         });
       }

@@ -26,8 +26,8 @@ var app = app || {};
       this.info["username"] = app.cookies.getCookie("username");
       this.info["password"] = app.cookies.getCookie("password");
       if (this.isViewingUserPage())
-        this.info["satisfierName"] = app.pageData.username;
-      else this.info["satisfierName"] = "";
+        this.info["publisherName"] = app.pageData.username;
+      else this.info["publisherName"] = "";
     },
 
     showStreamLoading: function() {
@@ -74,8 +74,8 @@ var app = app || {};
         dateTime: request["created"],
         requesterId: request["requesterId"],
         requesterName: request["requesterName"],
-        satisfierId: request["satisfierId"],
-        satisfierName: request["satisfierName"],
+        publisherId: request["publisherId"],
+        publisherName: request["publisherName"],
         responseUrl: request["responseURL"],
         responseDescription: request["responseDescription"],
         responseViews: request["responseViews"],
