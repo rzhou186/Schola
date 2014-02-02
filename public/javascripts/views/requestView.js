@@ -38,14 +38,14 @@ var app = app || {};
 
       if (this.model.get("status") === app.REQUEST_ANSWERED) {
         requestTitle = "<div class=\"requestTitle\"><a class=\"publisherName\" href=\"/user/" + this.model.escape("publisherName") + "\">" + this.model.escape("publisherName") + "</a> answered a request.</div>";
-        responseViews = "<div class=\"responseViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
-        if (this.model.escape("responseUrl"))
+        if (this.model.escape("responseUrl")) {
           requestName = "<div class=\"requestName\"><a href=\"" + this.model.escape("responseUrl") + "\">" + this.model.escape("name") + "</a></div>";
+          responseViews = "<div class=\"responseViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
+        }
         responseDescription = "<div class=\"responseDescription\">" + this.model.escape("responseDescription") + "</div>";
 
-        if (!this.model.get("accessible")) {
+        if (!this.model.get("accessible"))
           requestName = "<div class=\"requestName clickSignUp\"><a>" + this.model.escape("name") + "</a></div>";
-        }
       }
 
       this.$el.html(
