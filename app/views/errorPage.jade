@@ -14,4 +14,11 @@ html
           h1 Uh oh.
           p Looks like this page doesn't exist.
 
+    script
+      var app = app || {};
+      app.viewerData = {
+        isLoggedIn: !{isLoggedIn},
+        isSatisfier: !{isSatisfier}
+      };
+
     include footerFiles.jade

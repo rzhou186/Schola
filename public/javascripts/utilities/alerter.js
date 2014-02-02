@@ -17,6 +17,19 @@ var app = app || {};
     }, 1000);
   };
 
+  Alerter.prototype.confirm = function(message) {
+    $("#alerts").empty();
+    var alert = $(
+      "<div class=\"alert alert-success\">" +
+        "<strong>" + message + "</strong>" +
+      "</div>"
+    );
+    $("#alerts").prepend(alert);
+    setTimeout(function(){
+      alert.fadeOut(500);
+    }, 1000);
+  };
+
   Alerter.prototype.remind = function(message) {
     $("#alerts").empty();
     var reminder = $(

@@ -1,0 +1,12 @@
+#recruit {
+  border-top: 2px solid #eeeeee;
+  padding-top: 20px;
+}
+
+#recruit .btn-schola {
+  font-weight: bold;
+}
+
+#recruit .glyphicon {
+  margin-right: 5px;
+}

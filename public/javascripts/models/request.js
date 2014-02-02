@@ -21,7 +21,7 @@ var app = app || {};
       accessible: false
     },
 
-    incrementUpvotes: function() {
+    recordUpvote: function() {
       app.socket.emit("incrementUpVotes", {
         requestId: this.get("id"),
         username: app.cookies.getCookie("username"),
@@ -39,7 +39,7 @@ var app = app || {};
       });
     },
 
-    incrementResponseViews: function() {
+    recordResponseView: function() {
       app.socket.emit("incrementViews", {
         requestId: this.get("id"),
         username: app.cookies.getCookie("username"),
@@ -58,6 +58,24 @@ var app = app || {};
     },
 
     destroy: function() {
+      app.socket.emit("deleteRequest", {
+        requestId: this.get("id"),
+        username: app.cookies.getCookie("username"),
+        password: app.cookies.getCookie("password")
+      });
+
+      var that = this;
+      app.socket.once("deleteRequestSuccess", function(resp) {
+        if (resp.requestId === that.get("id")) {
+          if (resp.deleteStatus === app.DELETE_REQUEST_SUCCESS) {
+            // This doesn't really destroy the model. Do we need to?
+            app.alerter.confirm("Delete request succeeded.");
+            that.trigger("destroy");
+          }
+          else if (resp.deleteStatus === app.DELETE_REQUEST_FAILURE)
+            app.alerter.alert("Delete request failed.");
+        }
+      });
     }
 
   });

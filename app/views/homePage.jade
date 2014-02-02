@@ -5,6 +5,7 @@ html
     title Schola
     include headerFiles.jade
     link(rel="stylesheet", href="/stylesheets/trending.css")
+    link(rel="stylesheet", href="/stylesheets/recruit.css")
     
   body
     include navbar.jade
@@ -34,6 +35,12 @@ html
                 div.trendingPublisher
                   span.glyphicon.glyphicon-user
                   a(href="/user/testingdude2") testingdude2
+          if isLoggedIn
+            unless isSatisfier
+              div#recruit
+                a.btn.btn-schola.btn-block.btn-sm(href="#")
+                  span.glyphicon.glyphicon-globe
+                  | Schola Publisher Network
 
     script
       var app = app || {};

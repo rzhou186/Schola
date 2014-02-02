@@ -14,6 +14,7 @@ var app = app || {};
 
     initialize: function() {
       this.listenTo(this.model, "change", this.render);
+      this.listenTo(this.model, "destroy", this.remove);
     },
 
     render: function() {
@@ -24,7 +25,7 @@ var app = app || {};
       var requestUpvotes = "<button class=\"requestUpvotes btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
       var requestName = "<div class=\"requestName\">" + this.model.escape("name") + "</div>";
       var requestOrigin = "<div class=\"requestOrigin\">from <span class=\"requesterName\">" + "anonymous" + "</span></div>";
-      var responseDescription = "<div class=\"responseDescription\"><em>This request is pending a response.</em></div>";
+      var responseDescription = "<div class=\"responseDescription\"><em>This request is pending an answer.</em></div>";
 
       if (this.isViewingOwnRequest())
         requestDelete = "<div class=\"requestDestroy\"><span class=\"glyphicon glyphicon-remove\"></span></div>";
@@ -80,15 +81,13 @@ var app = app || {};
     },
 
     recordUpvote: function(e) {
-      if (app.viewerData.isLoggedIn) {
-        this.model.incrementUpvotes();
-      }
+      if (app.viewerData.isLoggedIn)
+        this.model.recordUpvote();
     },
 
     recordResponseView: function(e) {
-      if (app.viewerData.isLoggedIn) {
-        this.model.incrementResponseViews();
-      }
+      if (app.viewerData.isLoggedIn)
+        this.model.recordResponseView();
     },
 
     destroy: function(e) {

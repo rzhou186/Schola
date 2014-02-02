@@ -4,10 +4,7 @@ var app = app || {};
 
   app.TrendingView = Backbone.View.extend({
 
-    el: "#trending",
-
-    initialize: function() {
-    }
+    el: "#trending"
 
   });
 
