@@ -267,20 +267,17 @@ exports.getUserName = function(data, socket) {
 }
 
 
-// function processRequests (docs, userData) {
-// 	console.log ("IN PROCESSREQUESTS");
-// 		for (var returnLength = 0; returnLength < docs; returnLength ++) {
-// 			for (var len = 0; len < userData[0].upvotedRequests.length; len++) {
-// 				console.log ("RUNNING");
-// 				if (docs[returnLength]._id == userData[0].upvotedRequests[len]) {
-// 					console.log ("DISBALING SHIT");
-// 					docs[returnLength]['disabled'] = 1;
-// 				}
-// 			}
-// 		}
-// 	console.log(docs);
-// 	return docs;
-// }
+function processRequests (docs, userData) {
+	var returnDocs = [];
+	for (var returnLength = 0; returnLength < docs.length; returnLength ++) {
+		for (var len = 0; len < userData[0].upvotedRequests.length; len++) {
+			if (docs[returnLength]._id.equals(userData[0].upvotedRequests[len])) {
+				docs[returnLength]['disabled'] = 1;
+			}
+		}
+	}
+	return docs;
+}
 exports.getRequests = function(data, socket) {
 	if(data.satisfierName === "") {
 		requestModel.find({},'name upvotes requesterId satisfierId requesterName satisfierName status created responseURL responseDescription responseViews responseDate disabled', { skip: data.start, limit:10, sort:{
@@ -290,7 +287,7 @@ exports.getRequests = function(data, socket) {
 			userModel.find({username : data.username}, function (err, userData) {
 				if(userData && userData.length > 0) {
 					if(userData[0].password === data.password) {
-						// docs = processRequests (docs, userData);
+						docs = processRequests (docs, userData);
 						socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 1});
 					}
 					else {
@@ -314,7 +311,7 @@ exports.getRequests = function(data, socket) {
 					userModel.find({username : data.username}, function(err, userData) {
 						if (userData && userData.length > 0) {
 							if(userData[0].password === data.password) {
-								// docsTwo = processRequests (docsTwo, userData);
+								docsTwo = processRequests (docsTwo, userData);
 								socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 1});
 							}
 							else {
