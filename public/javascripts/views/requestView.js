@@ -63,7 +63,7 @@ var app = app || {};
       );
       
       if (this.isViewingOwnRequest() &&
-          this.model.get("status") === app.REQUEST_NOT_SATISFIED)
+          this.model.get("status") === app.REQUEST_NOT_ANSWERED)
         this.addResponseForm();
 
       return this;
