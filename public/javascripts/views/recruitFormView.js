@@ -33,12 +33,13 @@ var app = app || {};
     },
 
     handleRecruitResp: function(resp, formData) {
-      if (resp.submitStatus === app.RECRUIT_SUCCESS)
+      if (resp.submitStatus === app.RECRUIT_SUCCESS) {
         location.reload();
         // this.$el.html(
         //   "<div class=\"title\">Welcome to Schola Publisher Network.</div>" + 
         //   "<p class=\"title\">We'll be in touch shortly.</p>"
         // );
+      }
     },
 
     recruit: function(e) {
