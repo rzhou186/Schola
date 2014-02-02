@@ -21,13 +21,13 @@ exports.recruit = function(req, res) {
 	})
 }
 
-exports.getTrendingUsers = function (data, socket) {
+exports.getTrendingPublishers = function (data, socket) {
 	var trendingQuery = userModel.find({isSatisfier : 1});
 	trendingQuery.select('username receivedRequests');
 	trendingQuery.limit(5);
 	trendingQuery.sort('-receivedRequests');
 	trendingQuery.exec(function (err, users) {
-		socket.emit ('getTrendingUsersSuccess', {result : users});
+		socket.emit ('getTrendingPublishersSuccess', {result : users});
 	})
 }
 exports.userProfile = function(req, res) {
