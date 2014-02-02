@@ -24,8 +24,9 @@ var app = app || {};
       var that = this;
       $.each(formFields, function(i, formField) {
         if (!formField.value) {
+          app.alerter.alert("Empty form field.");
           that.enableFormSubmit();
-          formData = null; return;
+          formData = null; return false;
         }
         formData[formField.name] = formField.value;
       });
@@ -34,12 +35,19 @@ var app = app || {};
 
     handleRecruitResp: function(resp, formData) {
       if (resp.submitStatus === app.RECRUIT_SUCCESS) {
-        location.reload();
-        // this.$el.html(
-        //   "<div class=\"title\">Welcome to Schola Publisher Network.</div>" + 
-        //   "<p class=\"title\">We'll be in touch shortly.</p>"
-        // );
+        var that = this;
+        this.$el.fadeOut("slow", function() {
+          that.$el.html(
+            "<div class=\"title\">" + 
+              "Thank you for joining " + 
+              "<div><strong>Schola Publisher Network</strong>.</div>" +
+            "</div>" + 
+            "<p class=\"closing\">We'll be getting in touch shortly.</p>"
+          ).fadeIn("slow");
+        });
       }
+      else if (resp.submitStatus === app.RECRUIT_FAILURE)
+        app.alerter.alert("Submit email failed.");
     },
 
     recruit: function(e) {

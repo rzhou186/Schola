@@ -2,6 +2,10 @@ body {
   padding-top: 50px;
 }
 
+#alerts {
+  margin-top: 25px;
+}
+
 #recruitForm {
   font-family: "Crimson Text", serif;
   padding: 25px 20px 40px 20px;

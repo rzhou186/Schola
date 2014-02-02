@@ -31,7 +31,7 @@ var app = app || {};
         if (!formField.value) {
           app.alerter.alert("Empty form field.");
           that.enableFormSubmit();
-          formData = null; return;
+          formData = null; return false;
         }
         formData[formField.name] = formField.value;
       });

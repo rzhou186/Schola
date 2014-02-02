@@ -9,6 +9,7 @@ var app = app || {};
     className: "requestResponseForm",
 
     events: {
+      "click .isResource": "toggleResource",
       "submit": "postRequestResponse"
     },
 
@@ -19,12 +20,29 @@ var app = app || {};
 
     render: function() {
       this.$el.html(
+        "<div class=\"checkbox\">" +
+          "Resource" +
+          "<input type=\"checkbox\" class=\"isResource\" checked>" +
+        "</div>" +
         "<p><strong>Answer Request</strong></p>" +
-        "<input type=\"text\" name=\"responseURL\" maxlength=\"100\" placeholder=\"URL\" class=\"requestResponseFormName form-control\"/>" +
-        "<textarea name=\"responseDescription\" rows=\"3\" placeholder=\"Comments\" class=\"requestResponseFormDescription form-control\"></textarea>" +
-        "<button type=\"submit\" class=\"requestResponseFormSubmit btn btn-schola btn-xs\">Answer</button>"
+        "<input type=\"text\" name=\"responseURL\" maxlength=\"100\" placeholder=\"Resource URL\" class=\"requestResponseFormUrl form-control\"/>" +
+        "<textarea name=\"responseDescription\" rows=\"3\" placeholder=\"Resource Description\" class=\"requestResponseFormDescription form-control\"></textarea>" +
+        "<button type=\"submit\" class=\"requestResponseFormSubmit btn btn-schola btn-xs\">Submit</button>"
       );
+      this.isResource = true;
       return this;
+    },
+
+    toggleResource: function() {
+      this.isResource = !this.isResource;
+      if (!this.isResource) {
+        this.$(".requestResponseFormUrl").prop("disabled", true);
+        this.$(".requestResponseFormDescription").attr("placeholder", "Answer");
+      }
+      else {
+        this.$(".requestResponseFormUrl").prop("disabled", false);
+        this.$(".requestResponseFormDescription").attr("placeholder", "Resource Description");
+      }
     },
 
     enableFormSubmit: function() {
@@ -40,17 +58,20 @@ var app = app || {};
       var formData = {};
       var that = this;
       $.each(formFields, function(i, formField) {
+        // Returning non-false skips immediately to the next iteration.
+        if (formField.name === "responseURL" && !that.isResource) return;
+
         if (!formField.value) {
           app.alerter.alert("Empty form field.");
           that.enableFormSubmit();
-          formData = null; return;
+          formData = null; return false;
         }
         formData[formField.name] = formField.value;
       });
       return formData;
     },
 
-    augmentFormData: function(formData){
+    augmentFormData: function(formData) {
       formData["requestId"] = this.options.requestId;
       formData["username"] = app.cookies.getCookie("username");
       formData["password"] = app.cookies.getCookie("password");

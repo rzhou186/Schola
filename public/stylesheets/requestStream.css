@@ -88,12 +88,21 @@
   width: 70px;
 }
 
-.requestMain .requestResponseForm .requestResponseFormName,
+.requestMain .requestResponseForm .requestResponseFormUrl,
 .requestMain .requestResponseForm .requestResponseFormDescription {
   min-width: 100%;
   max-width: 100%;
   display: block;
   margin-bottom: 10px;
+}
+
+.requestMain .requestResponseForm .checkbox {
+  float: right;
+  margin: 0px;
+}
+
+.requestMain .requestResponseForm .checkbox input {
+  margin: 2px 5px 0px 0px;
 }
 
 .requestMain .requestResponseForm .requestResponseFormSubmit {

@@ -29,12 +29,11 @@ html
             div#trending
               div.trendingTitle Trending Publishers
               div#trendingPublishers
-          if isLoggedIn
-            unless isPublisher
-              div#recruit
-                a.btn.btn-schola.btn-block.btn-sm(href="/recruit")
-                  span.glyphicon.glyphicon-send
-                  | Schola Publisher Network
+          unless isPublisher
+            div#recruit
+              a.btn.btn-schola.btn-block.btn-sm(href="/recruit")
+                span.glyphicon.glyphicon-send
+                | Schola Publisher Network
 
     script.
       var app = app || {};
