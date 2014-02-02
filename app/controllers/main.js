@@ -42,7 +42,7 @@ exports.getTrendingPublishers = function (data, socket) {
 	var trendingQuery = userModel.find({isPublisher : 1});
 	trendingQuery.select('username receivedRequests');
 	trendingQuery.limit(5);
-	trendingQuery.sort([['receivedRequests', 'descending']]);
+	trendingQuery.sort({receivedRequests : -1});
 	trendingQuery.exec(function (err, publishers) {
 		socket.emit ('getTrendingPublishersSuccess', {result : publishers});
 	})
