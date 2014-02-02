@@ -2,6 +2,7 @@
 var mongoose 	= require('mongoose'),
 	userModel	= mongoose.model('user'),
 	requestModel = mongoose.model('request'),
+	emailModel = mongoose.model('email'),
 	users = require('../../config/users.json')
 	// mock_data = JSON.parse(fs)
 
@@ -17,6 +18,22 @@ exports.recruit = function(req, res) {
 		}
 		else {
 			res.render ('recruitPage', {isLoggedIn : 0, isSatisfier : 0});
+		}
+	})
+}
+
+
+exports.submitEmail = function(data, socket) {
+	emailModel.find({email : data.email}, function (err, docs) {
+		if (!(docs.length)) {
+			var newData = {};
+			newData.email = data.email;
+			var newEmail =  new emailModel(newData);
+			newEmail.save();
+			socket.emit('submitEmailSuccess', {submitStatus : 1});
+		}
+		else {
+			socket.emit('submitEmailSuccess', {submitStatus : 0});
 		}
 	})
 }
@@ -373,6 +390,7 @@ exports.deleteRequest = function(data, socket) {
 				requestModel.find({_id : data.requestId}, function (err, docsTwo) {
 					if (docsTwo && docsTwo.length > 0) {
 						docsTwo[0].remove();
+
 						// Remove from user's received requests
 						// Remove from upvoted requests of everyone else
 						socket.emit ('deleteRequestSuccess', {deleteStatus : 1, requestId : data.requestId});
