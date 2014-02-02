@@ -5,10 +5,10 @@ var mongoose 	= require('mongoose'),
 	users = require('../../config/users.json')
 	// mock_data = JSON.parse(fs)
 
-exports.recruit = function(data, socket) {
-	userModel.find({username : data.username}, function (err, docs) {
+exports.recruit = function(req, res) {
+	userModel.find({username : req.cookies.username}, function (err, docs) {
 		if (docs && docs.length > 0) {
-			if (docs[0].password === data.password) {
+			if (docs[0].password === req.cookies.password) {
 				res.render('recruitPage', {isLoggedIn : 1, isSatisfier : docs[0].isSatisfier});
 			}
 			else {
