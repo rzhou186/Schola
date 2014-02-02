@@ -333,19 +333,19 @@ exports.deleteRequest = function(data, socket) {
 				requestModel.find({_id : data.requestId}, function (err, docsTwo) {
 					if (docsTwo && docsTwo.length > 0) {
 						docsTwo.remove();
-						socket.emit ('deleteRequestSuccess', {deleteStatus : 1});
+						socket.emit ('deleteRequestSuccess', {deleteStatus : 1, requestId : data.requestId});
 					}
 					else {
-						socket.emit ('deleteRequestSuccess', {deleteStatus : 0});
+						socket.emit ('deleteRequestSuccess', {deleteStatus : 0, requestId : data.requestId});
 					}
 				})
 			}
 			else {
-				socket.emit ('deleteRequestSuccess', {deleteStatus : 0});
+				socket.emit ('deleteRequestSuccess', {deleteStatus : 0, requestId : data.requestId});
 			}
 		}
 		else {
-			socket.emit ('deleteRequestSuccess', {deleteStatus : 0});
+			socket.emit ('deleteRequestSuccess', {deleteStatus : 0, requestId : data.requestId});
 		}
 	})
 }
