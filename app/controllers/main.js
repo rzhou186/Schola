@@ -332,7 +332,7 @@ exports.deleteRequest = function(data, socket) {
 			if(docs[0].password === data.password) {
 				requestModel.find({_id : data.requestId}, function (err, docsTwo) {
 					if (docsTwo && docsTwo.length > 0) {
-						docsTwo.remove();
+						docsTwo[0].remove();
 						socket.emit ('deleteRequestSuccess', {deleteStatus : 1, requestId : data.requestId});
 					}
 					else {
