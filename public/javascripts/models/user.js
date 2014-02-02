@@ -7,6 +7,7 @@ var app = app || {};
     defaults: {
       username: "",
       description: "",
+      numReceivedRequests: 0
     }
 
   });

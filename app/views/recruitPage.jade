@@ -1,0 +1,24 @@
+doctype 5
+html
+
+  head
+    title Schola
+    include headerFiles.jade
+    link(rel="stylesheet", href="/stylesheets/recruitPage.css")
+    
+  body
+    include navbar.jade
+    div.container.notResponsive
+      div.row
+        div.col-xs-12
+          h1 I like trains.
+          p Do you like trains?
+
+    script
+      var app = app || {};
+      app.viewerData = {
+        isLoggedIn: !{isLoggedIn},
+        isSatisfier: !{isSatisfier}
+      };
+
+    include footerFiles.jade

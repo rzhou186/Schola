@@ -19,7 +19,8 @@ var app = app || {};
 
     buildUserModel: function() {
       return new app.User({
-        username: app.pageData.username
+        username: app.pageData.username,
+        description: app.pageData.description
       });
     },
 

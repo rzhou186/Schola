@@ -69,7 +69,7 @@ var app = app || {};
         if (resp.requestId === that.get("id")) {
           if (resp.deleteStatus === app.DELETE_REQUEST_SUCCESS) {
             // This doesn't really destroy the model. Do we need to?
-            app.alerter.confirm("Delete request succeeded.");
+            app.alerter.confirm("Request deleted.");
             that.trigger("destroy");
           }
           else if (resp.deleteStatus === app.DELETE_REQUEST_FAILURE)
