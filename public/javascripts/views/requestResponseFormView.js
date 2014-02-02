@@ -25,8 +25,8 @@ var app = app || {};
           "<input type=\"checkbox\" class=\"isResource\" checked>" +
         "</div>" +
         "<p><strong>Answer Request</strong></p>" +
-        "<input type=\"text\" name=\"responseURL\" maxlength=\"100\" placeholder=\"Resource URL\" class=\"requestResponseFormUrl form-control\"/>" +
-        "<textarea name=\"responseDescription\" rows=\"3\" placeholder=\"Resource Description\" class=\"requestResponseFormDescription form-control\"></textarea>" +
+        "<input type=\"text\" name=\"responseURL\" maxlength=\"100\" placeholder=\"URL\" class=\"requestResponseFormUrl form-control\"/>" +
+        "<textarea name=\"responseDescription\" rows=\"3\" placeholder=\"Description\" class=\"requestResponseFormDescription form-control\"></textarea>" +
         "<button type=\"submit\" class=\"requestResponseFormSubmit btn btn-schola btn-xs\">Submit</button>"
       );
       this.isResource = true;
@@ -36,12 +36,12 @@ var app = app || {};
     toggleResource: function() {
       this.isResource = !this.isResource;
       if (!this.isResource) {
-        this.$(".requestResponseFormUrl").prop("disabled", true);
+        this.$(".requestResponseFormUrl").hide();
         this.$(".requestResponseFormDescription").attr("placeholder", "Answer");
       }
       else {
-        this.$(".requestResponseFormUrl").prop("disabled", false);
-        this.$(".requestResponseFormDescription").attr("placeholder", "Resource Description");
+        this.$(".requestResponseFormUrl").show();
+        this.$(".requestResponseFormDescription").attr("placeholder", "Description");
       }
     },
 
