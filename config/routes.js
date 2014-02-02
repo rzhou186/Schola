@@ -7,6 +7,7 @@ module.exports = function(app, io) {
 	var	main 			= require('../app/controllers/main')
 	//more can come here
 	app.get('/', main.index);
+	app.get('/recruit', main.recruit);
 	app.get('/user/:username', main.userProfile)
  	//__FINALLY IF THERE IS NO KNOWN URL INCL. '/' THEN GO TO HOME
  	app.get('/*', main.userProfile);

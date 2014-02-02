@@ -5,6 +5,21 @@ var mongoose 	= require('mongoose'),
 	users = require('../../config/users.json')
 	// mock_data = JSON.parse(fs)
 
+exports.recruit = function(req, res) {
+	userModel.find({username : data.username}, function (err, docs) {
+		if (docs && docs.length > 0) {
+			if (docs[0].password === data.password) {
+				res.render('recruitPage', {isLoggedIn : 1, isSatisfier : docs[0].isSatisfier});
+			}
+			else {
+				res.render('recruitPage', {isLoggedIn : 0, isSatisfier : 0});
+			}
+		}
+		else {
+			res.render ('recruitPage', {isLoggedIn : 0, isSatisfier : 0});
+		}
+	})
+}
 exports.userProfile = function(req, res) {
 	var currentUserName = req.params.username;
 	userModel.find({username : currentUserName}, function (err, docs) {
@@ -239,15 +254,31 @@ exports.getUserName = function(data, socket) {
 	})
 }
 
+
+// function processRequests (docs, userData) {
+// 	console.log ("IN PROCESSREQUESTS");
+// 		for (var returnLength = 0; returnLength < docs; returnLength ++) {
+// 			for (var len = 0; len < userData[0].upvotedRequests.length; len++) {
+// 				console.log ("RUNNING");
+// 				if (docs[returnLength]._id == userData[0].upvotedRequests[len]) {
+// 					console.log ("DISBALING SHIT");
+// 					docs[returnLength]['disabled'] = 1;
+// 				}
+// 			}
+// 		}
+// 	console.log(docs);
+// 	return docs;
+// }
 exports.getRequests = function(data, socket) {
 	if(data.satisfierName === "") {
-		requestModel.find({},'name upvotes requesterId satisfierId requesterName satisfierName status created responseURL responseDescription responseViews responseDate', { skip: data.start, limit:10, sort:{
+		requestModel.find({},'name upvotes requesterId satisfierId requesterName satisfierName status created responseURL responseDescription responseViews responseDate disabled', { skip: data.start, limit:10, sort:{
 	        upvotes: -1
 	    }
 		}, function (err, docs) {
 			userModel.find({username : data.username}, function (err, userData) {
 				if(userData && userData.length > 0) {
 					if(userData[0].password === data.password) {
+						// docs = processRequests (docs, userData);
 						socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 1});
 					}
 					else {
@@ -271,6 +302,7 @@ exports.getRequests = function(data, socket) {
 					userModel.find({username : data.username}, function(err, userData) {
 						if (userData && userData.length > 0) {
 							if(userData[0].password === data.password) {
+								// docsTwo = processRequests (docsTwo, userData);
 								socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 1});
 							}
 							else {
@@ -333,6 +365,8 @@ exports.deleteRequest = function(data, socket) {
 				requestModel.find({_id : data.requestId}, function (err, docsTwo) {
 					if (docsTwo && docsTwo.length > 0) {
 						docsTwo[0].remove();
+						// Remove from user's received requests
+						// Remove from upvoted requests of everyone else
 						socket.emit ('deleteRequestSuccess', {deleteStatus : 1, requestId : data.requestId});
 					}
 					else {
@@ -368,6 +402,7 @@ exports.createRequest = function(data, socket) {
 						newData.responseDescription = data.responseDescription;
 						newData.responseViews = 0;
 						newData.responseDate = new Date();
+						newData.disabled = 0;
 						var newRequest = new requestModel(newData);
 						newRequest.save();
 						docs[0].postedRequests.push(newRequest._id);

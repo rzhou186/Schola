@@ -17,7 +17,8 @@ var requestSchema = new mongoose.Schema({
 	responseURL : String,
 	responseDescription : String,
 	responseViews : Number,
-	responseDate : Date
+	responseDate : Date,
+	disabled : Number
 })
 
 //Publish the model to be used in other files and storage etc.
