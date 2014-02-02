@@ -24,7 +24,7 @@ var app = app || {};
       });
     },
 
-    // Find a better way to determine the page being viewed.
+    // This doesn't actually work.
     isViewingHomePage: function() {
       if (!app.pageData) return true;
       return false;

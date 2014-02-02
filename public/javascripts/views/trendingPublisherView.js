@@ -7,12 +7,13 @@ var app = app || {};
     className: "trendingPublisher",
 
     render: function() {
-      var trendingPublisherUsername = "<a href=\"/user/" + this.model.escape("username") + "\">" + this.model.escape("username") + "</a>";
-      console.log(this.model.get("receivedRequests"));
+      var publisherUsername = "<a class=\"trendingPublisherName\" href=\"/user/" + this.model.escape("username") + "\">" + this.model.escape("username") + "</a>";
+      var publisherNumRequests = "<span class=\"badge\" data-toggle=\"tooltip\" title=\"" + this.model.get("receivedRequests").length + " requests\">" + this.model.get("receivedRequests").length + "</span>";
 
       this.$el.html(
         "<span class=\"glyphicon glyphicon-user\"></span>" +
-        trendingPublisherUsername
+        publisherUsername +
+        publisherNumRequests
       );
 
       return this;
