@@ -295,7 +295,7 @@ function processRequests (docs, userData) {
 	return docs;
 }
 exports.getRequests = function(data, socket) {
-	if(data.publisherUserame === "") {
+	if(data.publisherUsername === "") {
 		requestModel.find({},'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled', { skip: data.start, limit:10, sort:{
 	        upvotes: -1
 	    }
