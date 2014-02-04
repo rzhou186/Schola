@@ -14,7 +14,9 @@ var app = app || {};
 
     initialize: function() {
       this.listenTo(this.model, "change", this.render);
-      this.listenTo(this.model, "destroy", this.remove);
+      this.listenTo(this.model, "destroy", function() {
+        location.reload();
+      });
     },
 
     render: function() {
@@ -71,8 +73,8 @@ var app = app || {};
     },
 
     addLineBreaks: function(text) {
-      // This is pretty hacky... is there a better solution?
-      return text.replace(/\r\n|\r|\n/g, '<br>');
+      // This is pretty hacky. Is there a better solution?
+      return text.replace(/\r\n|\r|\n/g, "<br>");
     },
 
     isViewingOwnRequest: function() {

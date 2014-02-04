@@ -37,11 +37,9 @@ var app = app || {};
       this.isResource = !this.isResource;
       if (!this.isResource) {
         this.$(".requestResponseFormUrl").hide();
-        this.$(".requestResponseFormDescription").attr("placeholder", "Answer");
       }
       else {
         this.$(".requestResponseFormUrl").show();
-        this.$(".requestResponseFormDescription").attr("placeholder", "Description");
       }
     },
 
