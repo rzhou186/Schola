@@ -7,27 +7,23 @@ var app = app || {};
     el: "#sidebar",
 
     initialize: function() {
-      if (this.isViewingHomePage())
-        new app.TrendingView();
-      else if (this.isViewingUserPage()) {
+      if (this.isViewingUserPage()){
         var userModel = this.buildUserModel();
         new app.UserInfoView({
           model: userModel
         });
       }
+      else
+        // This doesn't actually work.
+        new app.TrendingView();
     },
 
     buildUserModel: function() {
       return new app.User({
-        username: app.pageData.username,
-        description: app.pageData.description
+        firstname: app.pageData["firstname"],
+        lastname: app.pageData["lastname"],
+        description: app.pageData["description"]
       });
-    },
-
-    // This doesn't actually work.
-    isViewingHomePage: function() {
-      if (!app.pageData) return true;
-      return false;
     },
 
     isViewingUserPage: function() {

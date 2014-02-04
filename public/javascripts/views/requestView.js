@@ -20,7 +20,7 @@ var app = app || {};
     },
 
     render: function() {
-      var requestTitle = "<div class=\"requestTitle\"><a class=\"publisherName\" href=\"/user/" + this.model.escape("publisherName") + "\">" + this.model.escape("publisherName") + "</a> received a request.</div>";
+      var requestTitle = "<div class=\"requestTitle\"><a class=\"publisherName\" href=\"/user/" + this.model.escape("publisherUsername") + "\">" + this.model.escape("publisherFirstname") + " " + this.model.escape("publisherLastname") + "</a> received a request.</div>";
       var requestDateTime = "<div class=\"requestDateTime\">" + app.dateTime.format(this.model.get("dateTime")) + "</div>";
       var responseViews = "";
       var requestDelete = "";
@@ -39,15 +39,14 @@ var app = app || {};
         requestUpvotes = "<button class=\"requestUpvotes clickSignUp btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
 
       if (this.model.get("status") === app.REQUEST_ANSWERED) {
-        requestTitle = "<div class=\"requestTitle\"><a class=\"publisherName\" href=\"/user/" + this.model.escape("publisherName") + "\">" + this.model.escape("publisherName") + "</a> answered a request.</div>";
+        requestTitle = "<div class=\"requestTitle\"><a class=\"publisherName\" href=\"/user/" + this.model.escape("publisherUsername") + "\">" + this.model.escape("publisherFirstname") + " " + this.model.escape("publisherLastname") + "</a> answered a request.</div>";
         if (this.model.escape("responseUrl")) {
           requestName = "<div class=\"requestName\"><a href=\"" + this.model.escape("responseUrl") + "\">" + this.model.escape("name") + "</a></div>";
           responseViews = "<div class=\"responseViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
+          if (!this.model.get("accessible"))
+            requestName = "<div class=\"requestName clickSignUp\"><a>" + this.model.escape("name") + "</a></div>";
         }
         responseDescription = "<div class=\"responseDescription\">" + this.addLineBreaks(this.model.escape("responseDescription")) + "</div>";
-
-        if (!this.model.get("accessible"))
-          requestName = "<div class=\"requestName clickSignUp\"><a>" + this.model.escape("name") + "</a></div>";
       }
 
       this.$el.html(
@@ -78,7 +77,7 @@ var app = app || {};
     },
 
     isViewingOwnRequest: function() {
-      return this.model.escape("publisherName") === app.cookies.getCookie("username");
+      return this.model.escape("publisherUsername") === app.cookies.getCookie("username");
     },
 
     addResponseForm: function() {
@@ -92,12 +91,12 @@ var app = app || {};
     },
 
     recordUpvote: function(e) {
-      if (app.viewerData.isLoggedIn)
+      if (app.viewerData["isLoggedIn"])
         this.model.recordUpvote();
     },
 
     recordResponseView: function(e) {
-      if (app.viewerData.isLoggedIn)
+      if (app.viewerData["isLoggedIn"])
         this.model.recordResponseView();
     },
 

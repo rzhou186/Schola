@@ -15,7 +15,6 @@ var app = app || {};
       cookie += "expires=" + expires.toGMTString() + ";";
     }
     cookie += "path=/;";
-    console.log(cookie);
     document.cookie = cookie;
   };
 

@@ -11,7 +11,7 @@ var app = app || {};
     },
 
     initialize: function() {
-      if (!app.viewerData.isLoggedIn)
+      if (!app.viewerData["isLoggedIn"])
         this.$el.addClass("submitSignUp");
     },
 
@@ -39,8 +39,10 @@ var app = app || {};
     },
 
     augmentFormData: function(formData){
-      formData["requesterName"] = app.cookies.getCookie("username");
-      formData["publisherName"] = app.pageData.username;
+      formData["requesterUsername"] = app.cookies.getCookie("username");
+      formData["publisherUsername"] = app.pageData["username"];
+      formData["publisherFirstname"] = app.pageData["firstname"];
+      formData["publisherLastname"] = app.pageData["lastname"];
       formData["password"] = app.cookies.getCookie("password");
       formData["responseURL"] = "#";
       formData["responseDescription"] = "";
@@ -56,7 +58,7 @@ var app = app || {};
 
     postRequest: function(e) {
       e.preventDefault();
-      if (app.viewerData.isLoggedIn) {
+      if (app.viewerData["isLoggedIn"]) {
         this.disableFormSubmit();
         var formData = this.extractFormData();
         if (formData) {
