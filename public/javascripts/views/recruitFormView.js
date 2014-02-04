@@ -39,7 +39,7 @@ var app = app || {};
         this.$el.fadeOut("slow", function() {
           that.$el.html(
             "<div class=\"title\">" + 
-              "Thank you for joining " + 
+              "Thank you for apply to " + 
               "<div><strong>Schola Publisher Network</strong>.</div>" +
             "</div>" + 
             "<p class=\"closing\">We'll be getting in touch shortly.</p>"
