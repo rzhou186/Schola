@@ -42,7 +42,7 @@ var app = app || {};
           requestName = "<div class=\"requestName\"><a href=\"" + this.model.escape("responseUrl") + "\">" + this.model.escape("name") + "</a></div>";
           responseViews = "<div class=\"responseViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
         }
-        responseDescription = "<div class=\"responseDescription\">" + this.model.escape("responseDescription") + "</div>";
+        responseDescription = "<div class=\"responseDescription\">" + this.addLineBreaks(this.model.escape("responseDescription")) + "</div>";
 
         if (!this.model.get("accessible"))
           requestName = "<div class=\"requestName clickSignUp\"><a>" + this.model.escape("name") + "</a></div>";
@@ -68,6 +68,11 @@ var app = app || {};
         this.addResponseForm();
 
       return this;
+    },
+
+    addLineBreaks: function(text) {
+      // This is pretty hacky... is there a better solution?
+      return text.replace(/\r\n|\r|\n/g, '<br>');
     },
 
     isViewingOwnRequest: function() {
