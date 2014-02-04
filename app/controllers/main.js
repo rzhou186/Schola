@@ -106,6 +106,8 @@ exports.userProfile = function(req, res) {
 }
 
 exports.index = function(req, res) {
+	console.log(req.cookies.username);
+	console.log(req.cookies.password);
 	//find all the files linked to that user and pass them on to the template
 	if (req.cookies.username == undefined || req.cookies.password == undefined) {
 		res.render('homePage', {isLoggedIn : 0, isPublisher : 0})
@@ -370,14 +372,14 @@ exports.updateRequest = function (data, socket) {
 					docs[0].responseDescription = data.responseDescription;
 					docs[0].responseDate = new Date();
 					docs[0].save();
-					socket.emit('updateRequestSuccess', {updateStatus : 1});
+					socket.emit('updateRequestSuccess', {updateStatus : 1, isLoggedIn : 1});
 				}
 				else {
-					socket.emit('updateRequestSuccess', {updateStatus : 0});
+					socket.emit('updateRequestSuccess', {updateStatus : 0, isLoggedIn : 0});
 				}
 			}
 			else {
-				socket.emit ('updateRequestSuccess', {updateStatus : 0});
+				socket.emit ('updateRequestSuccess', {updateStatus : 0, isLoggedIn : 0});
 			}
 		})
 	})
@@ -398,24 +400,24 @@ exports.deleteRequest = function(data, socket) {
 								docsThree[0].numReceivedRequests--;
 								docsThree[0].save();
 								docsTwo[0].remove();
-								socket.emit('deleteRequestSuccess', {deleteStatus : 1, requestId : data.requestId});
+								socket.emit('deleteRequestSuccess', {deleteStatus : 1, requestId : data.requestId, isLoggedIn : 1});
 							}
 							else {
-								socket.emit('deleteRequestSuccess', {deleteStatus : 0, requestId : data.requestId});
+								socket.emit('deleteRequestSuccess', {deleteStatus : 0, requestId : data.requestId, isLoggedIn : 1});
 							}
 						})
 					}
 					else {
-						socket.emit ('deleteRequestSuccess', {deleteStatus : 0, requestId : data.requestId});
+						socket.emit ('deleteRequestSuccess', {deleteStatus : 0, requestId : data.requestId, isLoggedIn : 1});
 					}
 				})
 			}
 			else {
-				socket.emit ('deleteRequestSuccess', {deleteStatus : 0, requestId : data.requestId});
+				socket.emit ('deleteRequestSuccess', {deleteStatus : 0, requestId : data.requestId, isLoggedIn : 0});
 			}
 		}
 		else {
-			socket.emit ('deleteRequestSuccess', {deleteStatus : 0, requestId : data.requestId});
+			socket.emit ('deleteRequestSuccess', {deleteStatus : 0, requestId : data.requestId, isLoggedIn : 0});
 		}
 	})
 }
@@ -448,19 +450,19 @@ exports.createRequest = function(data, socket) {
 						docsTwo[0].receivedRequests.push(newRequest._id);
 						docsTwo[0].numReceivedRequests++;
 						docsTwo[0].save();
-						socket.emit('createRequestSuccess', {requestStatus : 1});
+						socket.emit('createRequestSuccess', {requestStatus : 1, isLoggedIn : 1});
 					}
 					else {
-						socket.emit('createRequestSuccess', {requestStatus : 2});
+						socket.emit('createRequestSuccess', {requestStatus : 2, isLoggedIn : 1});
 					}
 				})
 			}
 			else {
-				socket.emit('createRequestSuccess', {requestStatus : 2});
+				socket.emit('createRequestSuccess', {requestStatus : 2, isLoggedIn : 0});
 			}
 		}
 		else {
-			socket.emit('createRequestSuccess', {requestStatus : 2});
+			socket.emit('createRequestSuccess', {requestStatus : 2, isLoggedIn : 0});
 		}
 	})
 }
@@ -478,18 +480,18 @@ exports.incrementViews = function(data, socket) {
 						if(docs[0].status == 1) {
 							docs[0].responseViews++;
 							docs[0].save()
-							socket.emit('incrementViewsSuccess', {viewStatus : 1, requestId : data.requestId});
+							socket.emit('incrementViewsSuccess', {viewStatus : 1, requestId : data.requestId, isLoggedIn : 1});
 						}
 						else {
-							socket.emit('incrementViewsSuccess', {viewStatus : 0, requestId : data.requestId});
+							socket.emit('incrementViewsSuccess', {viewStatus : 0, requestId : data.requestId, isLoggedIn : 1});
 						}	
 				}
 				else {
-					socket.emit ('incrementViewsSuccess', {viewStatus : 0, requestId : data.requestId});
+					socket.emit ('incrementViewsSuccess', {viewStatus : 0, requestId : data.requestId, isLoggedIn : 0});
 				}
 			}
 			else {
-				socket.emit ('incrementViewsSuccess', {viewStatus : 0, requestId : data.requestId});
+				socket.emit ('incrementViewsSuccess', {viewStatus : 0, requestId : data.requestId, isLoggedIn : 0});
 			}
 		})
 	})
@@ -513,19 +515,19 @@ exports.incrementUpVotes = function(data, socket) {
 						docs[0].save();
 						userData[0].upvotedRequests.push(docs[0]._id);
 						userData[0].save();
-						socket.emit('incrementUpVotesSuccess', {upvoteStatus : 1, requestId : data.requestId});
+						socket.emit('incrementUpVotesSuccess', {upvoteStatus : 1, requestId : data.requestId, isLoggedIn : 1});
 
 					}
 					else {
-						socket.emit('incrementUpVotesSuccess', {upvoteStatus : 0, requestId : data.requestId});
+						socket.emit('incrementUpVotesSuccess', {upvoteStatus : 0, requestId : data.requestId, isLoggedIn : 0});
 					}
 				}
 				else {
-					socket.emit('incrementUpVotesSuccess', {upvoteStatus : 0, requestId : data.requestId});
+					socket.emit('incrementUpVotesSuccess', {upvoteStatus : 0, requestId : data.requestId, isLoggedIn : 0});
 				}
 			}
 			else {
-				socket.emit('incrementUpVotesSuccess', {upvoteStatus : 0, requestId : data.requestId});
+				socket.emit('incrementUpVotesSuccess', {upvoteStatus : 0, requestId : data.requestId, isLoggedIn : 0});
 			}
 		})
 	})
@@ -550,7 +552,6 @@ exports.logIn = function(data, socket) {
 }
 
 exports.signUp = function(data, socket) {
-	console.log ("IN SIGN UP FUNCTION :DDD");
 	userModel.find({username : data.username}, function (err, docs) {
 		if(docs && docs.length > 0) {
 			socket.emit('signUpSuccess', {signUpStatus : 1})
