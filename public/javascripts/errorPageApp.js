@@ -2,6 +2,6 @@ var app = app || {};
 
 (function () {
   
-  new app.RequestFormView();
+  new app.NavbarView();
 
 })();

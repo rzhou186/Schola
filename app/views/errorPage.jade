@@ -14,7 +14,7 @@ html
           div.title Uh oh.
           p Looks like this page doesn't exist.
 
-    script
+    script.
       var app = app || {};
       app.viewerData = {
         isLoggedIn: !{isLoggedIn},
@@ -22,5 +22,4 @@ html
       };
 
     include footerFiles.jade
-    script.
-      new app.NavbarView();
+    script(type="text/javascript", src="/javascripts/errorPageApp.js")
