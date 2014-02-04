@@ -40,7 +40,7 @@ exports.submitEmail = function(data, socket) {
 
 exports.getTrendingPublishers = function (data, socket) {
 	var trendingQuery = userModel.find({isPublisher : 1});
-	trendingQuery.select('username receivedRequests').sort({receivedRequests : -1}).limit(5);
+	trendingQuery.select('username numReceivedRequests').sort({numReceivedRequests : -1});
 	trendingQuery.exec(function (err, publishers) {
 		socket.emit ('getTrendingPublishersSuccess', {result : publishers});
 	})
@@ -387,11 +387,21 @@ exports.deleteRequest = function(data, socket) {
 			if(docs[0].password === data.password) {
 				requestModel.find({_id : data.requestId}, function (err, docsTwo) {
 					if (docsTwo && docsTwo.length > 0) {
-						docsTwo[0].remove();
-
-						// Remove from user's received requests
-						// Remove from upvoted requests of everyone else
-						socket.emit ('deleteRequestSuccess', {deleteStatus : 1, requestId : data.requestId});
+						userModel.find({username : docsTwo[0].publisherName}, function (err, docsThree) {
+							if(docsThree && docsThree.length > 0) {
+								var index = docsThree[0].receivedRequests.indexOf(data.requestId);
+								if (index > -1) {
+									docsThree[0].receivedRequests.splice(index, 1);
+								}
+								docsThree[0].numReceivedRequests--;
+								docsThree[0].save();
+								docsTwo[0].remove();
+								socket.emit('deleteRequestSuccess', {deleteStatus : 1, requestId : data.requestId});
+							}
+							else {
+								socket.emit('deleteRequestSuccess', {deleteStatus : 0, requestId : data.requestId});
+							}
+						})
 					}
 					else {
 						socket.emit ('deleteRequestSuccess', {deleteStatus : 0, requestId : data.requestId});
@@ -432,6 +442,7 @@ exports.createRequest = function(data, socket) {
 						docs[0].postedRequests.push(newRequest._id);
 						docs[0].save();
 						docsTwo[0].receivedRequests.push(newRequest._id);
+						docsTwo[0].numReceivedRequests++;
 						docsTwo[0].save();
 						socket.emit('createRequestSuccess', {requestStatus : 1});
 					}
@@ -553,6 +564,7 @@ exports.signUp = function(data, socket) {
 			user.upvotedRequests = [];
 			user.receivedRequests = [];
 			user.description = "";
+			user.numReceivedRequests = 0;
 			var newUser = new userModel(user);
 			newUser.save();
 			//var user = [ {username : data.username}, {password : data.password}, {isModerator : 0}, {postedPosts : []}, {postedRequests : []}]

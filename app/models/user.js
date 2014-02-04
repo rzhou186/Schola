@@ -10,6 +10,7 @@ var userSchema = new mongoose.Schema({
 	isPublisher : Number,
 	created : Date,
 	description : String,
+	numReceivedRequests : Number,
 	receivedRequests : [mongoose.Schema.Types.ObjectId],
 	upvotedRequests : [mongoose.Schema.Types.ObjectId],
 	postedRequests : [mongoose.Schema.Types.ObjectId],
