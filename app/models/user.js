@@ -6,6 +6,9 @@ var mongoose 		= require('mongoose')
 //File Schema
 var userSchema = new mongoose.Schema({
 	username : String,
+	firstname : String,
+	lastname : String,
+	email : String,
 	password : String,
 	isPublisher : Number,
 	created : Date,

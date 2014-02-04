@@ -40,18 +40,20 @@ exports.submitEmail = function(data, socket) {
 
 exports.getTrendingPublishers = function (data, socket) {
 	var trendingQuery = userModel.find({isPublisher : 1});
-	trendingQuery.select('username numReceivedRequests').sort({numReceivedRequests : -1});
+	trendingQuery.select('username firstname lastname numReceivedRequests').sort({numReceivedRequests : -1});
 	trendingQuery.exec(function (err, publishers) {
 		socket.emit ('getTrendingPublishersSuccess', {result : publishers});
 	})
 }
 exports.userProfile = function(req, res) {
-	var currentUserName = req.params.username;
-	userModel.find({username : currentUserName}, function (err, docs) {
+	var currentUsername = req.params.username;
+	userModel.find({username : currentUsername}, function (err, docs) {
 		if (docs && docs.length > 0) {
 			if (docs[0].isPublisher) {
 				var returnDocs = {};
 				returnDocs.username = docs[0].username;
+				returnDocs.firstname = docs[0].firstname;
+				returnDocs.lastname = docs[0].lastname;
 				returnDocs._id = docs[0]._id;
 				returnDocs.description = docs[0].description;
 				returnDocs = JSON.stringify(returnDocs);
@@ -293,8 +295,8 @@ function processRequests (docs, userData) {
 	return docs;
 }
 exports.getRequests = function(data, socket) {
-	if(data.publisherName === "") {
-		requestModel.find({},'name upvotes requesterId publisherId requesterName publisherName status created responseURL responseDescription responseViews responseDate disabled', { skip: data.start, limit:10, sort:{
+	if(data.publisherUserame === "") {
+		requestModel.find({},'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled', { skip: data.start, limit:10, sort:{
 	        upvotes: -1
 	    }
 		}, function (err, docs) {
@@ -315,14 +317,14 @@ exports.getRequests = function(data, socket) {
 		})
 	}
 	else {
-		userModel.find({username : data.publisherName}, function (err, docs) {
+		userModel.find({username : data.publisherUsername}, function (err, docs) {
 			if (docs && docs.length > 0) {
 				var finalRequests = [];
-				requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterName publisherName status created responseURL responseDescription responseViews responseDate', { skip: data.start, limit:10, sort:{
+				requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate', { skip: data.start, limit:10, sort:{
 	        		upvotes: -1
 	    		}
 		}, function (err, docsTwo) {
-					userModel.find({username : data.username}, function(err, userData) {
+					userModel.find({username : data.username}, function (err, userData) {
 						if (userData && userData.length > 0) {
 							if(userData[0].password === data.password) {
 								docsTwo = processRequests (docsTwo, userData);
@@ -387,7 +389,7 @@ exports.deleteRequest = function(data, socket) {
 			if(docs[0].password === data.password) {
 				requestModel.find({_id : data.requestId}, function (err, docsTwo) {
 					if (docsTwo && docsTwo.length > 0) {
-						userModel.find({username : docsTwo[0].publisherName}, function (err, docsThree) {
+						userModel.find({username : docsTwo[0].publisherUsername}, function (err, docsThree) {
 							if(docsThree && docsThree.length > 0) {
 								var index = docsThree[0].receivedRequests.indexOf(data.requestId);
 								if (index > -1) {
@@ -418,18 +420,20 @@ exports.deleteRequest = function(data, socket) {
 	})
 }
 exports.createRequest = function(data, socket) {
-	userModel.find({username : data.requesterName}, function (err, docs) {
+	userModel.find({username : data.requesterUsername}, function (err, docs) {
 		if(docs && docs.length > 0) {
 			if(docs[0].password === data.password) {
-				userModel.find({username: data.publisherName}, function (err, docsTwo) {
+				userModel.find({username: data.publisherUsername}, function (err, docsTwo) {
 					if(docsTwo && docsTwo.length > 0) {
 						var newData = {};
 						newData.name = data.name;
 						newData.upvotes = 0;
 						newData.requesterId = docs[0]._id;
 						newData.publisherId = docsTwo[0]._id;
-						newData.publisherName = data.publisherName;
-						newData.requesterName = data.requesterName;
+						newData.publisherUsername = data.publisherUsername;
+						newData.requesterUsername = data.requesterUsername;
+						newData.publisherFirstname = data.publisherFirstname;
+						newData.publisherLastname = data.publisherLastname;
 						newData.status = 0;
 						newData.created = new Date();
 						newData.responseURL = data.responseURL;
@@ -561,6 +565,9 @@ exports.signUp = function(data, socket) {
 			user.created = new Date();
 			user.postedPosts = [];
 			user.postedRequests = [];
+			user.firstname = "";
+			user.lastname = "";
+			user.email = "";
 			user.upvotedRequests = [];
 			user.receivedRequests = [];
 			user.description = "";
