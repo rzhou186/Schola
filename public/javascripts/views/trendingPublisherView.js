@@ -8,7 +8,7 @@ var app = app || {};
 
     render: function() {
       var publisherUsername = "<a class=\"trendingPublisherName\" href=\"/user/" + this.model.escape("username") + "\">" + this.model.escape("username") + "</a>";
-      var publisherNumRequests = "<span class=\"badge\">" + this.model.get("receivedRequests").length + "</span>";
+      var publisherNumRequests = "<span class=\"badge\">" + this.model.get("numReceivedRequests") + "</span>";
 
       this.$el.html(
         "<span class=\"glyphicon glyphicon-user\"></span>" +
