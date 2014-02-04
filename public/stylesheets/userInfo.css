@@ -4,14 +4,14 @@
   padding-bottom: 20px;
 }
 
-#userInfo .userUsername {
+#userInfo .userName {
   text-align: right;
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
 }
 
-#userInfo .userUsername .glyphicon {
+#userInfo .userName .glyphicon {
   font-size: 18px;
   margin-left: 10px;
 }

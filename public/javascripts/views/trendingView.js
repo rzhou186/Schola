@@ -14,6 +14,8 @@ var app = app || {};
     buildUserModel: function(user) {
       return new app.User({
         username: user["username"],
+        firstname: user["firstname"],
+        lastname: user["lastname"],
         numReceivedRequests: user["numReceivedRequests"]
       });
     },

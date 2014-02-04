@@ -6,6 +6,8 @@ var app = app || {};
 
     defaults: {
       username: "",
+      firstname: "",
+      lastname: "",
       description: "",
       numReceivedRequests: 0
     }

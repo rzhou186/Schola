@@ -7,13 +7,13 @@ var app = app || {};
     el: "#userInfo",
 
     initialize: function() {
-      this.populateUsername();
+      this.populateName();
       this.populateDescription();
     },
 
-    populateUsername: function() {
-      var username = this.model.escape("username");
-      this.$(".userUsername").prepend(username);
+    populateName: function() {
+      var fullname = this.model.escape("firstname") + " " + this.model.escape("lastname");
+      this.$(".userName").prepend(fullname);
     },
 
     populateDescription: function() {

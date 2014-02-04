@@ -26,8 +26,8 @@ var app = app || {};
       this.info["username"] = app.cookies.getCookie("username");
       this.info["password"] = app.cookies.getCookie("password");
       if (this.isViewingUserPage())
-        this.info["publisherName"] = app.pageData.username;
-      else this.info["publisherName"] = "";
+        this.info["publisherUsername"] = app.pageData.username;
+      else this.info["publisherUsername"] = "";
     },
 
     showStreamLoading: function() {
@@ -73,15 +73,17 @@ var app = app || {};
         status: request["status"],
         dateTime: request["created"],
         requesterId: request["requesterId"],
-        requesterName: request["requesterName"],
+        requesterUsername: request["requesterUsername"],
         publisherId: request["publisherId"],
-        publisherName: request["publisherName"],
+        publisherUsername: request["publisherUsername"],
+        publisherFirstname: request["publisherFirstname"],
+        publisherLastname: request["publisherLastname"],
         responseUrl: request["responseURL"],
         responseDescription: request["responseDescription"],
         responseViews: request["responseViews"],
         responseDateTime: request["responseDate"],
         upvotingDisabled: request["disabled"],
-        accessible: app.viewerData.isLoggedIn
+        accessible: app.viewerData["isLoggedIn"]
       });
     },
 
