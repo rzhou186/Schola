@@ -11,7 +11,12 @@
   margin-bottom: 10px;
 }
 
+#userInfo .userName .userNameText {
+  padding-right: 28px;
+}
+
 #userInfo .userName .glyphicon {
   font-size: 18px;
-  margin-left: 10px;
+  margin-top: 4px;
+  float: right;
 }

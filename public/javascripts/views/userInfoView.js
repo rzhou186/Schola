@@ -13,7 +13,7 @@ var app = app || {};
 
     populateName: function() {
       var fullname = this.model.escape("firstname") + " " + this.model.escape("lastname");
-      this.$(".userName").prepend(fullname);
+      this.$(".userNameText").append(fullname);
     },
 
     populateDescription: function() {
