@@ -13,7 +13,12 @@ var app = app || {};
 
     populateName: function() {
       var fullname = this.model.escape("firstname") + " " + this.model.escape("lastname");
-      this.$(".userNameText").append(fullname);
+      this.$(".userName").append(
+        "<div class=\"glyphicon glyphicon-user\"></div>" + 
+        "<div class=\"userNameText\">" + 
+          fullname +
+        "</div>"
+      );
     },
 
     populateDescription: function() {
