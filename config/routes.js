@@ -4,29 +4,32 @@ var sock 		= require('./socketLayer')
 module.exports = function(app, io) {
 
 	//__IMPORT ALL THE CONTROLLERS
-	var	main 			= require('../app/controllers/main')
+	var	pageController 			= require('../app/controllers/pageController')
+	var requestsController 		= require('../app/controllers/requestsController')
+	var recruitEmailSignUpController	= require('../app/controllers/recruitEmailSignUpController')
+	var sideBarController				= require('../app/controllers/sideBarController')
+	var newUserController				= require('../app/controllers/newUserController')
+
 	//more can come here
-	app.get('/', main.index);
-	app.get('/recruit', main.recruit);
-	app.get('/user/:username', main.userProfile)
+	app.get('/', pageController.index);
+	app.get('/recruit', pageController.recruit);
+	app.get('/user/:username', pageController.userProfile)
  	//__FINALLY IF THERE IS NO KNOWN URL INCL. '/' THEN GO TO HOME
- 	app.get('/*', main.userProfile);
+ 	app.get('/*', pageController.userProfile);
 
- 	sock.get('test', function(data, socket) {
- 		console.log('message on server received');
- 		console.log(data);
- 		socket.emit('testCallback', {success:true});
- 	}, io);
 
- 	sock.get('getRequests', main.getRequests, io)
- 	sock.get('updateRequest', main.updateRequest, io)
- 	sock.get('createRequest', main.createRequest, io)
- 	sock.get('incrementViews', main.incrementViews, io)
- 	sock.get('deleteRequest', main.deleteRequest, io)
- 	sock.get('submitEmail', main.submitEmail, io)
- 	sock.get('getTrendingPublishers', main.getTrendingPublishers, io)
- 	sock.get('incrementUpVotes', main.incrementUpVotes, io)
- 	sock.get('logIn', main.logIn, io)
- 	sock.get('signUp', main.signUp, io)
+ 	sock.get('getRequests', requestsController.getRequests, io)
+ 	sock.get('updateRequest', requestsController.updateRequest, io)
+ 	sock.get('createRequest', requestsController.createRequest, io)
+ 	sock.get('incrementViews', requestsController.incrementViews, io)
+ 	sock.get('deleteRequest', requestsController.deleteRequest, io)
+ 	sock.get('incrementUpVotes', requestsController.incrementUpVotes, io)
+
+ 	sock.get('submitEmail', recruitEmailSignUpController.submitEmail, io)
+
+ 	sock.get('getTrendingPublishers', sideBarController.getTrendingPublishers, io)
+
+ 	sock.get('logIn', newUserController.logIn, io)
+ 	sock.get('signUp', newUserController.signUp, io)
 }
 
