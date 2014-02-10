@@ -14,9 +14,7 @@ var app = app || {};
 
     initialize: function() {
       this.listenTo(this.model, "change", this.render);
-      this.listenTo(this.model, "destroy", function() {
-        location.reload();
-      });
+      this.listenTo(this.model, "destroy", this.remove);
     },
 
     render: function() {
