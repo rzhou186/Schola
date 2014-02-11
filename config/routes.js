@@ -9,7 +9,7 @@ module.exports = function(app, io) {
 	var recruitEmailSignUpController	= require('../app/controllers/recruitEmailSignUpController')
 	var sideBarController				= require('../app/controllers/sideBarController')
 	var newUserController				= require('../app/controllers/newUserController')
-
+	var cronController 					= require('../app/controllers/cronController')
 	//more can come here
 	app.get('/', pageController.index);
 	app.get('/recruit', pageController.recruit);

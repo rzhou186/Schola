@@ -4,8 +4,6 @@ var mongoose 	= require('mongoose'),
 
 
 exports.index = function(req, res) {
-	console.log(req.cookies.username);
-	console.log(req.cookies.password);
 	//find all the files linked to that user and pass them on to the template
 	if (req.cookies.username == undefined || req.cookies.password == undefined) {
 		res.render('homePage', {isLoggedIn : 0, isPublisher : 0})
