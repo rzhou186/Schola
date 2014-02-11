@@ -26,8 +26,10 @@ html
         div.col-md-9.col-md-pull-3
           div#requestStream
             div#requests
-            div#requestStreamLoading
-              img(src="/images/loading.gif")
+            div.row
+              div.col-sm-5
+              div#requestStreamLoading.col-sm-7
+                img(src="/images/loading.gif")
 
     script.
       var app = app || {};
