@@ -15,7 +15,7 @@ function updateScores() {
 	requestModel.find({}, function (err, docs) {
 		var currentDate = new Date();
 		for (var i = 0; i < docs.length; i++) {
-			docs[i].score = ((docs[i].upvotes + docs[i].responseViews)* 5) / Math.pow((currentDate - docs[i].created)/36e5 + 2, 1.8)
+			docs[i].score = ((docs[i].upvotes + docs[i].responseViews) * 2) / Math.pow((currentDate - docs[i].created)/36e5 + 2, 1.8)
 			docs[i].save()
 		}
 	})

@@ -261,7 +261,7 @@ exports.createRequest = function(data, socket) {
 						newData.responseViews = 0;
 						newData.responseDate = new Date();
 						newData.disabled = 0;
-						newData.score = ((newData.upvotes  + newData.responseViews) * 5) / Math.pow (2, 1.8);
+						newData.score = ((newData.upvotes  + newData.responseViews) * 2) / Math.pow (2, 1.8);
 						var newRequest = new requestModel(newData);
 						newRequest.save();
 						docs[0].postedRequests.push(newRequest._id);
