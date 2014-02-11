@@ -18,12 +18,6 @@
   height: 35px;
   width: 50%;
   display: inline-block;
-  -webkit-border-top-right-radius: 10px;
-     -moz-border-top-right-radius: 10px;
-          border-top-right-radius: 10px;
-  -webkit-border-top-left-radius: 10px;
-     -moz-border-top-left-radius: 10px;
-          border-top-left-radius: 10px;
 }
 
 #requestStreamFilter .tab#tabAnswered {
