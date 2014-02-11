@@ -14,9 +14,7 @@ var app = app || {};
 
     initialize: function() {
       this.listenTo(this.model, "change", this.render);
-      this.listenTo(this.model, "destroy", function() {
-        location.reload();
-      });
+      this.listenTo(this.model, "destroy", this.remove);
     },
 
     render: function() {
@@ -41,10 +39,10 @@ var app = app || {};
       if (this.model.get("status") === app.REQUEST_ANSWERED) {
         requestTitle = "<div class=\"requestTitle\"><a class=\"publisherName\" href=\"/user/" + this.model.escape("publisherUsername") + "\">" + this.model.escape("publisherFirstname") + " " + this.model.escape("publisherLastname") + "</a> answered a request.</div>";
         if (this.model.escape("responseUrl")) {
-          requestName = "<div class=\"requestName\"><a href=\"" + this.model.escape("responseUrl") + "\">" + this.model.escape("name") + "</a></div>";
+          requestName = "<div class=\"requestName\"><a href=\"" + this.model.escape("responseUrl") + "\"><span class=\"glyphicon glyphicon-link\"></span> " + this.model.escape("name") + "</a></div>";
           responseViews = "<div class=\"responseViews\" data-toggle=\"tooltip\" title=\"" + this.model.get("responseViews") + " views\">" + this.model.get("responseViews") + " <span class=\"glyphicon glyphicon-eye-open\"></span>" + "</div>";
           if (!this.model.get("accessible"))
-            requestName = "<div class=\"requestName clickSignUp\"><a>" + this.model.escape("name") + "</a></div>";
+            requestName = "<div class=\"requestName clickSignUp\"><a><span class=\"glyphicon glyphicon-link\"></span> " + this.model.escape("name") + "</a></div>";
         }
         responseDescription = "<div class=\"responseDescription\">" + this.addLineBreaks(this.model.escape("responseDescription")) + "</div>";
       }

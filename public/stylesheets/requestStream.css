@@ -37,6 +37,11 @@
   max-width: 90%;
 }
 
+.requestMain .requestName .glyphicon {
+  font-weight: bold;
+  font-size: 13px;
+}
+
 .requestMain .requestOrigin {
   margin-bottom: 15px;
   color: #999999;
