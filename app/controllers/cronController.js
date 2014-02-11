@@ -3,7 +3,7 @@ var mongoose 	= require('mongoose'),
 	requestModel = mongoose.model('request')
 	cronJob = require('cron').CronJob;
 
-var job = new cronJob('*/180 * * * * *', function() {
+var job = new cronJob('*/300 * * * * *', function() {
 		updateScores();
 	}
 );
