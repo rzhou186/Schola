@@ -25,9 +25,14 @@ html
               button#requestFormSubmit.btn.btn-schola.btn-xs(type="submit") Submit
         div.col-md-9.col-md-pull-3
           div#requestStream
-            div#requestStreamFilter.filterUnanswered
-              div.tab#tabAnswered Answered
-              div.tab#tabUnanswered Unanswered
+            if isLoggedIn
+              div#requestStreamFilter.filterUnanswered
+                div.tab#tabAnswered Answered
+                div.tab#tabUnanswered Unanswered
+            else
+              div#requestStreamFilter.filterAnswered
+                div.tab#tabAnswered Answered
+                div.tab#tabUnanswered Unanswered
             div#requests
             div.row
               div#requestStreamLoading

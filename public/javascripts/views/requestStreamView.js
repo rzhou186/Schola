@@ -17,15 +17,27 @@ var app = app || {};
       this.enableScrollLoad();
 
       // Load initial batch of requests.
-      this.loadMoreRequests();
+      if (this.$("#requestStreamFilter").hasClass("filterAnswered"))
+        this.loadAnsweredStream();
+      else this.loadUnansweredStream();
     },
 
     loadAnsweredStream: function() {
-      
+      this.info["start"] = 0;
+      this.info["streamType"] = app.ANSWERED_STREAM;
+      this.$("#requests").empty();
+      this.$("#requestStreamFilter").removeClass("filterUnanswered");
+      this.$("#requestStreamFilter").addClass("filterAnswered");
+      this.loadMoreRequests();
     },
 
     loadUnansweredStream: function() {
-      
+      this.info["start"] = 0;
+      this.info["streamType"] = app.UNANSWERED_STREAM;
+      this.$("#requests").empty();
+      this.$("#requestStreamFilter").removeClass("filterAnswered");
+      this.$("#requestStreamFilter").addClass("filterUnanswered");
+      this.loadMoreRequests();
     },
 
     isViewingUserPage: function() {
@@ -35,10 +47,8 @@ var app = app || {};
 
     initInfo: function() {
       this.info = {};
-      this.info["start"] = 0;
       this.info["username"] = app.cookies.getCookie("username");
       this.info["password"] = app.cookies.getCookie("password");
-      this.info["streamType"] = app.UNANSWERED_STREAM;
       if (this.isViewingUserPage())
         this.info["publisherUsername"] = app.pageData.username;
       else this.info["publisherUsername"] = "";
