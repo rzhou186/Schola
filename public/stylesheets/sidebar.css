@@ -1,7 +1,12 @@
 #sidebar {
   border-bottom: 2px solid #eeeeee;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
   margin-bottom: 20px;
+}
+
+#recruit {
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 #recruit .btn-schola {

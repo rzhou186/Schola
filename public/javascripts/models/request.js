@@ -8,7 +8,7 @@ var app = app || {};
       id: null,
       name: "",
       upvotes: 0,
-      status: app.REQUEST_NOT_ANSWERED,
+      status: app.REQUEST_UNANSWERED,
       dateTime: null,
       requesterId: null,
       requesterUsername: "",

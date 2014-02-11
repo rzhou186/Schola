@@ -25,9 +25,13 @@ html
               button#requestFormSubmit.btn.btn-schola.btn-xs(type="submit") Submit
         div.col-md-9.col-md-pull-3
           div#requestStream
+            div#requestStreamFilter.filterUnanswered
+              div.tab#tabAnswered Answered
+              div.tab#tabUnanswered Unanswered
             div#requests
-            div#requestStreamLoading
-              img(src="/images/loading.gif")
+            div.row
+              div#requestStreamLoading
+                img(src="/images/loading.gif")
 
     script.
       var app = app || {};

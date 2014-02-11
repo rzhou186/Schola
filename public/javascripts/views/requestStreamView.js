@@ -6,6 +6,11 @@ var app = app || {};
 
     el: "#requestStream",
 
+    events: {
+      "click #tabAnswered": "loadAnsweredStream",
+      "click #tabUnanswered": "loadUnansweredStream"
+    },
+
     initialize: function() {
       this.initInfo();
       this.listenForLoads();
@@ -13,6 +18,14 @@ var app = app || {};
 
       // Load initial batch of requests.
       this.loadMoreRequests();
+    },
+
+    loadAnsweredStream: function() {
+      
+    },
+
+    loadUnansweredStream: function() {
+      
     },
 
     isViewingUserPage: function() {
@@ -25,6 +38,7 @@ var app = app || {};
       this.info["start"] = 0;
       this.info["username"] = app.cookies.getCookie("username");
       this.info["password"] = app.cookies.getCookie("password");
+      this.info["streamType"] = app.UNANSWERED_STREAM;
       if (this.isViewingUserPage())
         this.info["publisherUsername"] = app.pageData.username;
       else this.info["publisherUsername"] = "";
@@ -35,7 +49,7 @@ var app = app || {};
     },
 
     hideStreamLoading: function() {
-      this.$("#requestStreamLoading").fadeOut("fast");
+      this.$("#requestStreamLoading").fadeOut("slow");
     },
 
     scrolledToBottom: function() {
@@ -43,6 +57,7 @@ var app = app || {};
     },
 
     loadMoreRequests: function() {
+      this.showStreamLoading();
       this.disableScrollLoad();
       app.socket.emit("getRequests", this.info);
     },
@@ -50,10 +65,8 @@ var app = app || {};
     enableScrollLoad: function() {
       var that = this;
       $(window).on("scroll", function() {
-        if (that.scrolledToBottom()) {
-          that.showStreamLoading();
+        if (that.scrolledToBottom())
           that.loadMoreRequests();
-        }
       });
     },
 

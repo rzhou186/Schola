@@ -14,7 +14,12 @@ var app = app || {};
 
     initialize: function() {
       this.listenTo(this.model, "change", this.render);
-      this.listenTo(this.model, "destroy", this.remove);
+      this.listenTo(this.model, "destroy", function() {
+        var that = this;
+        this.$el.fadeOut("slow", function() {
+          that.remove();
+        });
+      });
     },
 
     render: function() {
@@ -64,7 +69,7 @@ var app = app || {};
       );
       
       if (this.isViewingOwnRequest() &&
-          this.model.get("status") === app.REQUEST_NOT_ANSWERED)
+          this.model.get("status") === app.REQUEST_UNANSWERED)
         this.addResponseForm();
 
       return this;
