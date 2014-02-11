@@ -3,6 +3,7 @@ html
 
   head
     title Schola
+    meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
     include headerFiles.jade
     link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Crimson+Text:400,700")
     link(rel="stylesheet", href="/stylesheets/recruitPage.css")
@@ -11,8 +12,6 @@ html
     include navbar.jade
     div.container.notResponsive
       div.row
-        div.col-xs-4
-          div#alerts
         form#recruitForm.col-xs-8
           div.title Schola is disrupting academic publishing.
             div
@@ -40,6 +39,9 @@ html
               button#recruitFormSubmit.btn.btn-schola.btn-lg(type="submit")
                 span.glyphicon.glyphicon-send
                 | Submit
+        div.col-xs-1
+        div.col-xs-3
+          div#alerts
 
     script.
       var app = app || {};
