@@ -23,21 +23,25 @@ var app = app || {};
     },
 
     loadAnsweredStream: function() {
-      this.info["start"] = 0;
-      this.info["streamType"] = app.ANSWERED_STREAM;
-      this.$("#requests").empty();
-      this.$("#tabUnanswered").removeClass("tabSelected");
-      this.$("#tabAnswered").addClass("tabSelected");
-      this.loadMoreRequests();
+      if (!this.loading) {
+        this.info["start"] = 0;
+        this.info["streamType"] = app.ANSWERED_STREAM;
+        this.$("#requests").empty();
+        this.$("#tabUnanswered").removeClass("tabSelected");
+        this.$("#tabAnswered").addClass("tabSelected");
+        this.loadMoreRequests();
+      }
     },
 
     loadUnansweredStream: function() {
-      this.info["start"] = 0;
-      this.info["streamType"] = app.UNANSWERED_STREAM;
-      this.$("#requests").empty();
-      this.$("#tabAnswered").removeClass("tabSelected");
-      this.$("#tabUnanswered").addClass("tabSelected");
-      this.loadMoreRequests();
+      if (!this.loading) {
+        this.info["start"] = 0;
+        this.info["streamType"] = app.UNANSWERED_STREAM;
+        this.$("#requests").empty();
+        this.$("#tabAnswered").removeClass("tabSelected");
+        this.$("#tabUnanswered").addClass("tabSelected");
+        this.loadMoreRequests();
+      }
     },
 
     isViewingUserPage: function() {
@@ -67,6 +71,7 @@ var app = app || {};
     },
 
     loadMoreRequests: function() {
+      this.loading = true;
       this.showStreamLoading();
       this.disableScrollLoad();
       app.socket.emit("getRequests", this.info);
@@ -125,6 +130,7 @@ var app = app || {};
     listenForLoads: function() {
       var that = this;
       app.socket.on("getRequestsSuccess", function(requestsData) {
+        that.loading = false;
         that.hideStreamLoading();
         that.enableScrollLoad();
         var requests = requestsData["result"];
