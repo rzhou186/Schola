@@ -6,35 +6,28 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
     include headerFiles.jade
     link(rel="stylesheet", href="/stylesheets/trending.css")
-    link(rel="stylesheet", href="/stylesheets/recruit.css")
     
   body
     include navbar.jade
 
-    div.fixedOverlay
-      div.container.notResponsive
-        div.row
-          div.col-xs-9
-          div#sidebarFixed.col-xs-3
-
-    div.container.notResponsive
+    div.container
       div.row
-        div.col-xs-9
-          div#requestStream
-            div#requests
-            div#requestStreamLoading
-              img(src="/images/loading.gif")
-        div#sidebarRelative.col-xs-3
+        div.col-md-3.col-md-push-9
           div#sidebar
             div#alerts
             div#trending
               div.trendingTitle Trending Publishers
               div#trendingPublishers
-          unless isPublisher
-            div#recruit
-              a.btn.btn-schola.btn-block.btn-sm(href="/recruit")
-                span.glyphicon.glyphicon-send
-                | Join Publisher Network
+            unless isPublisher
+              div#recruit
+                a.btn.btn-schola.btn-block.btn-sm(href="/recruit")
+                  span.glyphicon.glyphicon-send
+                  | Join Publisher Network
+        div.col-md-9.col-md-pull-3
+          div#requestStream
+            div#requests
+            div#requestStreamLoading
+              img(src="/images/loading.gif")
 
     script.
       var app = app || {};

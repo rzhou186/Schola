@@ -3,20 +3,8 @@ body {
   font-size: 13px;
 }
 
-.fixedOverlay {
-  position: fixed;
-  top: 0px;
-  padding-top: 75px;
-  width: 100%;
-}
-
 .container {
   max-width: 970px;
-}
-
-.container.notResponsive {
-  max-width: none !important;
-  width: 970px;
 }
 
 .glyphicon {

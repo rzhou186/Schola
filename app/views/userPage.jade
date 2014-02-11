@@ -11,20 +11,9 @@ html
   body
     include navbar.jade
 
-    div.fixedOverlay
-      div.container.notResponsive
-        div.row
-          div.col-xs-9
-          div#sidebarFixed.col-xs-3
-
-    div.container.notResponsive
+    div.container
       div.row
-        div.col-xs-9
-          div#requestStream
-            div#requests
-            div#requestStreamLoading
-              img(src="/images/loading.gif")
-        div#sidebarRelative.col-xs-3
+        div.col-md-3.col-md-push-9
           div#sidebar
             div#alerts
             div#userInfo
@@ -34,6 +23,11 @@ html
               div.requestFormTitle Add Request
               input.requestFormName.form-control(type="text", name="name", placeholder="New anonymous request")
               button#requestFormSubmit.btn.btn-schola.btn-xs(type="submit") Submit
+        div.col-md-9.col-md-pull-3
+          div#requestStream
+            div#requests
+            div#requestStreamLoading
+              img(src="/images/loading.gif")
 
     script.
       var app = app || {};

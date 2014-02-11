@@ -1,6 +1,7 @@
-#recruit {
-  border-top: 2px solid #eeeeee;
-  padding-top: 20px;
+#sidebar {
+  border-bottom: 2px solid #eeeeee;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 #recruit .btn-schola {

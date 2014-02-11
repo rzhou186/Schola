@@ -47,13 +47,14 @@ var app = app || {};
         responseDescription = "<div class=\"responseDescription\">" + this.addLineBreaks(this.model.escape("responseDescription")) + "</div>";
       }
 
+      this.$el.addClass("row");
       this.$el.html(
-        "<div class=\"requestSide\">" + 
+        "<div class=\"requestSide col-sm-5\">" + 
           requestTitle +
           requestDateTime + 
           responseViews + 
         "</div>" +
-        "<div class=\"requestMain\">" + 
+        "<div class=\"requestMain col-sm-7\">" + 
           requestDelete +
           requestUpvotes +
           requestName + 

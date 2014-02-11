@@ -3,11 +3,8 @@
 }
 
 .requestSide {
-  width: 40%;
-  display: inline-block;
-  vertical-align: top;
-  padding-right: 30px;
   text-align: right;
+  margin-bottom: 20px;
 }
 
 .requestSide .requestDateTime {
@@ -24,9 +21,6 @@
 }
 
 .requestMain {
-  width: 60%;
-  display: inline-block;
-  vertical-align: top;
   padding-bottom: 20px;
   border-bottom: 2px solid #eeeeee;
 }
