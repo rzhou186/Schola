@@ -29,6 +29,7 @@
   font-weight: bold;
   font-size: 14px;
   max-width: 90%;
+  padding-right: 10px;
 }
 
 .requestMain .requestName .glyphicon {
@@ -40,6 +41,7 @@
   margin-bottom: 15px;
   color: #999999;
   max-width: 90%;
+  padding-right: 10px;
 }
 
 .requestMain .responseDescription {
