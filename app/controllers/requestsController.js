@@ -83,7 +83,7 @@ exports.getRequests = function(data, socket) {
 exports.getRequests = function(data, socket) {
 	if(data.publisherUsername === "") {
 		requestModel.find({},'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
-	        score: -1
+	        score: -1, status : 1, upvotes : -1
 	    }
 		}, function (err, docs) {
 			userModel.find({username : data.username}, function (err, userData) {
@@ -109,7 +109,7 @@ exports.getRequests = function(data, socket) {
 					if (docs[0].password === data.password) {
 						var finalRequests = [];
 						requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
-	        				status : 1
+	        				status : 1, upvotes : -1, score : -1
 	    					}
 						}, function (err, docsTwo) {
 							docsTwo = processRequests (docsTwo, docs[0]);
@@ -119,7 +119,7 @@ exports.getRequests = function(data, socket) {
 					else {
 						var finalRequests = [];
 						requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
-	        				score : -1
+	        				score : -1, upvotes : -1
 	    					}
 						}, function (err, docsTwo) {
 							socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
@@ -132,7 +132,7 @@ exports.getRequests = function(data, socket) {
 							if (userData[0].password === data.password) {
 								var finalRequests = [];
 								requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
-	        						score : -1
+	        						score : -1, upvotes : -1
 	    							}
 								}, function (err, docsTwo) {
 									docsTwo = processRequests (docsTwo, userData[0]);
@@ -142,7 +142,7 @@ exports.getRequests = function(data, socket) {
 							else {
 								var finalRequests = [];
 								requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
-	        						score : -1
+	        						score : -1, upvotes : -1
 	    							}
 								}, function (err, docsTwo) {
 									socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
@@ -152,7 +152,7 @@ exports.getRequests = function(data, socket) {
 						else {
 							var finalRequests = [];
 							requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
-	        					score : -1
+	        					score : -1, upvotes : -1
 	    						}
 							}, function (err, docsTwo) {
 								socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
