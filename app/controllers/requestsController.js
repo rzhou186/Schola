@@ -5,18 +5,19 @@ var mongoose 	= require('mongoose'),
 function processRequests (docs, userData) {
 	var returnDocs = [];
 	for (var returnLength = 0; returnLength < docs.length; returnLength ++) {
-		for (var len = 0; len < userData[0].upvotedRequests.length; len++) {
-			if (docs[returnLength]._id.equals(userData[0].upvotedRequests[len])) {
+		for (var len = 0; len < userData.upvotedRequests.length; len++) {
+			if (docs[returnLength]._id.equals(userData.upvotedRequests[len])) {
 				docs[returnLength]['disabled'] = 1;
 			}
 		}
 	}
 	return docs;
 }
+/*
 exports.getRequests = function(data, socket) {
 	if(data.publisherUsername === "") {
-		requestModel.find({},'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled', { skip: data.start, limit:10, sort:{
-	        upvotes: -1
+		requestModel.find({},'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+	        score: -1
 	    }
 		}, function (err, docs) {
 			userModel.find({username : data.username}, function (err, userData) {
@@ -39,8 +40,8 @@ exports.getRequests = function(data, socket) {
 		userModel.find({username : data.publisherUsername}, function (err, docs) {
 			if (docs && docs.length > 0) {
 				var finalRequests = [];
-				requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate', { skip: data.start, limit:10, sort:{
-	        		upvotes: -1
+				requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+	        		score : -1
 	    		}
 		}, function (err, docsTwo) {
 					userModel.find({username : data.username}, function (err, userData) {
@@ -59,6 +60,106 @@ exports.getRequests = function(data, socket) {
 					})
 
 				})
+			}
+			else {
+				userModel.find({username : data.username}, function (err, userData) {
+					if (userData && userData.length > 0) {
+						if (userData[0].password === data.password) {
+							socket.emit('getRequestsSuccess', {result : {}, isLoggedIn : 1})
+						}
+						else {
+							socket.emit('getRequestsSuccess', {result : {}, isLoggedIn : 0})
+						}
+					}
+					else {
+						socket.emit('getRequestsSuccess', {result : {}, isLoggedIn : 0})
+					}
+				})				
+			}
+		})
+	}
+}
+*/
+exports.getRequests = function(data, socket) {
+	if(data.publisherUsername === "") {
+		requestModel.find({},'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+	        score: -1
+	    }
+		}, function (err, docs) {
+			userModel.find({username : data.username}, function (err, userData) {
+				if(userData && userData.length > 0) {
+					if(userData[0].password === data.password) {
+						docs = processRequests (docs, userData[0]);
+						socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 1});
+					}
+					else {
+						socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 0});
+					}
+				}
+				else {
+					socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 0});
+				}
+			})
+		})
+	}
+	else {
+		userModel.find({username : data.publisherUsername}, function (err, docs) {
+			if (docs && docs.length > 0) {
+				if (data.publisherUsername == data.username) {
+					if (docs[0].password === data.password) {
+						var finalRequests = [];
+						requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+	        				status : 1
+	    					}
+						}, function (err, docsTwo) {
+							docsTwo = processRequests (docsTwo, docs[0]);
+							socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 1});
+						})
+					}
+					else {
+						var finalRequests = [];
+						requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+	        				score : -1
+	    					}
+						}, function (err, docsTwo) {
+							socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
+						})
+					}
+				}
+				else {
+					userModel.find({username : data.username}, function (err, userData) {
+						if (userData && userData.length > 0) {
+							if (userData[0].password === data.password) {
+								var finalRequests = [];
+								requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+	        						score : -1
+	    							}
+								}, function (err, docsTwo) {
+									docsTwo = processRequests (docsTwo, userData[0]);
+									socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 1});
+								})
+							}
+							else {
+								var finalRequests = [];
+								requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+	        						score : -1
+	    							}
+								}, function (err, docsTwo) {
+									socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
+								})
+							}
+						}
+						else {
+							var finalRequests = [];
+							requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+	        					score : -1
+	    						}
+							}, function (err, docsTwo) {
+								socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
+							})
+						}
+					})
+				}
 			}
 			else {
 				userModel.find({username : data.username}, function (err, userData) {
@@ -146,7 +247,7 @@ exports.createRequest = function(data, socket) {
 					if(docsTwo && docsTwo.length > 0) {
 						var newData = {};
 						newData.name = data.name;
-						newData.upvotes = 0;
+						newData.upvotes = 1;
 						newData.requesterId = docs[0]._id;
 						newData.publisherId = docsTwo[0]._id;
 						newData.publisherUsername = data.publisherUsername;
@@ -160,9 +261,11 @@ exports.createRequest = function(data, socket) {
 						newData.responseViews = 0;
 						newData.responseDate = new Date();
 						newData.disabled = 0;
+						newData.score = ((newData.upvotes  + newData.responseViews) * 5) / Math.pow (2, 1.8);
 						var newRequest = new requestModel(newData);
 						newRequest.save();
 						docs[0].postedRequests.push(newRequest._id);
+						docs[0].upvotedRequests.push(newRequest._id);
 						docs[0].save();
 						docsTwo[0].receivedRequests.push(newRequest._id);
 						docsTwo[0].numReceivedRequests++;

@@ -20,7 +20,8 @@ var requestSchema = new mongoose.Schema({
 	responseDescription : String,
 	responseViews : Number,
 	responseDate : Date,
-	disabled : Number
+	disabled : Number,
+	score : Number
 })
 
 //Publish the model to be used in other files and storage etc.

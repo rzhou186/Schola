@@ -1,6 +1,7 @@
 var mongoose 	= require('mongoose'),
 	userModel	= mongoose.model('user')
 
+
 exports.logIn = function(data, socket) {
 	userModel.find({username : data.username}, function (err, docs) {
 		if(docs && docs.length > 0) {

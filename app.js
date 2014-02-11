@@ -8,7 +8,6 @@ var express = require('express'),
     http = require('http'),
     socket = require('socket.io')
 
-
 clients = {}
 
 var env = process.env.NODE_ENV || 'development',
@@ -30,11 +29,10 @@ filesystem.readdirSync(models_path).forEach(function (file) {
 
 require('./config/routes')(app, io)
 
-var port = process.env.PORT || 3000
+var port = process.env.PORT || 80
 server.listen(port)
 console.log('listening on port '+port)
 
 //EXPOSE APPLICATION
 exports = module.exports = app
-
 
