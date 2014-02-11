@@ -2,14 +2,7 @@
   text-align: center;
   font-weight: bold;
   margin-bottom: 20px;
-}
-
-#requestStreamFilter.filterAnswered {
   border-bottom: 5px solid #3c95d2;
-}
-
-#requestStreamFilter.filterUnanswered {
-  border-bottom: 5px solid #eeeeee;
 }
 
 #requestStreamFilter .tab {
@@ -18,16 +11,13 @@
   height: 35px;
   width: 50%;
   display: inline-block;
-}
-
-#requestStreamFilter .tab#tabAnswered {
-  background-color: #3c95d2;
-  color: #ffffff;
-}
-
-#requestStreamFilter .tab#tabUnanswered {
   background-color: #eeeeee;
   color: #2e89c7;
+}
+
+#requestStreamFilter .tab.tabSelected {
+  background-color: #3c95d2;
+  color: #ffffff;
 }
 
 .request {

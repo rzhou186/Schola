@@ -26,13 +26,13 @@ html
         div.col-md-9.col-md-pull-3
           div#requestStream
             if isLoggedIn
-              div#requestStreamFilter.filterUnanswered
-                div.tab#tabAnswered Answered
-                div.tab#tabUnanswered Unanswered
+              div#requestStreamFilter
+                div#tabAnswered.tab Answered
+                div#tabUnanswered.tab.tabSelected Unanswered
             else
-              div#requestStreamFilter.filterAnswered
-                div.tab#tabAnswered Answered
-                div.tab#tabUnanswered Unanswered
+              div#requestStreamFilter
+                div#tabAnswered.tab.tabSelected Answered
+                div#tabUnanswered.tab Unanswered
             div#requests
             div.row
               div#requestStreamLoading

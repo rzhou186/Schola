@@ -17,7 +17,7 @@ var app = app || {};
       this.enableScrollLoad();
 
       // Load initial batch of requests.
-      if (this.$("#requestStreamFilter").hasClass("filterAnswered"))
+      if (this.$("#tabAnswered").hasClass("tabSelected"))
         this.loadAnsweredStream();
       else this.loadUnansweredStream();
     },
@@ -26,8 +26,8 @@ var app = app || {};
       this.info["start"] = 0;
       this.info["streamType"] = app.ANSWERED_STREAM;
       this.$("#requests").empty();
-      this.$("#requestStreamFilter").removeClass("filterUnanswered");
-      this.$("#requestStreamFilter").addClass("filterAnswered");
+      this.$("#tabUnanswered").removeClass("tabSelected");
+      this.$("#tabAnswered").addClass("tabSelected");
       this.loadMoreRequests();
     },
 
@@ -35,8 +35,8 @@ var app = app || {};
       this.info["start"] = 0;
       this.info["streamType"] = app.UNANSWERED_STREAM;
       this.$("#requests").empty();
-      this.$("#requestStreamFilter").removeClass("filterAnswered");
-      this.$("#requestStreamFilter").addClass("filterUnanswered");
+      this.$("#tabAnswered").removeClass("tabSelected");
+      this.$("#tabUnanswered").addClass("tabSelected");
       this.loadMoreRequests();
     },
 
