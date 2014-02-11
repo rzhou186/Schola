@@ -156,7 +156,6 @@ exports.getRequests = function(data, socket) {
 			        				score : -1, upvotes : -1
 			    					}
 								}, function (err, docsTwo) {
-									docsTwo = processRequests (docsTwo, userData[0]);
 									socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
 								})
 							}
@@ -165,7 +164,6 @@ exports.getRequests = function(data, socket) {
 			        				score : -1, upvotes : -1
 			    					}
 								}, function (err, docsTwo) {
-									docsTwo = processRequests (docsTwo, userData[0]);
 									socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
 								})	
 							}
@@ -177,7 +175,6 @@ exports.getRequests = function(data, socket) {
 			        			score : -1, upvotes : -1
 			    				}
 							}, function (err, docsTwo) {
-								docsTwo = processRequests (docsTwo, userData[0]);
 								socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
 							})
 						}
@@ -186,7 +183,6 @@ exports.getRequests = function(data, socket) {
 			        			score : -1, upvotes : -1
 			    				}
 							}, function (err, docsTwo) {
-								docsTwo = processRequests (docsTwo, userData[0]);
 								socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
 							})	
 						}
