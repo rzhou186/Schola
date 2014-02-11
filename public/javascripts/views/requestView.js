@@ -25,7 +25,7 @@ var app = app || {};
       var requestUpvotes = "<button class=\"requestUpvotes btn btn-schola btn-xs btn-block\"><span class=\"glyphicon glyphicon-chevron-up\"></span><div>" + this.model.get("upvotes") + "</div></button>";
       var requestName = "<div class=\"requestName\">" + this.model.escape("name") + "</div>";
       var requestOrigin = "<div class=\"requestOrigin\">from <span class=\"requesterName\">" + "anonymous" + "</span></div>";
-      var responseDescription = "<div class=\"responseDescription\"><em>This request is pending an answer.</em></div>";
+      var responseDescription = "<div class=\"responseDescription\"><em>This request is pending an answer. Voice your demand for an answer with an upvote.</em></div>";
 
       if (this.isViewingOwnRequest())
         requestDelete = "<div class=\"requestDestroy\"><span class=\"glyphicon glyphicon-remove\"></span></div>";
