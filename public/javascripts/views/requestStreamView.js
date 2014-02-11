@@ -39,7 +39,7 @@ var app = app || {};
     },
 
     scrolledToBottom: function() {
-      return $(window).scrollTop() + $(window).height() === $(document).height();
+      return $(window).scrollTop() + $(window).height() >= $(document).height() - 300;
     },
 
     loadMoreRequests: function() {
