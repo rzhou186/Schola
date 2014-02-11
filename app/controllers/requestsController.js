@@ -82,84 +82,116 @@ exports.getRequests = function(data, socket) {
 */
 exports.getRequests = function(data, socket) {
 	if(data.publisherUsername === "") {
-		requestModel.find({},'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
-	        score: -1, status : 1, upvotes : -1
-	    }
-		}, function (err, docs) {
-			userModel.find({username : data.username}, function (err, userData) {
-				if(userData && userData.length > 0) {
-					if(userData[0].password === data.password) {
-						docs = processRequests (docs, userData[0]);
-						socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 1});
+		if (data.streamType == 1) {
+			requestModel.find({status : 1},'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+		        score: -1, upvotes : -1
+		    }
+			}, function (err, docs) {
+				userModel.find({username : data.username}, function (err, userData) {
+					if(userData && userData.length > 0) {
+						if(userData[0].password === data.password) {
+							docs = processRequests (docs, userData[0]);
+							socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 1});
+						}
+						else {
+							socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 0});
+						}
 					}
 					else {
 						socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 0});
 					}
-				}
-				else {
-					socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 0});
-				}
+				})
 			})
-		})
+		}
+		else {
+			requestModel.find({status : 0},'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+		        score: -1, upvotes : -1
+		    }
+			}, function (err, docs) {
+				userModel.find({username : data.username}, function (err, userData) {
+					if(userData && userData.length > 0) {
+						if(userData[0].password === data.password) {
+							docs = processRequests (docs, userData[0]);
+							socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 1});
+						}
+						else {
+							socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 0});
+						}
+					}
+					else {
+						socket.emit('getRequestsSuccess', {result : docs, isLoggedIn : 0});
+					}
+				})
+			})
+		}
 	}
 	else {
 		userModel.find({username : data.publisherUsername}, function (err, docs) {
 			if (docs && docs.length > 0) {
-				if (data.publisherUsername == data.username) {
-					if (docs[0].password === data.password) {
-						var finalRequests = [];
-						requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
-	        				status : 1, upvotes : -1, score : -1
-	    					}
-						}, function (err, docsTwo) {
-							docsTwo = processRequests (docsTwo, docs[0]);
-							socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 1});
-						})
-					}
-					else {
-						var finalRequests = [];
-						requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
-	        				score : -1, upvotes : -1
-	    					}
-						}, function (err, docsTwo) {
-							socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
-						})
-					}
-				}
-				else {
-					userModel.find({username : data.username}, function (err, userData) {
-						if (userData && userData.length > 0) {
-							if (userData[0].password === data.password) {
-								var finalRequests = [];
-								requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
-	        						score : -1, upvotes : -1
-	    							}
+				userModel.find({username : data.username}, function (err, userData) {
+					if (userData && userData.length > 0) {
+						if (userData[0].password === data.password) {
+							if (data.streamType == 1) {
+								requestModel.find({_id : {$in : docs[0].receivedRequests}, status : 1}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+			        				score : -1, upvotes : -1
+			    					}
 								}, function (err, docsTwo) {
 									docsTwo = processRequests (docsTwo, userData[0]);
 									socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 1});
 								})
 							}
 							else {
-								var finalRequests = [];
-								requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
-	        						score : -1, upvotes : -1
-	    							}
+								requestModel.find({_id : {$in : docs[0].receivedRequests}, status : 0}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+			        				score : -1, upvotes : -1
+			    					}
 								}, function (err, docsTwo) {
-									socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
-								})
+									docsTwo = processRequests (docsTwo, userData[0]);
+									socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 1});
+								})	
 							}
 						}
 						else {
-							var finalRequests = [];
-							requestModel.find({_id : {$in : docs[0].receivedRequests}}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
-	        					score : -1, upvotes : -1
-	    						}
+							if (data.streamType == 1) {
+								requestModel.find({_id : {$in : docs[0].receivedRequests}, status : 1}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+			        				score : -1, upvotes : -1
+			    					}
+								}, function (err, docsTwo) {
+									docsTwo = processRequests (docsTwo, userData[0]);
+									socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
+								})
+							}
+							else {
+								requestModel.find({_id : {$in : docs[0].receivedRequests}, status : 0}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+			        				score : -1, upvotes : -1
+			    					}
+								}, function (err, docsTwo) {
+									docsTwo = processRequests (docsTwo, userData[0]);
+									socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
+								})	
+							}
+						}
+					}
+					else {
+						if (data.streamType == 1) {
+							requestModel.find({_id : {$in : docs[0].receivedRequests}, status : 1}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+			        			score : -1, upvotes : -1
+			    				}
 							}, function (err, docsTwo) {
+								docsTwo = processRequests (docsTwo, userData[0]);
 								socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
 							})
 						}
-					})
-				}
+						else {
+							requestModel.find({_id : {$in : docs[0].receivedRequests}, status : 0}, 'name upvotes requesterId publisherId requesterUsername publisherUsername publisherFirstname publisherLastname status created responseURL responseDescription responseViews responseDate disabled score', { skip: data.start, limit:10, sort:{
+			        			score : -1, upvotes : -1
+			    				}
+							}, function (err, docsTwo) {
+								docsTwo = processRequests (docsTwo, userData[0]);
+								socket.emit ('getRequestsSuccess', {result : docsTwo, isLoggedIn : 0});
+							})	
+						}
+					}
+				})
 			}
 			else {
 				userModel.find({username : data.username}, function (err, userData) {
