@@ -273,32 +273,37 @@ exports.createRequest = function(data, socket) {
 			if(docs[0].password === data.password) {
 				userModel.find({username: data.publisherUsername}, function (err, docsTwo) {
 					if(docsTwo && docsTwo.length > 0) {
-						var newData = {};
-						newData.name = data.name;
-						newData.upvotes = 1;
-						newData.requesterId = docs[0]._id;
-						newData.publisherId = docsTwo[0]._id;
-						newData.publisherUsername = data.publisherUsername;
-						newData.requesterUsername = data.requesterUsername;
-						newData.publisherFirstname = data.publisherFirstname;
-						newData.publisherLastname = data.publisherLastname;
-						newData.status = 0;
-						newData.created = new Date();
-						newData.responseURL = data.responseURL;
-						newData.responseDescription = data.responseDescription;
-						newData.responseViews = 0;
-						newData.responseDate = new Date();
-						newData.disabled = 0;
-						newData.score = ((newData.upvotes  + newData.responseViews) * 2) / Math.pow (2, 1.8);
-						var newRequest = new requestModel(newData);
-						newRequest.save();
-						docs[0].postedRequests.push(newRequest._id);
-						docs[0].upvotedRequests.push(newRequest._id);
-						docs[0].save();
-						docsTwo[0].receivedRequests.push(newRequest._id);
-						docsTwo[0].numReceivedRequests++;
-						docsTwo[0].save();
-						socket.emit('createRequestSuccess', {requestStatus : 1, isLoggedIn : 1});
+						if(docsTwo[0].username != "anunay") {
+							var newData = {};
+							newData.name = data.name;
+							newData.upvotes = 1;
+							newData.requesterId = docs[0]._id;
+							newData.publisherId = docsTwo[0]._id;
+							newData.publisherUsername = data.publisherUsername;
+							newData.requesterUsername = data.requesterUsername;
+							newData.publisherFirstname = data.publisherFirstname;
+							newData.publisherLastname = data.publisherLastname;
+							newData.status = 0;
+							newData.created = new Date();
+							newData.responseURL = data.responseURL;
+							newData.responseDescription = data.responseDescription;
+							newData.responseViews = 0;
+							newData.responseDate = new Date();
+							newData.disabled = 0;
+							newData.score = ((newData.upvotes  + newData.responseViews) * 2) / Math.pow (2, 1.8);
+							var newRequest = new requestModel(newData);
+							newRequest.save();
+							docs[0].postedRequests.push(newRequest._id);
+							docs[0].upvotedRequests.push(newRequest._id);
+							docs[0].save();
+							docsTwo[0].receivedRequests.push(newRequest._id);
+							docsTwo[0].numReceivedRequests++;
+							docsTwo[0].save();
+							socket.emit('createRequestSuccess', {requestStatus : 1, isLoggedIn : 1});
+						}
+						else {
+							socket.emit('createRequestSuccess', {requestStatus : 2, isLoggedIn : 1});
+						}
 					}
 					else {
 						socket.emit('createRequestSuccess', {requestStatus : 2, isLoggedIn : 1});
