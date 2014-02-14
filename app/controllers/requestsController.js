@@ -273,7 +273,7 @@ exports.createRequest = function(data, socket) {
 			if(docs[0].password === data.password) {
 				userModel.find({username: data.publisherUsername}, function (err, docsTwo) {
 					if(docsTwo && docsTwo.length > 0) {
-						if(docsTwo[0].username != "anunay") {
+						if(docsTwo[0].username != "anunay" && data.name.indexOf("fake") == -1 && data.name.indexOf("delet") == -1) {
 							var newData = {};
 							newData.name = data.name;
 							newData.upvotes = 1;
