@@ -11,11 +11,11 @@ module.exports = function(app, io) {
 	var newUserController				= require('../app/controllers/newUserController')
 	var cronController 					= require('../app/controllers/cronController')
 	//more can come here
-	app.get('/', pageController.index);
-	app.get('/recruit', pageController.recruit);
-	app.get('/user/:username', pageController.userProfile)
+	app.get('/', pageController.launch);
+	// app.get('/recruit', pageController.recruit);
+	// app.get('/user/:username', pageController.userProfile)
  	//__FINALLY IF THERE IS NO KNOWN URL INCL. '/' THEN GO TO HOME
- 	app.get('/*', pageController.userProfile);
+ 	app.get('/*', pageController.launch);
 
 
  	sock.get('getRequests', requestsController.getRequests, io)

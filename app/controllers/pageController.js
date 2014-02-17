@@ -3,6 +3,10 @@ var mongoose 	= require('mongoose'),
 	requestModel = mongoose.model('request')
 
 
+exports.launch = function(req, res) {
+	res.render('launchPage')
+}
+
 exports.index = function(req, res) {
 	//find all the files linked to that user and pass them on to the template
 	if (req.cookies.username == undefined || req.cookies.password == undefined) {
