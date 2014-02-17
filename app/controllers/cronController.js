@@ -1,14 +1,14 @@
 var mongoose 	= require('mongoose'),
 	userModel	= mongoose.model('user'),
 	requestModel = mongoose.model('request')
-	cronJob = require('cron').CronJob;
+	// cronJob = require('cron').CronJob;
 
-var job = new cronJob('*/300 * * * * *', function() {
-		updateScores();
-	}
-);
+// var job = new cronJob('*/300 * * * * *', function() {
+// 		updateScores();
+// 	}
+// );
 
-job.start();
+// job.start();
 
 
 function updateScores() {
