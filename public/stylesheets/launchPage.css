@@ -29,14 +29,14 @@ body {
 
 #launchForm .title {
   font-size: 30px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   font-weight: bold;
   text-align: center;
 }
 
 #launchForm p {
   font-size: 20px;
-  margin: 0px 0px 30px 0px;
+  margin: 0px 0px 20px 0px;
 }
 
 #launchForm p.closing {

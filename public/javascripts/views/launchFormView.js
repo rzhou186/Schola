@@ -38,7 +38,7 @@ var app = app || {};
         this.$(".content").fadeOut("slow", function() {
           that.$(".content").html(
             "<div class=\"title text-center\">" + 
-              "Thank you." +
+              "Thank you for requesting an invite." +
             "</div>" + 
             "<p class=\"text-center\">You'll be hearing from us shortly.</p>"
           ).fadeIn("slow");
