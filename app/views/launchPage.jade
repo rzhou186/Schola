@@ -1,0 +1,41 @@
+doctype 5
+html
+
+  head
+    title Schola
+    meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+    include headerFiles.jade
+    link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Crimson+Text:400,700")
+    link(rel="stylesheet", href="/stylesheets/launchPage.css")
+
+  body
+    div.container
+      div.row
+        form#launchForm
+          div.brand
+            img(src="/images/logo-white.png")
+            | Schola
+          div.content
+            div.title The best resource for high schoolers.
+            p Thank you for testing Schola.
+            p Getting into college has become absurdly competitive. Acceptance rates for elite schools have fallen to single digits, and getting good grades simply isn't enough anymore.
+            p
+              | At Schola, we're building the best academic resource you could dream of having access to.
+
+            p.closing Want early access? Let's get in touch.
+            div.input-group
+              input.input-lg.form-control(type="text", name="email", placeholder="Your email address")
+              span.input-group-btn
+                button#launchFormSubmit.btn.btn-default.btn-lg(type="submit")
+                  span.glyphicon.glyphicon-send
+                  | Submit
+
+    script(type="text/javascript", src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.10/socket.io.min.js")
+    script(type="text/javascript", src="/libraries/jquery-1.11.0.min.js")
+    script(type="text/javascript", src="/libraries/underscore-min.js")
+    script(type="text/javascript", src="/libraries/backbone-min.js")
+    script(type="text/javascript", src="/javascripts/socket.js")
+    script(type="text/javascript", src="/javascripts/utilities/constants.js")
+    script(type="text/javascript", src="/javascripts/views/launchFormView.js")
+    script.
+      new app.LaunchFormView();

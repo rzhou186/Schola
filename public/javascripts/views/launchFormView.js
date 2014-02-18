@@ -2,20 +2,20 @@ var app = app || {};
 
 (function() {
 
-  app.RecruitFormView = Backbone.View.extend({
+  app.LaunchFormView = Backbone.View.extend({
 
-    el: "#recruitForm",
+    el: "#launchForm",
 
     events: {
-      "submit": "recruit"
+      "submit": "submitEmail"
     },
 
     enableFormSubmit: function() {
-      this.$("#recruitFormSubmit").removeClass("disabled");
+      this.$("#launchFormSubmit").removeClass("disabled");
     },
 
     disableFormSubmit: function() {
-      this.$("#recruitFormSubmit").addClass("disabled");
+      this.$("#launchFormSubmit").addClass("disabled");
     },
 
     extractFormData: function() {
@@ -24,7 +24,6 @@ var app = app || {};
       var that = this;
       $.each(formFields, function(i, formField) {
         if (!formField.value) {
-          app.alerter.alert("Empty form field.");
           that.enableFormSubmit();
           formData = null; return false;
         }
@@ -33,24 +32,23 @@ var app = app || {};
       return formData;
     },
 
-    handleRecruitResp: function(resp, formData) {
+    handleSubmitEmailResp: function(resp, formData) {
       if (resp.submitStatus === app.SUBMIT_EMAIL_SUCCESS) {
         var that = this;
-        this.$el.fadeOut("slow", function() {
-          that.$el.html(
-            "<div class=\"title\">" + 
-              "Thank you for applying to " + 
-              "<div><strong>Schola Publisher Network</strong>.</div>" +
+        this.$(".content").fadeOut("slow", function() {
+          that.$(".content").html(
+            "<div class=\"title text-center\">" + 
+              "Thank you." +
             "</div>" + 
-            "<p class=\"closing\">We'll be getting in touch shortly.</p>"
+            "<p class=\"text-center\">You'll be hearing from us shortly.</p>"
           ).fadeIn("slow");
         });
       }
       else if (resp.submitStatus === app.SUBMIT_EMAIL_FAILURE)
-        app.alerter.alert("Submit email failed.");
+        this.enableFormSubmit();
     },
 
-    recruit: function(e) {
+    submitEmail: function(e) {
       e.preventDefault();
       this.disableFormSubmit();
       var formData = this.extractFormData();
@@ -58,8 +56,7 @@ var app = app || {};
         app.socket.emit("submitEmail", formData);
         var that = this;
         app.socket.once("submitEmailSuccess", function(resp) {
-          that.handleRecruitResp(resp, formData);
-          that.enableFormSubmit();
+          that.handleSubmitEmailResp(resp, formData);
         });
       }
     }

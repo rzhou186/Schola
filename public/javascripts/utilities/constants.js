@@ -31,7 +31,7 @@ var app = app || {};
   app.POST_REQUEST_FAILURE = 2;
   app.POST_REQUEST_SUCCESS = 1;
 
-  app.RECRUIT_FAILURE = 0;
-  app.RECRUIT_SUCCESS = 1;
+  app.SUBMIT_EMAIL_FAILURE = 0;
+  app.SUBMIT_EMAIL_SUCCESS = 1;
 
 })();
