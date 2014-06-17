@@ -17,6 +17,10 @@ module.exports = function(app, io) {
  	//__FINALLY IF THERE IS NO KNOWN URL INCL. '/' THEN GO TO HOME
  	app.get('/*', pageController.launch);
 
+ 	app.post('/context-test', function(req, res) {
+ 		console.log("Something happened!");
+ 		console.log(req);
+ 	});
 
  	sock.get('getRequests', requestsController.getRequests, io)
  	sock.get('updateRequest', requestsController.updateRequest, io)
