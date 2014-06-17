@@ -27,9 +27,20 @@ filesystem.readdirSync(models_path).forEach(function (file) {
   require(models_path+'/'+file)
 })
 
+/* ---------- Start Context.IO Test Code ---------- */
+
+var router = express.Router();
+router.post('/', function(req, res) {
+  console.log("Yay! Something happened!");
+  console.log(req.body);
+});
+app.use('/context-test', router);
+
+/* ---------- End Context.IO Test Code ------------ */
+
 require('./config/routes')(app, io)
 
-var port = process.env.PORT || 3000
+var port = process.env.PORT || 80
 server.listen(port)
 console.log('listening on port '+port)
 
